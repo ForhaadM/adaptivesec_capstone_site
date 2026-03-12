@@ -1,0 +1,2320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AdaptiveSec — Capstone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        :root {
+            --bg-root: #0c0d0e;
+            --bg-sidebar: #111314;
+            --bg-topbar: #0f1011;
+            --bg-card: #181a1c;
+            --bg-card-2: #1d2023;
+            --bg-input: #151718;
+            --orange: #f97316;
+            --orange-bright: #fb923c;
+            --orange-dim: #ea6d0a;
+            --orange-subtle: rgba(249, 115, 22, 0.12);
+            --orange-border: rgba(249, 115, 22, 0.28);
+            --green: #22c55e;
+            --green-sub: rgba(34, 197, 94, 0.12);
+            --red: #ef4444;
+            --red-sub: rgba(239, 68, 68, 0.1);
+            --blue: #60a5fa;
+            --blue-sub: rgba(96, 165, 250, 0.1);
+            --yellow: #eab308;
+            --purple: #a78bfa;
+            --purple-sub: rgba(167, 139, 250, 0.12);
+            --text-1: #e8eaed;
+            --text-2: #9aa0a9;
+            --text-3: #5f6872;
+            --text-4: #3d444d;
+            --border: #222528;
+            --border-light: #2a2e33;
+            --sidebar-w: 220px;
+            --mono: 'IBM Plex Mono', monospace;
+            --sans: 'IBM Plex Sans', sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg-root);
+            color: var(--text-1);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* SIDEBAR */
+        #sidebar {
+            width: var(--sidebar-w);
+            min-height: 100vh;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 90;
+            transition: transform .28s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .sb-logo {
+            padding: 0 16px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .sb-logo-mark {
+            width: 28px;
+            height: 28px;
+            background: var(--orange);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 700;
+            color: #000;
+            flex-shrink: 0;
+        }
+
+        .sb-logo-name {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-1);
+            letter-spacing: .06em;
+        }
+
+        .sb-status {
+            margin-left: auto;
+            font-family: var(--mono);
+            font-size: 9px;
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sb-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 6px var(--green);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .4
+            }
+        }
+
+        .sb-search {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .sb-search input {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            border-radius: 5px;
+            padding: 6px 10px;
+            font-family: var(--sans);
+            font-size: 12px;
+            color: var(--text-2);
+            outline: none;
+            transition: border-color .15s;
+        }
+
+        .sb-search input:focus {
+            border-color: var(--orange-border);
+            color: var(--text-1);
+        }
+
+        .sb-search input::placeholder {
+            color: var(--text-4);
+        }
+
+        .sb-nav {
+            flex: 1;
+            padding: 8px 8px;
+            overflow-y: auto;
+        }
+
+        .sb-nav::-webkit-scrollbar {
+            width: 2px;
+        }
+
+        .sb-nav::-webkit-scrollbar-thumb {
+            background: var(--border-light);
+        }
+
+        .sb-section {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: .12em;
+            color: var(--text-4);
+            text-transform: uppercase;
+            padding: 10px 8px 4px;
+        }
+
+        .sb-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-2);
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: background .12s, color .12s, border-color .12s;
+            margin-bottom: 1px;
+            user-select: none;
+        }
+
+        .sb-item:hover {
+            background: var(--bg-card);
+            color: var(--text-1);
+        }
+
+        .sb-item.active {
+            background: var(--orange-subtle);
+            color: var(--orange);
+            border-color: var(--orange-border);
+            font-weight: 500;
+        }
+
+        .sb-item .ico {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            opacity: .6;
+        }
+
+        .sb-item.active .ico {
+            opacity: 1;
+        }
+
+        .sb-footer {
+            padding: 12px;
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .sb-gh {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            color: var(--text-2);
+            font-size: 12px;
+            text-decoration: none;
+            transition: border-color .15s, color .15s;
+        }
+
+        .sb-gh:hover {
+            border-color: var(--orange-border);
+            color: var(--text-1);
+        }
+
+        /* MAIN */
+        #main {
+            margin-left: var(--sidebar-w);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        #topbar {
+            height: 52px;
+            background: rgba(15, 16, 17, .92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 28px;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .tb-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-3);
+            letter-spacing: .05em;
+        }
+
+        .tb-breadcrumb span {
+            color: var(--orange);
+        }
+
+        .tb-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tb-chip {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 4px 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            font-size: 11px;
+            color: var(--text-2);
+        }
+
+        .tb-avatar {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--mono);
+            font-size: 9px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        /* PAGES */
+        .page {
+            display: none;
+            animation: fadeSlide .22s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(6px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .pg {
+            padding: 32px 36px 64px;
+            max-width: 1060px;
+        }
+
+        .ph {
+            margin-bottom: 28px;
+        }
+
+        .ph-eyebrow {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .14em;
+            color: var(--orange);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ph-eyebrow::before {
+            content: '';
+            width: 18px;
+            height: 1px;
+            background: var(--orange);
+        }
+
+        .ph h1 {
+            font-family: var(--mono);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-1);
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .ph h1 em {
+            color: var(--orange);
+            font-style: normal;
+        }
+
+        .ph-sub {
+            font-size: 13px;
+            color: var(--text-3);
+            font-family: var(--mono);
+        }
+
+        .sh {
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .1em;
+            color: var(--text-3);
+            text-transform: uppercase;
+            margin: 28px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sh::before {
+            content: '//';
+            color: var(--orange);
+            font-size: 11px;
+        }
+
+        p {
+            font-size: 13px;
+            line-height: 1.72;
+            color: var(--text-2);
+            margin-bottom: 12px;
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px 20px;
+            transition: border-color .15s;
+        }
+
+        .card:hover {
+            border-color: var(--border-light);
+        }
+
+        .card+.card {
+            margin-top: 10px;
+        }
+
+        .card-title {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-1);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* HERO */
+        .hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 36px 36px 32px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(249, 115, 22, .09) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .hero-card h1 {
+            font-family: var(--mono);
+            font-size: 34px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .hero-card h1 em {
+            color: var(--orange);
+            font-style: normal;
+        }
+
+        .hero-desc {
+            font-size: 14px;
+            line-height: 1.72;
+            color: var(--text-2);
+            max-width: 580px;
+            margin-bottom: 22px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-family: var(--sans);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            transition: all .15s;
+        }
+
+        .btn-fill {
+            background: var(--orange);
+            color: #000;
+            font-weight: 600;
+        }
+
+        .btn-fill:hover {
+            background: var(--orange-bright);
+            box-shadow: 0 4px 14px rgba(249, 115, 22, .3);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-2);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--orange-border);
+            color: var(--text-1);
+        }
+
+        /* GRID */
+        .g2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .g3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .g4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        /* STAT */
+        .stat {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 18px;
+            text-align: left;
+        }
+
+        .stat-n {
+            font-family: var(--mono);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--orange);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .stat-l {
+            font-size: 11px;
+            color: var(--text-3);
+            font-family: var(--mono);
+            letter-spacing: .04em;
+        }
+
+        /* TEAM */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .team-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 14px 16px;
+            text-align: center;
+            transition: border-color .15s, transform .15s;
+        }
+
+        .team-card:hover {
+            border-color: var(--orange-border);
+            transform: translateY(-2px);
+        }
+
+        .t-av {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--bg-input);
+            border: 2px dashed var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin: 0 auto 10px;
+            overflow: hidden;
+            transition: border-color .15s;
+        }
+
+        .team-card:hover .t-av {
+            border-color: var(--orange-border);
+        }
+
+        .t-av img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .t-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-1);
+            margin-bottom: 3px;
+        }
+
+        .t-role {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--orange);
+        }
+
+        .t-photo-hint {
+            font-family: var(--mono);
+            font-size: 8px;
+            color: var(--text-4);
+            margin-top: 4px;
+            letter-spacing: .05em;
+        }
+
+        /* BADGE */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-family: var(--mono);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .b-orange {
+            background: var(--orange-subtle);
+            color: var(--orange);
+            border: 1px solid var(--orange-border);
+        }
+
+        .b-green {
+            background: var(--green-sub);
+            color: var(--green);
+            border: 1px solid rgba(34, 197, 94, .22);
+        }
+
+        .b-red {
+            background: var(--red-sub);
+            color: var(--red);
+            border: 1px solid rgba(239, 68, 68, .2);
+        }
+
+        .b-blue {
+            background: var(--blue-sub);
+            color: var(--blue);
+            border: 1px solid rgba(96, 165, 250, .2);
+        }
+
+        .b-purple {
+            background: var(--purple-sub);
+            color: var(--purple);
+            border: 1px solid rgba(167, 139, 250, .22);
+        }
+
+        .b-yellow {
+            background: rgba(234, 179, 8, .1);
+            color: var(--yellow);
+            border: 1px solid rgba(234, 179, 8, .2);
+        }
+
+        /* TABLE */
+        .tbl-wrap {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            text-align: left;
+            padding: 10px 14px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-2);
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(249, 115, 22, .03);
+        }
+
+        /* CODE */
+        pre {
+            background: #0a0b0c;
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--orange);
+            border-radius: 6px;
+            padding: 14px 16px;
+            overflow-x: auto;
+            font-family: var(--mono);
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            color: #cdd6f4;
+        }
+
+        .kw {
+            color: #89b4fa;
+        }
+
+        .str {
+            color: #a6e3a1;
+        }
+
+        .key {
+            color: #89dceb;
+        }
+
+        .num {
+            color: var(--orange-bright);
+        }
+
+        .cmt {
+            color: #585b70;
+        }
+
+        /* RISK BARS */
+        .rbar-wrap {
+            margin: 6px 0 10px;
+        }
+
+        .rbar-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .rbar-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-2);
+            width: 110px;
+            flex-shrink: 0;
+        }
+
+        .rbar-track {
+            flex: 1;
+            height: 5px;
+            background: var(--bg-input);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .rbar-fill {
+            height: 100%;
+            border-radius: 3px;
+            width: 0;
+            transition: width .9s cubic-bezier(.4, 0, .2, 1) .2s;
+        }
+
+        .rbar-val {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-2);
+            width: 28px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        /* DIAGRAM — zoomable */
+        .diagram {
+            background: var(--bg-input);
+            border: 1px dashed var(--border-light);
+            border-radius: 8px;
+            padding: 36px 24px;
+            text-align: center;
+            color: var(--text-4);
+            font-family: var(--mono);
+            font-size: 11px;
+            line-height: 1.8;
+            margin-bottom: 4px;
+            cursor: zoom-in;
+            transition: border-color .15s, background .15s;
+        }
+
+        .diagram:hover {
+            border-color: var(--orange-border);
+            background: rgba(249, 115, 22, .04);
+        }
+
+        .diagram strong {
+            color: var(--text-3);
+            display: block;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+
+        .diagram-hint {
+            font-family: var(--mono);
+            font-size: 9px;
+            color: var(--text-4);
+            margin-bottom: 14px;
+            letter-spacing: .06em;
+            padding: 0 4px;
+        }
+
+        .diagram-hint span {
+            color: var(--orange);
+        }
+
+        /* ZOOM MODAL */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .88);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            cursor: zoom-out;
+        }
+
+        .zoom-modal.open {
+            display: flex;
+        }
+
+        .zoom-modal-inner {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 40px 48px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: auto;
+            cursor: default;
+        }
+
+        .zoom-modal-inner img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+
+        /* POSTER BANNER */
+        .poster-banner {
+            background: var(--bg-card-2);
+            border: 1px dashed var(--orange-border);
+            border-radius: 10px;
+            padding: 32px 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poster-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(249, 115, 22, .03) 8px, rgba(249, 115, 22, .03) 16px);
+            pointer-events: none;
+        }
+
+        .poster-banner-label {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: .14em;
+            color: var(--orange);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .poster-banner h2 {
+            font-family: var(--mono);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-1);
+            margin-bottom: 8px;
+        }
+
+        .poster-banner p {
+            font-size: 12px;
+            color: var(--text-3);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        /* FIGMA EMBED */
+        .figma-embed-wrap {
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .figma-embed-wrap iframe {
+            width: 100%;
+            height: 480px;
+            border: none;
+            display: block;
+        }
+
+        .figma-placeholder {
+            padding: 60px 24px;
+            text-align: center;
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-4);
+            line-height: 1.9;
+        }
+
+        .figma-placeholder strong {
+            color: var(--text-3);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--border-light);
+        }
+
+        .tl-item {
+            position: relative;
+            padding-bottom: 22px;
+        }
+
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            left: -18px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--orange);
+            box-shadow: 0 0 8px rgba(249, 115, 22, .5);
+        }
+
+        .tl-item.done::before {
+            background: var(--green);
+            box-shadow: 0 0 8px rgba(34, 197, 94, .4);
+        }
+
+        .tl-week {
+            font-family: var(--mono);
+            font-size: 9px;
+            color: var(--orange);
+            letter-spacing: .08em;
+            margin-bottom: 2px;
+        }
+
+        .tl-item.done .tl-week {
+            color: var(--green);
+        }
+
+        .tl-task {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-1);
+        }
+
+        .tl-sub {
+            font-size: 12px;
+            color: var(--text-3);
+            margin-top: 2px;
+        }
+
+        /* FEATURES */
+        .feat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .feat {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 18px;
+            transition: border-color .15s;
+        }
+
+        .feat:hover {
+            border-color: var(--orange-border);
+        }
+
+        .feat-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 7px;
+            background: var(--orange-subtle);
+            border: 1px solid var(--orange-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .feat-body h3 {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-1);
+            margin-bottom: 4px;
+        }
+
+        .feat-body p {
+            font-size: 12px;
+            color: var(--text-2);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* NOTICE */
+        .notice {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: var(--orange-subtle);
+            border: 1px solid var(--orange-border);
+            border-radius: 7px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+
+        .notice-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .notice p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--text-2);
+            line-height: 1.65;
+        }
+
+        .notice strong {
+            color: var(--orange);
+        }
+
+        /* IRB LINK */
+        .irb-link {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--orange);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 8px;
+            border-bottom: 1px dashed var(--orange-border);
+            padding-bottom: 1px;
+        }
+
+        .irb-link:hover {
+            color: var(--orange-bright);
+        }
+
+        /* MOBILE */
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 13px;
+            left: 13px;
+            z-index: 200;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 6px 9px;
+            cursor: pointer;
+            font-size: 15px;
+            color: var(--text-1);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .6);
+            z-index: 80;
+        }
+
+        @media(max-width:768px) {
+            #sidebar {
+                transform: translateX(-100%);
+            }
+
+            #sidebar.open {
+                transform: translateX(0);
+            }
+
+            #main {
+                margin-left: 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .overlay.show {
+                display: block;
+            }
+
+            .pg {
+                padding: 20px 16px 48px;
+            }
+
+            .g2,
+            .g3,
+            .g4 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card {
+                padding: 22px;
+            }
+
+            .hero-card h1 {
+                font-size: 22px;
+            }
+
+            #topbar {
+                padding: 0 16px 0 52px;
+            }
+
+            .zoom-modal-inner {
+                padding: 24px 20px;
+            }
+        }
+
+        @media(max-width:480px) {
+            .stat-n {
+                font-size: 24px;
+            }
+
+            table {
+                font-size: 11px;
+            }
+
+            td,
+            th {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="hamburger" onclick="openSidebar()">☰</button>
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+        <div class="sb-logo">
+            <div class="sb-logo-mark">AS</div>
+            <span class="sb-logo-name">ADAPTIVESEC</span>
+            <span class="sb-status">LIVE</span>
+        </div>
+        <div class="sb-search">
+            <input type="text" id="searchInput" placeholder="Search pages…" oninput="filterNav(this.value)" />
+        </div>
+        <nav class="sb-nav" id="sbNav">
+            <div class="sb-section">Overview</div>
+            <div class="sb-item active" data-page="home" onclick="go('home')">
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+                    <path d="M2 6.5L8 2l6 4.5V14H2V6.5z" />
+                </svg>
+                Home
+            </div>
+            <div class="sb-section">Documentation</div>
+            <div class="sb-item" data-page="requirements" onclick="go('requirements')">
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+                    <rect x="3" y="2" width="10" height="12" rx="1.5" />
+                    <line x1="6" y1="5.5" x2="10" y2="5.5" />
+                    <line x1="6" y1="8" x2="10" y2="8" />
+                    <line x1="6" y1="10.5" x2="8.5" y2="10.5" />
+                </svg>
+                Requirements
+            </div>
+
+            <div class="sb-item" data-page="design" onclick="go('design')">
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+                    <polyline points="2,11 5,8 8,10 11,6 14,7" />
+                    <rect x="1" y="1" width="14" height="14" rx="1.5" />
+                </svg>
+                Design
+            </div>
+            <div class="sb-item" data-page="testing" onclick="go('testing')">
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+                    <circle cx="8" cy="8" r="6" />
+                    <polyline points="5.5,8 7,9.5 10.5,6" />
+                </svg>
+                Testing &amp; Validation
+            </div>
+            <div class="sb-section">Project</div>
+            <div class="sb-item" data-page="management" onclick="go('management')">
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+                    <rect x="2" y="2" width="5" height="5" rx="1" />
+                    <rect x="9" y="2" width="5" height="5" rx="1" />
+                    <rect x="2" y="9" width="5" height="5" rx="1" />
+                    <rect x="9" y="9" width="5" height="5" rx="1" />
+                </svg>
+                Management &amp; Ethics
+            </div>
+        </nav>
+        <div class="sb-footer">
+            <a class="sb-gh" href="https://github.com/YOUR_ORG/YOUR_REPO" target="_blank">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12" />
+                </svg>
+                GitHub Repository
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div id="main">
+        <div id="topbar">
+            <div class="tb-breadcrumb">ADAPTIVESEC &nbsp;/&nbsp; <span id="tbCrumb">HOME</span></div>
+            <div class="tb-right">
+            </div>
+        </div>
+
+        <!-- ═══ HOME ═══ -->
+        <div class="page active" id="page-home">
+            <div class="pg">
+
+                <!-- POSTER — front and center per assignment requirements -->
+                <div class="poster-banner">
+                    <h2>Project Poster</h2>
+                    <p><br />
+                        Replace this banner with your poster image before final submission.</p>
+                </div>
+
+                <div class="hero-card">
+                    <div class="ph-eyebrow" style="margin-bottom:12px">CSI 4999 · Winter 2026</div>
+                    <h1><em>Adaptive</em>Sec</h1>
+                    <p class="hero-desc">
+                        A real-time cybersecurity awareness platform that profiles each user's cognitive
+                        vulnerabilities — urgency bias, authority bias, social proof — and delivers
+                        personalized micro-training to reduce human risk scores before breaches occur.
+                    </p>
+                    <div class="btn-row">
+                        <a href="https://github.com/ForhaadM/adaptivesec_capstone_site.git" target="_blank"
+                            class="btn btn-fill">↗ GitHub
+                            Repo</a>
+                        <a href="https://www.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?t=88JRfEmGj5VQcXX6-1"
+                            target="_blank" class="btn btn-outline">⬡ Figma
+                            Prototype</a>
+                        <span class="btn btn-outline" onclick="go('design')" style="cursor:pointer">◫ API Spec</span>
+                        <span class="btn btn-outline" onclick="go('architecture')" style="cursor:pointer">◈
+                            Architecture</span>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="g4" style="margin-bottom:20px">
+                    <div class="stat">
+                        <div class="stat-n" data-count="4">0</div>
+                        <div class="stat-l">Bias Dimensions</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-n" data-count="12">0</div>
+                        <div class="stat-l">Training Modules</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-n" data-count="3">0</div>
+                        <div class="stat-l">User Roles</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-n">100</div>
+                        <div class="stat-l">Risk Scale (0–100)</div>
+                    </div>
+                </div>
+
+                <div class="sh">The Problem</div>
+                <p>Over 90% of successful cyberattacks exploit human behavior, not technical vulnerabilities. Existing
+                    awareness training is static, annual, and one-size-fits-all. It doesn't account for the cognitive
+                    biases that make each user uniquely susceptible to phishing, social engineering, and impersonation
+                    attacks.</p>
+
+                <div class="sh">Our Solution</div>
+                <div class="feat-list" style="margin-bottom:20px">
+                    <div class="feat">
+                        <div class="feat-icon">⚡</div>
+                        <div class="feat-body">
+                            <h3>Cognitive Vulnerability Profiling</h3>
+                            <p>We model each user's susceptibility across four dimensions. Urgency Bias, Authority
+                                Bias, Social Proof, and Scarcity and build a personalized vulnerability profile.
+                        </div>
+                    </div>
+                    <div class="feat">
+                        <div class="feat-icon">🎯</div>
+                        <div class="feat-body">
+                            <h3>Adaptive Just-in-Time Training</h3>
+                            <p>Training nudges fire at the moment of risky behavior (e.g., clicking an unverified link),
+                                delivering context-aware lessons matched to the user's active vulnerability profile.</p>
+                        </div>
+                    </div>
+                    <div class="feat">
+                        <div class="feat-icon">📊</div>
+                        <div class="feat-body">
+                            <h3>Live Security Dashboard</h3>
+                            <p>Users see their risk score, 30, 90, or all time trend, score change explanations, and
+                                training
+                                progress in one unified dashboard.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Gallery — Name, Photo, Role per requirements -->
+                <div class="sh">The Team</div>
+                <div class="team-grid">
+
+
+                    <div class="team-card">
+                        <div class="t-av">FM</div>
+                        <div class="t-name">Forhaad Miah</div>
+                        <div class="t-role">Developer</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="t-av">HS</div>
+                        <div class="t-name">Hamza Siddiqui </div>
+                        <div class="t-role">Developer</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="t-av">NF</div>
+                        <div class="t-name">Niko Fushi</div>
+                        <div class="t-role">Developer</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="t-av">AV</div>
+                        <div class="t-name">Adnan Vaktapuriya</div>
+                        <div class="t-role">Developer</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="t-av">AL</div>
+                        <div class="t-name">Aiden Lee</div>
+                        <div class="t-role">Developer</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ═══ REQUIREMENTS ═══ -->
+        <div class="page" id="page-requirements">
+            <div class="pg">
+
+                <div class="ph">
+                    <div class="ph-eyebrow">Documentation</div>
+                    <h1>PRD / <em>User Stories</em></h1>
+                </div>
+
+                <div class="sh">Primary Persona</div>
+                <div class="card" style="margin-bottom:14px">
+                    <div class="card-title">🧑‍💼 "Field Agent Carlos" <span class="badge b-orange"
+                            style="margin-left:auto">P0 Persona</span></div>
+                    <div class="g2" style="gap:16px">
+                        <div>
+                            <p><strong style="color:var(--text-1)">Who:</strong> Mid-level enterprise employee,
+                                non-technical, regularly receives external emails. Clicks links quickly under deadline
+                                pressure.</p>
+                            <p><strong style="color:var(--text-1)">Goal:</strong> Complete work tasks efficiently
+                                without thinking about security implications.</p>
+                        </div>
+                        <div>
+                            <p><strong style="color:var(--text-1)">Pain Point:</strong> Generic annual security training
+                                feels irrelevant; forgotten within weeks.</p>
+                            <p><strong style="color:var(--text-1)">Key Vulnerability:</strong> High Urgency Bias (82nd
+                                percentile) — susceptible to "Act Now" tactics.</p>
+                        </div>
+                    </div>
+                    <div class="sh" style="margin-top:14px">Vulnerability Profile</div>
+                    <div class="rbar-wrap" id="personaBars">
+                        <div class="rbar-row"><span class="rbar-label">Urgency Bias</span>
+                            <div class="rbar-track">
+                                <div class="rbar-fill" style="background:var(--orange)" data-w="82"></div>
+                            </div><span class="rbar-val">82</span>
+                        </div>
+                        <div class="rbar-row"><span class="rbar-label">Authority Bias</span>
+                            <div class="rbar-track">
+                                <div class="rbar-fill" style="background:var(--blue)" data-w="54"></div>
+                            </div><span class="rbar-val">54</span>
+                        </div>
+                        <div class="rbar-row"><span class="rbar-label">Social Proof</span>
+                            <div class="rbar-track">
+                                <div class="rbar-fill" style="background:var(--purple)" data-w="37"></div>
+                            </div><span class="rbar-val">37</span>
+                        </div>
+                        <div class="rbar-row"><span class="rbar-label">Scarcity</span>
+                            <div class="rbar-track">
+                                <div class="rbar-fill" style="background:var(--yellow)" data-w="21"></div>
+                            </div><span class="rbar-val">21</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sh">User Stories</div>
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Priority</th>
+                                <th>As a…</th>
+                                <th>I want to…</th>
+                                <th>So that…</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge b-red">P0</span></td>
+                                <td>User</td>
+                                <td>The Chrome Extension to analyze my browser interactions in the background</td>
+                                <td>My risk profile is built on my actual daily habits without interrupting my workflow.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge b-red">P0</span></td>
+                                <td>User</td>
+                                <td>To see my Risk Score (0-100) update on my dashboard shortly after if I make a risky
+                                    decision</td>
+                                <td>I can understand the impact of my actions.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge b-red">P0</span></td>
+                                <td>User</td>
+                                <td>If my score drops, I want to see a plain-English explanation generated by the system
+                                    (e.g., "Your score dropped because you clicked a link from an unverified domain")
+                                </td>
+                                <td>I understand exactly why I am considered high risk and how to change my behavior.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge b-orange">P1</span></td>
+                                <td>User</td>
+                                <td>Receive training modules that specifically target my detected weaknesses</td>
+                                <td>My training feels relevant and respects my time.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge b-orange">P1</span></td>
+                                <td>User</td>
+                                <td>View my historical event history and score trends on my dashboard</td>
+                                <td>I can visualize my risk level and track my improvement over time.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge b-orange">P1</span></td>
+                                <td>User</td>
+                                <td>The system to automatically categorize my score into Vulnerability Profiles (e.g.,
+                                    'High Urgency Susceptibility') based on their aggregated behavioral signals</td>
+                                <td>I can understand the specific types of risks prevalent across the organization.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge b-blue">P2</span></td>
+                                <td>User</td>
+                                <td>My risk score to immediately improve upon the successful completion of an assigned
+                                    training module</td>
+                                <td> I feel tangibly rewarded for actively participating in my cybersecurity education.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge b-blue">P2</span></td>
+                                <td>User</td>
+                                <td>Receive a short, localized training nudge (e.g., via browser popup) shortly after
+                                    clicking a risky link or failing a simulation,</td>
+                                <td> I can learn from my mistake while the context is still fresh in my mind.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge b-blue">P2</span></td>
+                                <td>User</td>
+                                <td>Access a unified dashboard view that consolidates my 0-100 Risk Score, current
+                                    training progress, alerts, and counterfactual explanations all in one place ,</td>
+                                <td> I can instantly understand my overall security posture without clicking through
+                                    multiple pages.
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ═══ ARCHITECTURE ═══ -->
+        <div class="page" id="page-architecture">
+            <div class="pg">
+
+                <div class="ph">
+                    <div class="ph-eyebrow">Documentation</div>
+                    <h1>Architecture & <em>High-Level Design</em></h1>
+                    <div class="ph-sub">// Tech Spec — System Diagram · Stack · Security</div>
+                </div>
+
+                <div class="sh">System Diagram</div>
+                <div class="diagram" onclick="openZoom('arch')">
+                    <strong>Architecture Block Diagram</strong>
+                    Browser Extension → API Gateway → Auth Service → Risk Engine → Training Service → PostgreSQL
+                    DB<br />
+                    Replace with Mermaid.js block diagram or exported SVG<br />
+                    <span style="color:var(--orange)">🔍 Click to zoom fullscreen</span>
+                </div>
+                <div class="diagram-hint">Tip: create in <span>Mermaid.js</span>, draw.io, or Lucidchart · avoid small
+                    PNGs that become unreadable — use SVG or high-res export</div>
+
+                <div class="sh">Tech Stack Justification</div>
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Layer</th>
+                                <th>Technology</th>
+                                <th>Why We Chose It</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Frontend</td>
+                                <td><span class="badge b-blue">React + TypeScript</span></td>
+                                <td>Component-based UI, strong typing for risk data models, rich dashboard component
+                                    ecosystem</td>
+                            </tr>
+                            <tr>
+                                <td>Backend API</td>
+                                <td><span class="badge b-green">FastAPI (Python)</span></td>
+                                <td>High-performance async endpoints, native Pydantic validation, seamless ML model
+                                    integration</td>
+                            </tr>
+                            <tr>
+                                <td>Risk Engine</td>
+                                <td><span class="badge b-purple">XGBoost</span></td>
+                                <td>Gradient-boosted decision trees optimized for high-accuracy behavioral risk scoring.
+                                    Provides low-latency inference, strong performance on structured telemetry data,
+                                    built-in feature importance for explainability, and robustness against noisy
+                                    behavioral signals.</td>
+                            </tr>
+                            <tr>
+                                <td>Database</td>
+                                <td><span class="badge b-orange">Neo4j</span></td>
+                                <td>Graph
+                                    databases excel at querying patterns like 'which users are vulnerable to
+                                    authority-based attacks who haven't completed related training
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Auth</td>
+                                <td><span class="badge b-red">JWT + OAuth2</span></td>
+                                <td>Stateless auth for API, SSO integration for enterprise IdP environments</td>
+                            </tr>
+                            <tr>
+                                <td>Browser Layer</td>
+                                <td><span class="badge b-yellow">Chrome Extension (MV3)</span></td>
+                                <td>Passive behavioral signal collection without proxying all traffic</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="sh">Security Architecture</div>
+                <div class="g2">
+                    <div class="card">
+                        <div class="card-title">🔐 Auth &amp; Authorization</div>
+                        <p>All API endpoints require JWT bearer tokens. RBAC enforces separation between Employee,
+                            Manager, and Admin views. OAuth2 PKCE flow for SSO.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">🛡️ Data Privacy</div>
+                        <p>User behavioral data stored encrypted at rest (AES-256). Risk scores are user-owned;
+                            org-level aggregation is opt-in. GDPR &amp; CCPA data deletion supported.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">⚡ Real-Time Event Security</div>
+                        <p>Browser extension events are HMAC-signed to prevent spoofing. Rate limiting prevents score
+                            manipulation. All audit events are append-only logs.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">📡 Transport Security</div>
+                        <p>TLS 1.3 enforced throughout. HSTS headers set. Content-Security-Policy prevents XSS. Pydantic
+                            schema validation on all API inputs before processing.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ═══ DETAILED DESIGN ═══ -->
+        <div class="page" id="page-design">
+            <div class="pg">
+
+                <div class="ph">
+                    <div class="ph-eyebrow">Documentation</div>
+                    <h1>Tech Spec and Diagrams</em></h1>
+                    <div class="ph-sub">// DB Schema · API Specification · Algorithm Logic</div>
+                </div>
+
+                <div class="sh">System Design</div>
+                <div class="diagram" onclick="openZoom('er')">
+                    <strong>ER Diagram — Tables: users · risk_scores · score_events · training_modules · assignments ·
+                        completions</strong>
+                    Replace with exported ER diagram SVG or Mermaid erDiagram block<br />
+                    <span style="color:var(--orange)">🔍 Click to zoom fullscreen</span>
+                </div>
+                <div class="diagram-hint">Recommended: <span>dbdiagram.io</span>, Mermaid erDiagram, or Lucidchart ·
+                    Export as SVG for crisp rendering at all screen sizes</div>
+
+                <div class="sh">Figma Prototype</div>
+                <div class="figma-embed-wrap">
+                    <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450"
+                        src="https://embed.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&embed-host=share"
+                        allowfullscreen></iframe>
+                </div>
+                <div style="text-align:center;margin-bottom:20px">
+                    <a href="https://www.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&t=aWZNYP38prKeBDaU-1"
+                        target="_blank" class="btn btn-fill">↗ Open Full
+                        Prototype in Figma</a>
+                </div>
+
+                <div class="sh">Tech Stack Justification</div>
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Layer</th>
+                                <th>Technology</th>
+                                <th>Why We Chose It</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Frontend</td>
+                                <td><span class="badge b-blue">React + TypeScript</span></td>
+                                <td>Component-based UI, strong typing for risk data models, rich dashboard component
+                                    ecosystem</td>
+                            </tr>
+                            <tr>
+                                <td>Backend API</td>
+                                <td><span class="badge b-green">FastAPI (Python)</span></td>
+                                <td>High-performance async endpoints, native Pydantic validation, seamless ML model
+                                    integration</td>
+                            </tr>
+                            <tr>
+                                <td>Risk Engine</td>
+                                <td><span class="badge b-purple">XGBoost</span></td>
+                                <td>Gradient-boosted decision trees optimized for high-accuracy behavioral risk scoring.
+                                    Provides low-latency inference, strong performance on structured telemetry data,
+                                    built-in feature importance for explainability, and robustness against noisy
+                                    behavioral signals.</td>
+                            </tr>
+                            <tr>
+                                <td>Database</td>
+                                <td><span class="badge b-orange">Neo4j</span></td>
+                                <td>Graph
+                                    databases excel at querying patterns like 'which users are vulnerable to
+                                    authority-based attacks who haven't completed related training
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Auth</td>
+                                <td><span class="badge b-red">JWT + OAuth2</span></td>
+                                <td>Stateless auth for API, SSO integration for enterprise IdP environments</td>
+                            </tr>
+                            <tr>
+                                <td>Browser Layer</td>
+                                <td><span class="badge b-yellow">Chrome Extension (MV3)</span></td>
+                                <td>Passive behavioral signal collection without proxying all traffic</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="sh">Security Architecture</div>
+                <div class="g2">
+                    <div class="card">
+                        <div class="card-title">🔐 Auth &amp; Authorization</div>
+                        <p>All API endpoints require JWT bearer tokens. RBAC enforces separation between Employee,
+                            Manager, and Admin views. OAuth2 PKCE flow for SSO.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">🛡️ Data Privacy</div>
+                        <p>User behavioral data stored encrypted at rest (AES-256). Risk scores are user-owned;
+                            org-level aggregation is opt-in. GDPR &amp; CCPA data deletion supported.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">⚡ Real-Time Event Security</div>
+                        <p>Browser extension events are HMAC-signed to prevent spoofing. Rate limiting prevents score
+                            manipulation. All audit events are append-only logs.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">📡 Transport Security</div>
+                        <p>TLS 1.3 enforced throughout. HSTS headers set. Content-Security-Policy prevents XSS. Pydantic
+                            schema validation on all API inputs before processing.</p>
+                    </div>
+                </div>
+
+                <div class="sh">API Specification</div>
+
+                <!-- GET risk-score -->
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title">
+                        <span class="badge b-green">GET</span>
+                        /api/v1/user/{id}/risk-score
+                        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+                    </div>
+                    <p>Returns the current risk score and full vulnerability profile for a given user.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE
+                        200</div>
+                    <pre><code>{
+  <span class="key">"user_id"</span>:    <span class="str">"usr_abc123"</span>,
+  <span class="key">"score"</span>:      <span class="num">58</span>,
+  <span class="key">"risk_level"</span>: <span class="str">"HIGH"</span>,
+  <span class="key">"profile"</span>: {
+    <span class="key">"urgency_bias"</span>:   <span class="num">82</span>,
+    <span class="key">"authority_bias"</span>: <span class="num">54</span>,
+    <span class="key">"social_proof"</span>:   <span class="num">37</span>,
+    <span class="key">"scarcity"</span>:       <span class="num">21</span>
+  },
+  <span class="key">"updated_at"</span>: <span class="str">"2025-05-13T14:22:00Z"</span>
+}</code></pre>
+                    <div class="tbl-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge b-orange">400</span></td>
+                                    <td>Invalid user ID format</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge b-red">401</span></td>
+                                    <td>Missing or expired JWT token</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge b-red">403</span></td>
+                                    <td>Insufficient role permissions</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge b-red">500</span></td>
+                                    <td>Risk engine service unavailable</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- POST behavior -->
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title">
+                        <span class="badge b-blue">POST</span>
+                        /api/v1/events/behavior
+                        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+                    </div>
+                    <p>Records a behavioral event and triggers real-time risk score recalculation.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">REQUEST
+                        BODY</div>
+                    <pre><code>{
+  <span class="key">"user_id"</span>:    <span class="str">"usr_abc123"</span>,
+  <span class="key">"event_type"</span>: <span class="str">"UNVERIFIED_LINK_CLICK"</span>,
+  <span class="key">"domain"</span>:     <span class="str">"suspicious-login.com"</span>,
+  <span class="key">"timestamp"</span>:  <span class="str">"2025-05-13T14:21:55Z"</span>,
+  <span class="key">"context"</span>: {
+    <span class="key">"source"</span>:           <span class="str">"email"</span>,
+    <span class="key">"urgency_signals"</span>:  <span class="kw">true</span>
+  }
+}</code></pre>
+                    <div class="tbl-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge b-orange">400</span></td>
+                                    <td>Missing required fields (user_id, event_type, timestamp)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge b-red">401</span></td>
+                                    <td>Missing or expired JWT token</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge b-red">500</span></td>
+                                    <td>Risk engine unavailable — event queued for retry</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- POST training complete -->
+                <div class="card">
+                    <div class="card-title">
+                        <span class="badge b-purple">POST</span>
+                        /api/v1/training/complete
+                        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+                    </div>
+                    <p>Marks a training module as complete and applies the score delta to the user's risk profile.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE
+                        200</div>
+                    <pre><code>{
+  <span class="key">"module_id"</span>:    <span class="str">"mod_phishing_001"</span>,
+  <span class="key">"score_delta"</span>:  <span class="num">-8</span>,
+  <span class="key">"new_score"</span>:    <span class="num">50</span>,
+  <span class="key">"explanation"</span>: <span class="str">"Completed Password Security Best Practices"</span>
+}</code></pre>
+                    <div class="tbl-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge b-orange">400</span></td>
+                                    <td>Module ID not found or already completed</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge b-red">401</span></td>
+                                    <td>Missing or expired JWT token</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge b-red">403</span></td>
+                                    <td>Module not assigned to this user</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge b-red">500</span></td>
+                                    <td>Score update service unavailable</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="sh">Risk Scoring Algorithm</div>
+                <div class="card">
+                    <div class="card-title">Cognitive Bias Score Calculation</div>
+                    <p>The risk score is a weighted composite of four cognitive bias dimensions, updated via an
+                        exponential moving average on each new behavioral event.</p>
+                    <pre><code><span class="cmt"># Simplified scoring pseudocode</span>
+<span class="kw">def</span> <span class="key">calculate_risk_score</span>(user_events, weights):
+    bias_scores = {
+        <span class="str">'urgency'</span>:   score_dimension(user_events, <span class="str">'urgency'</span>),
+        <span class="str">'authority'</span>: score_dimension(user_events, <span class="str">'authority'</span>),
+        <span class="str">'social'</span>:    score_dimension(user_events, <span class="str">'social_proof'</span>),
+        <span class="str">'scarcity'</span>:  score_dimension(user_events, <span class="str">'scarcity'</span>)
+    }
+    raw = sum(bias_scores[k] * weights[k] <span class="kw">for</span> k <span class="kw">in</span> bias_scores)
+    <span class="kw">return</span> clamp(ema_update(raw), <span class="num">0</span>, <span class="num">100</span>)
+    <span class="cmt"># 0 = minimal risk · 100 = critical risk</span></code></pre>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ═══ TESTING ═══ -->
+        <div class="page" id="page-testing">
+            <div class="pg">
+
+                <div class="ph">
+                    <div class="ph-eyebrow">Documentation</div>
+                    <h1>Testing & <em>Validation</em></h1>
+                    <div class="ph-sub">// Unit Tests · Integration Tests · Benchmarks · Traceability</div>
+                </div>
+
+                <div class="sh">Unit Tests</div>
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Function</th>
+                                <th>Test Case</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>calculate_risk_score()</code></td>
+                                <td>Returns value in [0, 100] for any valid input</td>
+                                <td><span class="badge b-green">PASS</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>score_dimension()</code></td>
+                                <td>Null event array returns baseline score of 50</td>
+                                <td><span class="badge b-green">PASS</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>trigger_nudge()</code></td>
+                                <td>Fires only when score delta exceeds threshold</td>
+                                <td><span class="badge b-yellow">IN PROGRESS</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>validate_jwt()</code></td>
+                                <td>Rejects expired and malformed tokens</td>
+                                <td><span class="badge b-green">PASS</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>record_event()</code></td>
+                                <td>Rejects events with missing required fields</td>
+                                <td><span class="badge b-green">PASS</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>ema_update()</code></td>
+                                <td>Smooth update within expected alpha range</td>
+                                <td><span class="badge b-yellow">IN PROGRESS</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="sh">Integration Tests</div>
+                <div class="g2">
+                    <div class="card">
+                        <div class="card-title">Flow 1 — Registration → First Score</div>
+                        <p>1. POST /auth/register → 201<br />
+                            2. GET /auth/me with JWT → user object<br />
+                            3. POST /events/behavior → event logged<br />
+                            4. GET /user/{id}/risk-score → score returned<br />
+                            5. Nudge triggered → verified in audit log</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Flow 2 — Training → Score Drop</div>
+                        <p>1. Admin assigns module via POST /training/assign<br />
+                            2. User completes → POST /training/complete<br />
+                            3. Score delta −8 pts applied and verified<br />
+                            4. Score change event logged with explanation text<br />
+                            5. Dashboard reflects updated score in &lt;2s</p>
+                    </div>
+                </div>
+
+                <div class="sh">Performance Benchmarks</div>
+                <div class="g3">
+                    <div class="stat">
+                        <div class="stat-n" style="font-size:24px">&lt;200ms</div>
+                        <div class="stat-l">API p95 latency target</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-n" style="font-size:24px">&lt;2s</div>
+                        <div class="stat-l">Score update after event</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-n" style="font-size:24px">99.9%</div>
+                        <div class="stat-l">Uptime target</div>
+                    </div>
+                </div>
+
+                <div class="sh">Traceability Matrix</div>
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User Story</th>
+                                <th>Test(s)</th>
+                                <th>Verified By</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>US-01: View real-time risk score</td>
+                                <td>UT-01, IT-01</td>
+                                <td>GET /risk-score returns live score</td>
+                                <td><span class="badge b-green">PASS</span></td>
+                            </tr>
+                            <tr>
+                                <td>US-02: Receive just-in-time nudge</td>
+                                <td>UT-03</td>
+                                <td>Nudge fires on event above threshold</td>
+                                <td><span class="badge b-yellow">IN PROGRESS</span></td>
+                            </tr>
+                            <tr>
+                                <td>US-03: Admin org dashboard</td>
+                                <td>IT-03</td>
+                                <td>Admin endpoint returns aggregated data</td>
+                                <td><span class="badge b-green">PASS</span></td>
+                            </tr>
+                            <tr>
+                                <td>US-04: Score change explanation</td>
+                                <td>IT-02</td>
+                                <td>Score event log includes explanation text</td>
+                                <td><span class="badge b-green">PASS</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ═══ MANAGEMENT & ETHICS ═══ -->
+        <div class="page" id="page-management">
+            <div class="pg">
+
+                <div class="ph">
+                    <div class="ph-eyebrow">Project</div>
+                    <h1>Management & <em>Ethics</em></h1>
+                    <div class="ph-sub">// Timeline · Task Breakdown · Ethics · IRB Status</div>
+                </div>
+
+                <div class="sh">Project Timeline (15 Weeks)</div>
+                <div class="timeline">
+                    <div class="tl-item done">
+                        <div class="tl-week">WEEKS 1–2</div>
+                        <div class="tl-task">Project Charter &amp; Requirements</div>
+                        <div class="tl-sub">Personas, user stories, initial scope definition</div>
+                    </div>
+                    <div class="tl-item done">
+                        <div class="tl-week">WEEKS 3–4</div>
+                        <div class="tl-task">Architecture &amp; Tech Stack</div>
+                        <div class="tl-sub">System diagram finalized, DB schema drafted</div>
+                    </div>
+                    <div class="tl-item done">
+                        <div class="tl-week">WEEKS 5–7</div>
+                        <div class="tl-task">Core Backend — Risk Engine &amp; API</div>
+                        <div class="tl-sub">Behavioral scoring model, event ingestion, auth system</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-week">WEEKS 8–10</div>
+                        <div class="tl-task">Frontend — Dashboard &amp; Training UI</div>
+                        <div class="tl-sub">React dashboard, nudge system, training module UI</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-week">WEEKS 11–12</div>
+                        <div class="tl-task">Integration &amp; Testing</div>
+                        <div class="tl-sub">Full-flow tests, performance benchmarks, bug fixes</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-week">WEEKS 13–14</div>
+                        <div class="tl-task">Polish &amp; Capstone Site</div>
+                        <div class="tl-sub">Final UI polish, documentation, GitHub Pages deploy</div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-week">WEEK 15</div>
+                        <div class="tl-task">Final Presentation &amp; Poster</div>
+                        <div class="tl-sub">Demo day — poster featured front and center on homepage</div>
+                    </div>
+                </div>
+
+                <div class="sh">Ethics Statement</div>
+                <div class="notice">
+                    <div class="notice-icon">⚠️</div>
+                    <p><strong>Behavioral Surveillance Risk:</strong> AdaptiveSec monitors user behaviors (link clicks,
+                        login patterns, email interactions) to build risk profiles. We are committed to transparent data
+                        use, user-owned scores, and explicit opt-in for org-level aggregation.</p>
+                </div>
+                <div class="g2">
+                    <div class="card">
+                        <div class="card-title">🔍 Privacy &amp; Monitoring Boundary</div>
+                        <p>At what point does protective monitoring become employee surveillance? We surface this
+                            question explicitly: users always know their behavior is being scored, and data is never
+                            shared with HR or used for performance evaluation.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">🤖 Algorithmic Bias</div>
+                        <p>The ML model trained on historical incident data may embed existing biases. We commit to
+                            regular bias audits and plan to publish our scoring methodology for external review.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">🧠 Neurodiversity Considerations</div>
+                        <p>Could the model unfairly penalize neurodivergent users who exhibit different behavioral
+                            patterns? This is an open design question we plan to address with diverse testing
+                            populations.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">📋 IRB / CITI Status</div>
+                        <p>CITI certification application submitted. IRB review not required for current development
+                            phase (no human subjects research). Will be revisited prior to any user study.</p>
+                        <div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                            <span class="badge b-blue">In Progress</span>
+                            <a href="#" class="irb-link">[ Link to CITI certificate — replace when available ]</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div><!-- /main -->
+
+    <!-- ZOOM MODAL -->
+    <div class="zoom-modal" id="zoomModal" onclick="closeZoom()">
+        <div class="zoom-modal-inner" id="zoomContent" onclick="event.stopPropagation()">
+        </div>
+    </div>
+
+    <script>
+        const pages = {
+            home: 'HOME',
+            requirements: 'REQUIREMENTS (PRD)',
+            architecture: 'ARCHITECTURE',
+            design: 'DETAILED DESIGN',
+            testing: 'TESTING & VALIDATION',
+            management: 'MANAGEMENT & ETHICS'
+        };
+
+        function go(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.sb-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('page-' + id).classList.add('active');
+            document.querySelector(`.sb-item[data-page="${id}"]`).classList.add('active');
+            document.getElementById('tbCrumb').textContent = pages[id] || id.toUpperCase();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (id === 'requirements') animateBars();
+            closeSidebar();
+        }
+
+        function filterNav(q) {
+            q = q.toLowerCase();
+            document.querySelectorAll('.sb-item').forEach(item => {
+                item.style.display = item.textContent.trim().toLowerCase().includes(q) ? '' : 'none';
+            });
+        }
+
+        function openSidebar() {
+            document.getElementById('sidebar').classList.add('open');
+            document.getElementById('overlay').classList.add('show');
+        }
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
+        }
+
+        // Diagram zoom modal
+        const zoomData = {
+            flow: {
+                title: 'User Flow Diagram',
+                body: `<div style="font-family:var(--mono);font-size:12px;color:var(--text-2);line-height:2.2;text-align:left">
+                <div style="color:var(--text-3);margin-bottom:16px">Replace this placeholder with your actual Mermaid.js or SVG user flow diagram.</div>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                    <span style="background:var(--orange-subtle);border:1px solid var(--orange-border);border-radius:4px;padding:4px 10px;color:var(--orange)">Login</span>
+                    <span style="color:var(--text-4)">→</span>
+                    <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Dashboard</span>
+                    <span style="color:var(--text-4)">→</span>
+                    <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Risky Behavior Detected</span>
+                    <span style="color:var(--text-4)">→</span>
+                    <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Nudge Triggered</span>
+                    <span style="color:var(--text-4)">→</span>
+                    <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Training Module</span>
+                    <span style="color:var(--text-4)">→</span>
+                    <span style="background:var(--green-sub);border:1px solid rgba(34,197,94,.22);border-radius:4px;padding:4px 10px;color:var(--green)">Score Updated</span>
+                </div>
+            </div>`
+            },
+            arch: {
+                title: 'System Architecture Diagram',
+                body: `<div style="font-family:var(--mono);font-size:12px;color:var(--text-2);line-height:2.2;text-align:left">
+                <div style="color:var(--text-3);margin-bottom:16px">Replace with your actual block diagram SVG or Mermaid.js output.</div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                        <span style="background:var(--orange-subtle);border:1px solid var(--orange-border);border-radius:4px;padding:4px 10px;color:var(--orange)">Chrome Extension</span>
+                        <span style="color:var(--text-4)">→</span>
+                        <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">API Gateway</span>
+                        <span style="color:var(--text-4)">→</span>
+                        <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Auth Service</span>
+                    </div>
+                    <div style="padding-left:40px;color:var(--text-4)">↓</div>
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                        <span style="background:var(--purple-sub);border:1px solid rgba(167,139,250,.22);border-radius:4px;padding:4px 10px;color:var(--purple)">Risk Engine (ML)</span>
+                        <span style="color:var(--text-4)">→</span>
+                        <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Training Service</span>
+                        <span style="color:var(--text-4)">→</span>
+                        <span style="background:var(--blue-sub);border:1px solid rgba(96,165,250,.2);border-radius:4px;padding:4px 10px;color:var(--blue)">PostgreSQL DB</span>
+                    </div>
+                </div>
+            </div>`
+            },
+            er: {
+                title: 'Entity Relationship Diagram',
+                body: `<div style="font-family:var(--mono);font-size:12px;color:var(--text-2);line-height:2;text-align:left">
+                <div style="color:var(--text-3);margin-bottom:16px">Replace with your exported ER diagram SVG from dbdiagram.io or Mermaid erDiagram.</div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+                    ${['users', 'risk_scores', 'score_events', 'training_modules', 'assignments', 'completions'].map(t =>
+                    `<div style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:8px 12px;color:var(--text-2)">${t}</div>`
+                ).join('')}
+                </div>
+            </div>`
+            }
+        };
+
+        function openZoom(key) {
+            const d = zoomData[key] || { title: 'Diagram', body: '' };
+            document.getElementById('zoomContent').innerHTML = `
+            <div style="font-family:var(--mono);font-size:13px;color:var(--orange);margin-bottom:16px;letter-spacing:.06em">${d.title}</div>
+            ${d.body}
+            <div style="margin-top:20px;font-family:var(--mono);font-size:9px;color:var(--text-4);letter-spacing:.08em">PRESS ESC OR CLICK OUTSIDE TO CLOSE</div>
+        `;
+            document.getElementById('zoomModal').classList.add('open');
+        }
+        function closeZoom() {
+            document.getElementById('zoomModal').classList.remove('open');
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeZoom(); });
+
+        // Stat counters
+        function animateCounters() {
+            document.querySelectorAll('[data-count]').forEach(el => {
+                const target = parseInt(el.getAttribute('data-count'));
+                let n = 0;
+                const step = Math.ceil(target / 35);
+                const t = setInterval(() => {
+                    n = Math.min(n + step, target);
+                    el.textContent = n;
+                    if (n >= target) clearInterval(t);
+                }, 28);
+            });
+        }
+
+        // Risk bars
+        function animateBars() {
+            setTimeout(() => {
+                document.querySelectorAll('.rbar-fill[data-w]').forEach(bar => {
+                    bar.style.width = bar.getAttribute('data-w') + '%';
+                });
+            }, 80);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            animateCounters();
+        });
+    </script>
+
+</body>
+
+</html>
