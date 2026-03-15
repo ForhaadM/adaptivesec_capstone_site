@@ -11,7 +11,26 @@
         rel="stylesheet" />
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-        mermaid.initialize({ startOnLoad: true });
+        window.mermaid = mermaid;
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#181a1c',
+                primaryTextColor: '#e8eaed',
+                primaryBorderColor: '#f97316',
+                lineColor: '#5f6872',
+                secondaryColor: '#1d2023',
+                tertiaryColor: '#111314',
+                background: '#0c0d0e',
+                mainBkg: '#181a1c',
+                nodeBorder: '#2a2e33',
+                clusterBkg: '#111314',
+                titleColor: '#f97316',
+                edgeLabelBackground: '#0c0d0e',
+                fontFamily: 'IBM Plex Mono, monospace'
+            }
+        });
     </script>
     <style>
         :root {
@@ -1262,6 +1281,16 @@
                 </svg>
                 Requirements
             </div>
+            <div class="sb-item" data-page="architecture" onclick="go('architecture')">
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+                    <rect x="3" y="2" width="10" height="12" rx="1.5" />
+                    <line x1="6" y1="5.5" x2="10" y2="5.5" />
+                    <line x1="6" y1="8" x2="10" y2="8" />
+                    <line x1="6" y1="10.5" x2="8.5" y2="10.5" />
+                </svg>
+                Architecture
+            </div>
+
 
             <div class="sb-item" data-page="design" onclick="go('design')">
                 <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
@@ -1451,50 +1480,34 @@
 
                 <div class="ph">
                     <div class="ph-eyebrow">Documentation</div>
-                    <h1>PRD / <em>User Stories</em></h1>
+                    <h1>Requirements & <em>UX (PRD)</em></h1>
                 </div>
 
                 <div class="sh">Primary Persona</div>
                 <div class="card" style="margin-bottom:14px">
-                    <div class="card-title">🧑‍💼 "Field Agent Carlos" <span class="badge b-orange"
+                    <div class="card-title">🧑‍💼 "Security Project Manager Alex" <span class="badge b-orange"
                             style="margin-left:auto">P0 Persona</span></div>
                     <div class="g2" style="gap:16px">
                         <div>
-                            <p><strong style="color:var(--text-1)">Who:</strong> Mid-level enterprise employee,
-                                non-technical, regularly receives external emails. Clicks links quickly under deadline
-                                pressure.</p>
-                            <p><strong style="color:var(--text-1)">Goal:</strong> Complete work tasks efficiently
-                                without thinking about security implications.</p>
+                            <p><strong style="color:var(--text-1)">Who:</strong> Organizations and universities
+                                responsible for managing cybersecurity awareness and reducing human-related security
+                                risks across employees, staff, and students.</p>
+                            <p><strong style="color:var(--text-1)">Goal:</strong> Implement an adaptive security
+                                awareness program that continuously evaluates human risk, strengthens user
+                                decision-making, and improves overall organizational security posture.</p>
                         </div>
                         <div>
-                            <p><strong style="color:var(--text-1)">Pain Point:</strong> Generic annual security training
-                                feels irrelevant; forgotten within weeks.</p>
-                            <p><strong style="color:var(--text-1)">Key Vulnerability:</strong> High Urgency Bias (82nd
-                                percentile) — susceptible to "Act Now" tactics.</p>
+                            <p><strong style="color:var(--text-1)">Pain Point:</strong> Traditional security awareness
+                                programs are static, compliance-driven, and provide limited insight into real user
+                                behavior or evolving social engineering threats.
+                            </p>
+                            <p><strong style="color:var(--text-1)">Key Vulnerability:</strong> Limited visibility into
+                                behavioral risk patterns, making it difficult to identify high-risk users or tailor
+                                training to emerging phishing and social engineering tactics.</p>
                         </div>
                     </div>
-                    <div class="sh" style="margin-top:14px">Vulnerability Profile</div>
                     <div class="rbar-wrap" id="personaBars">
-                        <div class="rbar-row"><span class="rbar-label">Urgency Bias</span>
-                            <div class="rbar-track">
-                                <div class="rbar-fill" style="background:var(--orange)" data-w="82"></div>
-                            </div><span class="rbar-val">82</span>
-                        </div>
-                        <div class="rbar-row"><span class="rbar-label">Authority Bias</span>
-                            <div class="rbar-track">
-                                <div class="rbar-fill" style="background:var(--blue)" data-w="54"></div>
-                            </div><span class="rbar-val">54</span>
-                        </div>
-                        <div class="rbar-row"><span class="rbar-label">Social Proof</span>
-                            <div class="rbar-track">
-                                <div class="rbar-fill" style="background:var(--purple)" data-w="37"></div>
-                            </div><span class="rbar-val">37</span>
-                        </div>
-                        <div class="rbar-row"><span class="rbar-label">Scarcity</span>
-                            <div class="rbar-track">
-                                <div class="rbar-fill" style="background:var(--yellow)" data-w="21"></div>
-                            </div><span class="rbar-val">21</span>
-                        </div>
+
                     </div>
                 </div>
 
@@ -1585,6 +1598,17 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="sh">Figma Prototype</div>
+                <div class="figma-embed-wrap">
+                    <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450"
+                        src="https://embed.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&embed-host=share"
+                        allowfullscreen></iframe>
+                </div>
+                <div style="text-align:center;margin-bottom:20px">
+                    <a href="https://www.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&t=aWZNYP38prKeBDaU-1"
+                        target="_blank" class="btn btn-fill">↗ Open Full
+                        Prototype in Figma</a>
+                </div>
 
             </div>
         </div>
@@ -1600,16 +1624,43 @@
                 </div>
 
                 <div class="sh">System Diagram</div>
-                <div class="diagram" onclick="openZoom('arch')">
-                    <strong>Architecture Block Diagram</strong>
-                    Browser Extension → API Gateway → Auth Service → Risk Engine → Training Service → PostgreSQL
-                    DB<br />
-                    Replace with Mermaid.js block diagram or exported SVG<br />
-                    <span style="color:var(--orange)">🔍 Click to zoom fullscreen</span>
-                </div>
-                <div class="diagram-hint">Tip: create in <span>Mermaid.js</span>, draw.io, or Lucidchart · avoid small
-                    PNGs that become unreadable — use SVG or high-res export</div>
-
+                <div
+                    style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:8px;padding:28px 20px;overflow-x:auto;margin-bottom:4px">
+                    <div class="mermaid">
+                    flowchart TD
+                    subgraph Client["Client Layer"]
+                    CE["Chrome Extension (MV3)"]
+                    WD["Web Dashboard - React + TypeScript"]
+                    end
+                    subgraph Gateway["API Gateway"]
+                    AG["API Gateway - Rate Limiting - HMAC - TLS 1.3"]
+                    end
+                    subgraph Auth["Auth Service"]
+                    AS["Auth Service - JWT + OAuth2 PKCE"]
+                    end
+                    subgraph Core["Core Services"]
+                    RE["Risk Engine - XGBoost Model"]
+                    TS["Training Service - Module Assignment"]
+                    NS["Nudge Service - Real-time Alerts"]
+                    end
+                    subgraph Data["Data Layer"]
+                    DB[("Neo4j Graph DB")]
+                    CACHE[("Redis Cache")]
+                    end
+                    CE -->|"Behavioral Events"| AG
+                    WD -->|"API Requests"| AG
+                    AG --> AS
+                    AS --> RE
+                    AS --> TS
+                    RE -->|"Score Delta"| NS
+                    RE --> DB
+                    TS --> DB
+                    NS -->|"Browser Popup"| CE
+                    RE <--> CACHE
+                    </div>
+                    </div>
+                
+                <!-- Leave a space here for the diagram above so it does not break-->
                 <div class="sh">Tech Stack Justification</div>
                 <div class="tbl-wrap">
                     <table>
@@ -1696,274 +1747,381 @@
 
                 <div class="ph">
                     <div class="ph-eyebrow">Documentation</div>
-                    <h1>Tech Spec and Diagrams</em></h1>
+                    <h1>Detailed Component Design</em></h1>
                     <div class="ph-sub">// DB Schema · API Specification · Algorithm Logic</div>
                 </div>
 
-                <div class="sh">System Design</div>
-                <div class="diagram" onclick="openZoom('er')">
-                    <strong>ER Diagram — Tables: users · risk_scores · score_events · training_modules · assignments ·
-                        completions</strong>
-                    Replace with exported ER diagram SVG or Mermaid erDiagram block<br />
-                    <span style="color:var(--orange)">🔍 Click to zoom fullscreen</span>
-                </div>
-                <div class="diagram-hint">Recommended: <span>dbdiagram.io</span>, Mermaid erDiagram, or Lucidchart ·
-                    Export as SVG for crisp rendering at all screen sizes</div>
-
-                <div class="sh">Figma Prototype</div>
-                <div class="figma-embed-wrap">
-                    <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450"
-                        src="https://embed.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&embed-host=share"
-                        allowfullscreen></iframe>
-                </div>
-                <div style="text-align:center;margin-bottom:20px">
-                    <a href="https://www.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&t=aWZNYP38prKeBDaU-1"
-                        target="_blank" class="btn btn-fill">↗ Open Full
-                        Prototype in Figma</a>
-                </div>
-
-                <div class="sh">Tech Stack Justification</div>
-                <div class="tbl-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Layer</th>
-                                <th>Technology</th>
-                                <th>Why We Chose It</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Frontend</td>
-                                <td><span class="badge b-blue">React + TypeScript</span></td>
-                                <td>Component-based UI, strong typing for risk data models, rich dashboard component
-                                    ecosystem</td>
-                            </tr>
-                            <tr>
-                                <td>Backend API</td>
-                                <td><span class="badge b-green">FastAPI (Python)</span></td>
-                                <td>High-performance async endpoints, native Pydantic validation, seamless ML model
-                                    integration</td>
-                            </tr>
-                            <tr>
-                                <td>Risk Engine</td>
-                                <td><span class="badge b-purple">XGBoost</span></td>
-                                <td>Gradient-boosted decision trees optimized for high-accuracy behavioral risk scoring.
-                                    Provides low-latency inference, strong performance on structured telemetry data,
-                                    built-in feature importance for explainability, and robustness against noisy
-                                    behavioral signals.</td>
-                            </tr>
-                            <tr>
-                                <td>Database</td>
-                                <td><span class="badge b-orange">Neo4j</span></td>
-                                <td>Graph
-                                    databases excel at querying patterns like 'which users are vulnerable to
-                                    authority-based attacks who haven't completed related training
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Auth</td>
-                                <td><span class="badge b-red">JWT + OAuth2</span></td>
-                                <td>Stateless auth for API, SSO integration for enterprise IdP environments</td>
-                            </tr>
-                            <tr>
-                                <td>Browser Layer</td>
-                                <td><span class="badge b-yellow">Chrome Extension (MV3)</span></td>
-                                <td>Passive behavioral signal collection without proxying all traffic</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="sh">Security Architecture</div>
-                <div class="g2">
-                    <div class="card">
-                        <div class="card-title">🔐 Auth &amp; Authorization</div>
-                        <p>All API endpoints require JWT bearer tokens. RBAC enforces separation between Employee,
-                            Manager, and Admin views. OAuth2 PKCE flow for SSO.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">🛡️ Data Privacy</div>
-                        <p>User behavioral data stored encrypted at rest (AES-256). Risk scores are user-owned;
-                            org-level aggregation is opt-in. GDPR &amp; CCPA data deletion supported.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">⚡ Real-Time Event Security</div>
-                        <p>Browser extension events are HMAC-signed to prevent spoofing. Rate limiting prevents score
-                            manipulation. All audit events are append-only logs.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">📡 Transport Security</div>
-                        <p>TLS 1.3 enforced throughout. HSTS headers set. Content-Security-Policy prevents XSS. Pydantic
-                            schema validation on all API inputs before processing.</p>
-                    </div>
-                </div>
-
-                <div class="sh">API Specification</div>
-
-                <!-- GET risk-score -->
-                <div class="card" style="margin-bottom:10px">
-                    <div class="card-title">
-                        <span class="badge b-green">GET</span>
-                        /api/v1/user/{id}/risk-score
-                        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
-                    </div>
-                    <p>Returns the current risk score and full vulnerability profile for a given user.</p>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE
-                        200</div>
-                    <pre><code>{
-  <span class="key">"user_id"</span>:    <span class="str">"usr_abc123"</span>,
-  <span class="key">"score"</span>:      <span class="num">58</span>,
-  <span class="key">"risk_level"</span>: <span class="str">"HIGH"</span>,
-  <span class="key">"profile"</span>: {
-    <span class="key">"urgency_bias"</span>:   <span class="num">82</span>,
-    <span class="key">"authority_bias"</span>: <span class="num">54</span>,
-    <span class="key">"social_proof"</span>:   <span class="num">37</span>,
-    <span class="key">"scarcity"</span>:       <span class="num">21</span>
-  },
-  <span class="key">"updated_at"</span>: <span class="str">"2025-05-13T14:22:00Z"</span>
+                <div class="sh">Database Schema</div>
+<div class="diagram" onclick="openZoom('er')">
+    <strong>Database Schema — ERD Placeholder</strong>
+    Replace this with your exported ER diagram or Mermaid erDiagram block<br />
+    <span style="color:var(--orange)">🔍 Click to zoom fullscreen</span>
+</div>
+               
+             <div class="sh">API Specification</div>
+ 
+<!-- POST telemetry/click -->
+<div class="card" style="margin-bottom:10px">
+    <div class="card-title">
+        <span class="badge b-blue">POST</span>
+        /api/v1/telemetry/click
+        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+    </div>
+    <p>Triggered by the Chrome Extension when a risky link is clicked. Drops the event payload into a RabbitMQ message queue for background processing. Returns 202 immediately to prevent browser lag.</p>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">REQUEST BODY</div>
+    <pre><code>{
+  <span class="key">"user_id"</span>:       <span class="str">"uuid-1234"</span>,
+  <span class="key">"url"</span>:           <span class="str">"https://update-payroll-now.com"</span>,
+  <span class="key">"page_context"</span>: <span class="str">"URGENT: Verify your credentials"</span>,
+  <span class="key">"timestamp"</span>:    <span class="str">"2026-03-10T14:00:00Z"</span>
 }</code></pre>
-                    <div class="tbl-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Meaning</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="badge b-orange">400</span></td>
-                                    <td>Invalid user ID format</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge b-red">401</span></td>
-                                    <td>Missing or expired JWT token</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge b-red">403</span></td>
-                                    <td>Insufficient role permissions</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge b-red">500</span></td>
-                                    <td>Risk engine service unavailable</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- POST behavior -->
-                <div class="card" style="margin-bottom:10px">
-                    <div class="card-title">
-                        <span class="badge b-blue">POST</span>
-                        /api/v1/events/behavior
-                        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
-                    </div>
-                    <p>Records a behavioral event and triggers real-time risk score recalculation.</p>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">REQUEST
-                        BODY</div>
-                    <pre><code>{
-  <span class="key">"user_id"</span>:    <span class="str">"usr_abc123"</span>,
-  <span class="key">"event_type"</span>: <span class="str">"UNVERIFIED_LINK_CLICK"</span>,
-  <span class="key">"domain"</span>:     <span class="str">"suspicious-login.com"</span>,
-  <span class="key">"timestamp"</span>:  <span class="str">"2025-05-13T14:21:55Z"</span>,
-  <span class="key">"context"</span>: {
-    <span class="key">"source"</span>:           <span class="str">"email"</span>,
-    <span class="key">"urgency_signals"</span>:  <span class="kw">true</span>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 202</div>
+    <pre><code>{
+  <span class="key">"status"</span>:  <span class="num">202</span>,
+  <span class="key">"message"</span>: <span class="str">"Event queued for background processing"</span>
+}</code></pre>
+    <div class="tbl-wrap">
+        <table>
+            <thead>
+                <tr><th>Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="badge b-orange">400</span></td><td>Missing required fields (user_id, url, timestamp)</td></tr>
+                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                <tr><td><span class="badge b-red">500</span></td><td>RabbitMQ queue unavailable</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+ 
+<!-- WS alerts -->
+<div class="card" style="margin-bottom:10px">
+    <div class="card-title">
+        <span class="badge b-purple">WS</span>
+        /ws/v1/alerts/{user_id}
+        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+    </div>
+    <p>Maintains a persistent WebSocket connection with the Chrome Extension and dashboard. Used to push real-time training nudges and risk score updates back to the user without requiring a page refresh. Backed by Redis Pub/Sub as a state backplane across ALB nodes.</p>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">PUSHED PAYLOAD (Server → Client)</div>
+    <pre><code>{
+  <span class="key">"event"</span>:          <span class="str">"risk_update"</span>,
+  <span class="key">"new_score"</span>:      <span class="num">45</span>,
+  <span class="key">"score_change"</span>:   <span class="num">+15</span>,
+  <span class="key">"explanation"</span>:    <span class="str">"Your score increased because you clicked a link
+  utilizing an Urgency exploit. A new training module has been assigned."</span>,
+  <span class="key">"new_training_id"</span>: <span class="str">"TM-URG-01"</span>
+}</code></pre>
+    <div class="tbl-wrap">
+        <table>
+            <thead>
+                <tr><th>Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                <tr><td><span class="badge b-red">404</span></td><td>User ID not found</td></tr>
+                <tr><td><span class="badge b-red">1011</span></td><td>WebSocket server error — connection dropped</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+ 
+<!-- GET dashboard -->
+<div class="card" style="margin-bottom:10px">
+    <div class="card-title">
+        <span class="badge b-green">GET</span>
+        /api/v1/users/{user_id}/dashboard
+        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+    </div>
+    <p>Fetches aggregated dashboard state including the current risk score (0–100), active alerts, and historical score graph data. Called on DashboardLayout mount.</p>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+    <pre><code>{
+  <span class="key">"risk_score"</span>:   <span class="num">56</span>,
+  <span class="key">"risk_label"</span>:   <span class="str">"HIGH"</span>,
+  <span class="key">"point_change"</span>: <span class="num">+6</span>,
+  <span class="key">"alert_feed"</span>: [
+    {
+      <span class="key">"event_id"</span>:    <span class="str">"evt_001"</span>,
+      <span class="key">"trigger_type"</span>: <span class="str">"urgency"</span>,
+      <span class="key">"timestamp"</span>:   <span class="str">"2026-03-10T09:14:22Z"</span>
+    }
+  ],
+  <span class="key">"vulnerability_profile"</span>: {
+    <span class="key">"dominant_trait"</span>: <span class="str">"Urgency"</span>,
+    <span class="key">"bias_scores"</span>: {
+      <span class="key">"urgency"</span>:     <span class="num">0.48</span>,
+      <span class="key">"authority"</span>:   <span class="num">0.15</span>,
+      <span class="key">"social_proof"</span>: <span class="num">0.12</span>,
+      <span class="key">"scarcity"</span>:    <span class="num">0.35</span>
+    }
   }
 }</code></pre>
-                    <div class="tbl-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Meaning</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="badge b-orange">400</span></td>
-                                    <td>Missing required fields (user_id, event_type, timestamp)</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge b-red">401</span></td>
-                                    <td>Missing or expired JWT token</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge b-red">500</span></td>
-                                    <td>Risk engine unavailable — event queued for retry</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- POST training complete -->
-                <div class="card">
-                    <div class="card-title">
-                        <span class="badge b-purple">POST</span>
-                        /api/v1/training/complete
-                        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
-                    </div>
-                    <p>Marks a training module as complete and applies the score delta to the user's risk profile.</p>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE
-                        200</div>
-                    <pre><code>{
-  <span class="key">"module_id"</span>:    <span class="str">"mod_phishing_001"</span>,
-  <span class="key">"score_delta"</span>:  <span class="num">-8</span>,
-  <span class="key">"new_score"</span>:    <span class="num">50</span>,
-  <span class="key">"explanation"</span>: <span class="str">"Completed Password Security Best Practices"</span>
+    <div class="tbl-wrap">
+        <table>
+            <thead>
+                <tr><th>Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                <tr><td><span class="badge b-red">404</span></td><td>User not found</td></tr>
+                <tr><td><span class="badge b-red">500</span></td><td>Neo4j graph query failed</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+ 
+<!-- GET profile -->
+<div class="card" style="margin-bottom:10px">
+    <div class="card-title">
+        <span class="badge b-green">GET</span>
+        /api/v1/users/{user_id}/profile
+        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+    </div>
+    <p>Queries Neo4j to return the user's specific cognitive vulnerability tags and bias scores across all four trigger dimensions. Called on CognitiveVulnerabilityProfile component mount.</p>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+    <pre><code>{
+  <span class="key">"user_id"</span>:            <span class="str">"uuid-1234"</span>,
+  <span class="key">"dominant_trait"</span>:     <span class="str">"Urgency"</span>,
+  <span class="key">"profile_description"</span>: <span class="str">"High susceptibility to time-pressure attacks"</span>,
+  <span class="key">"bias_scores"</span>: [
+    { <span class="key">"trigger"</span>: <span class="str">"urgency"</span>,     <span class="key">"score"</span>: <span class="num">0.48</span> },
+    { <span class="key">"trigger"</span>: <span class="str">"authority"</span>,   <span class="key">"score"</span>: <span class="num">0.15</span> },
+    { <span class="key">"trigger"</span>: <span class="str">"social_proof"</span>, <span class="key">"score"</span>: <span class="num">0.12</span> },
+    { <span class="key">"trigger"</span>: <span class="str">"scarcity"</span>,    <span class="key">"score"</span>: <span class="num">0.35</span> }
+  ]
 }</code></pre>
-                    <div class="tbl-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Meaning</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="badge b-orange">400</span></td>
-                                    <td>Module ID not found or already completed</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge b-red">401</span></td>
-                                    <td>Missing or expired JWT token</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge b-red">403</span></td>
-                                    <td>Module not assigned to this user</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge b-red">500</span></td>
-                                    <td>Score update service unavailable</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="sh">Risk Scoring Algorithm</div>
-                <div class="card">
-                    <div class="card-title">Cognitive Bias Score Calculation</div>
-                    <p>The risk score is a weighted composite of four cognitive bias dimensions, updated via an
-                        exponential moving average on each new behavioral event.</p>
-                    <pre><code><span class="cmt"># Simplified scoring pseudocode</span>
-<span class="kw">def</span> <span class="key">calculate_risk_score</span>(user_events, weights):
-    bias_scores = {
-        <span class="str">'urgency'</span>:   score_dimension(user_events, <span class="str">'urgency'</span>),
-        <span class="str">'authority'</span>: score_dimension(user_events, <span class="str">'authority'</span>),
-        <span class="str">'social'</span>:    score_dimension(user_events, <span class="str">'social_proof'</span>),
-        <span class="str">'scarcity'</span>:  score_dimension(user_events, <span class="str">'scarcity'</span>)
+    <div class="tbl-wrap">
+        <table>
+            <thead>
+                <tr><th>Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                <tr><td><span class="badge b-red">404</span></td><td>User profile not yet established (insufficient simulation data)</td></tr>
+                <tr><td><span class="badge b-red">500</span></td><td>Neo4j graph query failed</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+ 
+<!-- GET risk-history -->
+<div class="card" style="margin-bottom:10px">
+    <div class="card-title">
+        <span class="badge b-green">GET</span>
+        /api/v1/users/{user_id}/risk-history?range={range}
+        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+    </div>
+    <p>Returns an array of historical risk score data points for the given time range. Fires on TimeRangeFilter tab selection. Used to render the interactive line chart with annotated event points.</p>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">QUERY PARAMS</div>
+    <pre><code>range: <span class="str">"30d"</span> | <span class="str">"90d"</span> | <span class="str">"all"</span></code></pre>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+    <pre><code>{
+  <span class="key">"user_id"</span>: <span class="str">"uuid-1234"</span>,
+  <span class="key">"range"</span>:   <span class="str">"30d"</span>,
+  <span class="key">"data_points"</span>: [
+    { <span class="key">"timestamp"</span>: <span class="str">"2026-02-10T09:00:00Z"</span>, <span class="key">"score"</span>: <span class="num">50</span>, <span class="key">"event"</span>: <span class="kw">null</span> },
+    { <span class="key">"timestamp"</span>: <span class="str">"2026-03-03T09:14:22Z"</span>, <span class="key">"score"</span>: <span class="num">56</span>, <span class="key">"event"</span>: <span class="str">"SIM-001 click"</span> },
+    { <span class="key">"timestamp"</span>: <span class="str">"2026-03-10T11:00:00Z"</span>, <span class="key">"score"</span>: <span class="num">48</span>, <span class="key">"event"</span>: <span class="str">"Training completed"</span> }
+  ]
+}</code></pre>
+    <div class="tbl-wrap">
+        <table>
+            <thead>
+                <tr><th>Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="badge b-orange">400</span></td><td>Invalid range parameter</td></tr>
+                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                <tr><td><span class="badge b-red">404</span></td><td>User not found</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+ 
+<!-- GET training list -->
+<div class="card" style="margin-bottom:10px">
+    <div class="card-title">
+        <span class="badge b-green">GET</span>
+        /api/v1/users/{user_id}/training
+        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+    </div>
+    <p>Returns the list of training modules assigned to the user, including progress, due dates, and completion status. Called on TrainingProgressSection mount.</p>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+    <pre><code>{
+  <span class="key">"user_id"</span>: <span class="str">"uuid-1234"</span>,
+  <span class="key">"modules"</span>: [
+    {
+      <span class="key">"module_id"</span>:   <span class="str">"TM-URG-01"</span>,
+      <span class="key">"title"</span>:       <span class="str">"Recognizing Urgency-Based Phishing"</span>,
+      <span class="key">"bias_target"</span>: <span class="str">"urgency"</span>,
+      <span class="key">"progress"</span>:    <span class="num">0</span>,
+      <span class="key">"due_date"</span>:    <span class="str">"2026-03-10"</span>,
+      <span class="key">"completed"</span>:   <span class="kw">false</span>
     }
-    raw = sum(bias_scores[k] * weights[k] <span class="kw">for</span> k <span class="kw">in</span> bias_scores)
-    <span class="kw">return</span> clamp(ema_update(raw), <span class="num">0</span>, <span class="num">100</span>)
-    <span class="cmt"># 0 = minimal risk · 100 = critical risk</span></code></pre>
-                </div>
-
-            </div>
-        </div>
+  ]
+}</code></pre>
+    <div class="tbl-wrap">
+        <table>
+            <thead>
+                <tr><th>Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                <tr><td><span class="badge b-red">404</span></td><td>User not found or no modules assigned</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+ 
+<!-- GET training module content -->
+<div class="card" style="margin-bottom:10px">
+    <div class="card-title">
+        <span class="badge b-green">GET</span>
+        /api/v1/training/{module_id}
+        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+    </div>
+    <p>Fetches content URL and metadata for a specific training module. Fires on TrainingModuleCard click to load the training video or interactive content.</p>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+    <pre><code>{
+  <span class="key">"module_id"</span>:          <span class="str">"TM-URG-01"</span>,
+  <span class="key">"title"</span>:              <span class="str">"Recognizing Urgency-Based Phishing"</span>,
+  <span class="key">"content_url"</span>:        <span class="str">"https://cdn.adaptivesec.com/modules/TM-URG-01"</span>,
+  <span class="key">"bias_target"</span>:        <span class="str">"urgency"</span>,
+  <span class="key">"estimated_duration"</span>: <span class="num">8</span>
+}</code></pre>
+    <div class="tbl-wrap">
+        <table>
+            <thead>
+                <tr><th>Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                <tr><td><span class="badge b-red">404</span></td><td>Module ID not found</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+ 
+<!-- GET explanation -->
+<div class="card" style="margin-bottom:10px">
+    <div class="card-title">
+        <span class="badge b-green">GET</span>
+        /api/v1/events/{event_id}/explanation
+        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+    </div>
+    <p>Fetches the full counterfactual plain-English explanation generated by the ExplanationGenerator (Gemini API) for a specific simulation click event. Fires on individual alert item click.</p>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+    <pre><code>{
+  <span class="key">"event_id"</span>:          <span class="str">"evt_001"</span>,
+  <span class="key">"cognitive_bias_tag"</span>: <span class="str">"Urgency_Bias"</span>,
+  <span class="key">"explanation"</span>:       <span class="str">"Your score increased because you clicked a link
+  designed to pressure you with a time limit. This is an Urgency Bias
+  trigger. Not clicking this link would have prevented the 6-point increase."</span>
+}</code></pre>
+    <div class="tbl-wrap">
+        <table>
+            <thead>
+                <tr><th>Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                <tr><td><span class="badge b-red">404</span></td><td>Event ID not found</td></tr>
+                <tr><td><span class="badge b-red">500</span></td><td>ExplanationGenerator (Gemini API) unavailable</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+ 
+<!-- POST training complete -->
+<div class="card" style="margin-bottom:10px">
+    <div class="card-title">
+        <span class="badge b-blue">POST</span>
+        /api/v1/users/{user_id}/training/{module_id}/complete
+        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+    </div>
+    <p>Marks a training module as complete, triggers a risk score recalculation, and applies the susceptibility reduction. Fires on Complete button click inside TrainingModuleCard.</p>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+    <pre><code>{
+  <span class="key">"module_id"</span>:        <span class="str">"TM-URG-01"</span>,
+  <span class="key">"updated_risk_score"</span>: <span class="num">48</span>,
+  <span class="key">"score_improvement"</span>: <span class="num">8</span>,
+  <span class="key">"explanation"</span>:      <span class="str">"Your score dropped because you completed
+  Urgency Bias training."</span>,
+  <span class="key">"new_susceptibility"</span>: <span class="num">0.6375</span>
+}</code></pre>
+    <div class="tbl-wrap">
+        <table>
+            <thead>
+                <tr><th>Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="badge b-orange">400</span></td><td>Module already completed</td></tr>
+                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                <tr><td><span class="badge b-red">403</span></td><td>Module not assigned to this user</td></tr>
+                <tr><td><span class="badge b-red">404</span></td><td>User or module ID not found</td></tr>
+                <tr><td><span class="badge b-red">500</span></td><td>Score update service unavailable</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+ 
+<div class="sh">ML Pipeline — Order of Execution</div>
+<div class="card" style="margin-bottom:10px">
+    <div class="card-title">Background Worker Pipeline (backend/ml_pipeline/)</div>
+    <p>When RabbitMQ passes a click event to a background worker, it processes through the following sequential Python class modules:</p>
+    <pre><code><span class="cmt"># Step 1 — Sanitize PII from payload</span>
+<span class="key">DataPreprocessor</span>.sanitize(payload)
+<span class="cmt">→ Strips PII from URL, hashes user_id</span>
+<span class="cmt">→ Output: sanitized dict</span>
+ 
+<span class="cmt"># Step 2 — Build feature vector</span>
+<span class="key">FeatureVectorBuilder</span>.extract(sanitized_data)
+<span class="cmt">→ Output: [URL_length: 25, Domain_age: 2, prior_click_count: 0, ...]</span>
+ 
+<span class="cmt"># Step 3 — XGBoost risk scoring</span>
+<span class="key">RiskScoringEngine</span>.predict(feature_vector)
+<span class="cmt">→ Output: { threat_score: 92, risk_delta: +15 }</span>
+ 
+<span class="cmt"># Step 4 — NLP cognitive trigger classification</span>
+<span class="key">CognitiveModel</span>.tag_trigger(page_context)
+<span class="cmt">→ Output: { cognitive_trigger: "Urgency_Bias" }</span>
+ 
+<span class="cmt"># Step 5 — MAB training assignment</span>
+<span class="key">RecommendationEngine</span>.assign_training(user_id, cognitive_trigger)
+<span class="cmt">→ Output: { assigned_module: "TM-URG-01" }</span>
+ 
+<span class="cmt"># Step 6 — Neo4j graph update</span>
+<span class="key">Neo4jClient</span>.update_graph(user_id, trigger, module_id)
+<span class="cmt">→ Writes [VULNERABLE_TO] and [ASSIGNED_TRAINING] edges</span>
+ 
+<span class="cmt"># Step 7 — Counterfactual explanation (Gemini API)</span>
+<span class="key">ExplanationGenerator</span>.generate(event_context)
+<span class="cmt">→ Publishes alert to Redis Pub/Sub → pushed via WebSocket to user</span></code></pre>
+</div>
+ 
+<div class="sh">Risk Scoring Algorithm</div>
+<div class="card">
+    <div class="card-title">Cognitive Susceptibility Update Model</div>
+    <p>After each simulation interaction, cognitive susceptibility scores are updated using a configurable learning rate. The click decision model is derived from Protection Motivation Theory.</p>
+    <pre><code><span class="cmt"># Click probability (Protection Motivation Theory)</span>
+click_probability = (
+    trigger_susceptibility
+    × (<span class="num">1</span> − baseline_caution)
+    × fatigue_multiplier
+    + noise  <span class="cmt"># ±0.05</span>
+)
+ 
+<span class="cmt"># Susceptibility reduction after training completion</span>
+new_susceptibility = current_susceptibility × (<span class="num">1</span> − learning_rate)
+<span class="cmt"># learning_rate defaults to 0.25</span>
+<span class="cmt"># e.g. 0.85 → 0.6375 after one module completion</span>
+ 
+<span class="cmt"># Partial recovery if same trigger clicked again post-training</span>
+new_susceptibility = current_susceptibility + (click_penalty × <span class="num">0.5</span>)
+ 
+<span class="cmt"># Final risk score clamped to 0–100</span>
+<span class="kw">return</span> clamp(ema_update(raw_score), <span class="num">0</span>, <span class="num">100</span>)
+<span class="cmt"># 0 = minimal risk · 100 = critical risk</span></code></pre>
+</div>
 
         <!-- ═══ TESTING ═══ -->
         <div class="page" id="page-testing">
@@ -2214,6 +2372,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (id === 'requirements') animateBars();
             closeSidebar();
+            mermaid.run();
         }
 
         function filterNav(q) {
