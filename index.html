@@ -1,6 +1,9 @@
+
+Copy
+
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -64,7 +67,7 @@
             --mono: 'IBM Plex Mono', monospace;
             --sans: 'IBM Plex Sans', sans-serif;
         }
-
+ 
         *,
         *::before,
         *::after {
@@ -72,11 +75,9 @@
             margin: 0;
             padding: 0;
         }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+ 
+        html { scroll-behavior: smooth; }
+ 
         body {
             font-family: var(--sans);
             background: var(--bg-root);
@@ -85,7 +86,7 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-
+ 
         /* SIDEBAR */
         #sidebar {
             width: var(--sidebar-w);
@@ -95,13 +96,11 @@
             display: flex;
             flex-direction: column;
             position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
+            top: 0; left: 0; bottom: 0;
             z-index: 90;
             transition: transform .28s cubic-bezier(.4, 0, .2, 1);
         }
-
+ 
         .sb-logo {
             padding: 0 16px;
             height: 52px;
@@ -111,68 +110,45 @@
             border-bottom: 1px solid var(--border);
             flex-shrink: 0;
         }
-
+ 
         .sb-logo-mark {
-            width: 28px;
-            height: 28px;
+            width: 28px; height: 28px;
             background: var(--orange);
             border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             font-family: var(--mono);
-            font-size: 11px;
-            font-weight: 700;
-            color: #000;
-            flex-shrink: 0;
+            font-size: 11px; font-weight: 700;
+            color: #000; flex-shrink: 0;
         }
-
+ 
         .sb-logo-name {
             font-family: var(--mono);
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 12px; font-weight: 700;
             color: var(--text-1);
             letter-spacing: .06em;
         }
-
+ 
         .sb-status {
             margin-left: auto;
             font-family: var(--mono);
             font-size: 9px;
             color: var(--green);
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            display: flex; align-items: center; gap: 4px;
         }
-
+ 
         .sb-status::before {
             content: '';
-            width: 6px;
-            height: 6px;
+            width: 6px; height: 6px;
             border-radius: 50%;
             background: var(--green);
             box-shadow: 0 0 6px var(--green);
             animation: pulse-dot 2s ease-in-out infinite;
         }
-
-        @keyframes pulse-dot {
-
-            0%,
-            100% {
-                opacity: 1
-            }
-
-            50% {
-                opacity: .4
-            }
-        }
-
-        .sb-search {
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--border);
-            flex-shrink: 0;
-        }
-
+ 
+        @keyframes pulse-dot { 0%,100% { opacity:1 } 50% { opacity:.4 } }
+ 
+        .sb-search { padding: 10px 12px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+ 
         .sb-search input {
             width: 100%;
             background: var(--bg-input);
@@ -185,48 +161,28 @@
             outline: none;
             transition: border-color .15s;
         }
-
-        .sb-search input:focus {
-            border-color: var(--orange-border);
-            color: var(--text-1);
-        }
-
-        .sb-search input::placeholder {
-            color: var(--text-4);
-        }
-
-        .sb-nav {
-            flex: 1;
-            padding: 8px 8px;
-            overflow-y: auto;
-        }
-
-        .sb-nav::-webkit-scrollbar {
-            width: 2px;
-        }
-
-        .sb-nav::-webkit-scrollbar-thumb {
-            background: var(--border-light);
-        }
-
+ 
+        .sb-search input:focus { border-color: var(--orange-border); color: var(--text-1); }
+        .sb-search input::placeholder { color: var(--text-4); }
+ 
+        .sb-nav { flex: 1; padding: 8px 8px; overflow-y: auto; }
+        .sb-nav::-webkit-scrollbar { width: 2px; }
+        .sb-nav::-webkit-scrollbar-thumb { background: var(--border-light); }
+ 
         .sb-section {
             font-family: var(--mono);
-            font-size: 9px;
-            letter-spacing: .12em;
+            font-size: 9px; letter-spacing: .12em;
             color: var(--text-4);
             text-transform: uppercase;
             padding: 10px 8px 4px;
         }
-
+ 
         .sb-item {
-            display: flex;
-            align-items: center;
-            gap: 9px;
+            display: flex; align-items: center; gap: 9px;
             padding: 8px 10px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 13px;
-            font-weight: 400;
+            font-size: 13px; font-weight: 400;
             color: var(--text-2);
             text-decoration: none;
             border: 1px solid transparent;
@@ -234,40 +190,23 @@
             margin-bottom: 1px;
             user-select: none;
         }
-
-        .sb-item:hover {
-            background: var(--bg-card);
-            color: var(--text-1);
-        }
-
+ 
+        .sb-item:hover { background: var(--bg-card); color: var(--text-1); }
+ 
         .sb-item.active {
             background: var(--orange-subtle);
             color: var(--orange);
             border-color: var(--orange-border);
             font-weight: 500;
         }
-
-        .sb-item .ico {
-            width: 16px;
-            height: 16px;
-            flex-shrink: 0;
-            opacity: .6;
-        }
-
-        .sb-item.active .ico {
-            opacity: 1;
-        }
-
-        .sb-footer {
-            padding: 12px;
-            border-top: 1px solid var(--border);
-            flex-shrink: 0;
-        }
-
+ 
+        .sb-item .ico { width: 16px; height: 16px; flex-shrink: 0; opacity: .6; }
+        .sb-item.active .ico { opacity: 1; }
+ 
+        .sb-footer { padding: 12px; border-top: 1px solid var(--border); flex-shrink: 0; }
+ 
         .sb-gh {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex; align-items: center; gap: 8px;
             padding: 8px 10px;
             background: var(--bg-card);
             border: 1px solid var(--border-light);
@@ -277,179 +216,79 @@
             text-decoration: none;
             transition: border-color .15s, color .15s;
         }
-
-        .sb-gh:hover {
-            border-color: var(--orange-border);
-            color: var(--text-1);
-        }
-
+ 
+        .sb-gh:hover { border-color: var(--orange-border); color: var(--text-1); }
+ 
         /* MAIN */
-        #main {
-            margin-left: var(--sidebar-w);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
+        #main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+ 
         #topbar {
             height: 52px;
             background: rgba(15, 16, 17, .92);
             backdrop-filter: blur(14px);
             border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
+            display: flex; align-items: center;
             padding: 0 28px;
             justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            position: sticky; top: 0; z-index: 50;
         }
-
+ 
         .tb-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            display: flex; align-items: center; gap: 6px;
             font-family: var(--mono);
-            font-size: 11px;
-            color: var(--text-3);
-            letter-spacing: .05em;
+            font-size: 11px; color: var(--text-3); letter-spacing: .05em;
         }
-
-        .tb-breadcrumb span {
-            color: var(--orange);
-        }
-
-        .tb-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .tb-chip {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            padding: 4px 10px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 20px;
-            font-size: 11px;
-            color: var(--text-2);
-        }
-
-        .tb-avatar {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--orange);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--mono);
-            font-size: 9px;
-            font-weight: 700;
-            color: #000;
-        }
-
+ 
+        .tb-breadcrumb span { color: var(--orange); }
+        .tb-right { display: flex; align-items: center; gap: 10px; }
+ 
         /* PAGES */
-        .page {
-            display: none;
-            animation: fadeSlide .22s ease;
-        }
-
-        .page.active {
-            display: block;
-        }
-
+        .page { display: none; animation: fadeSlide .22s ease; }
+        .page.active { display: block; }
+ 
         @keyframes fadeSlide {
-            from {
-                opacity: 0;
-                transform: translateY(6px)
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0)
-            }
+            from { opacity: 0; transform: translateY(6px) }
+            to   { opacity: 1; transform: translateY(0) }
         }
-
-        .pg {
-            padding: 32px 36px 64px;
-            max-width: 1060px;
-        }
-
-        .ph {
-            margin-bottom: 28px;
-        }
-
+ 
+        .pg { padding: 32px 36px 64px; max-width: 1060px; }
+        .ph { margin-bottom: 28px; }
+ 
         .ph-eyebrow {
             font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: .14em;
+            font-size: 10px; letter-spacing: .14em;
             color: var(--orange);
             text-transform: uppercase;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex; align-items: center; gap: 8px;
         }
-
-        .ph-eyebrow::before {
-            content: '';
-            width: 18px;
-            height: 1px;
-            background: var(--orange);
-        }
-
+ 
+        .ph-eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--orange); }
+ 
         .ph h1 {
             font-family: var(--mono);
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--text-1);
-            line-height: 1.2;
-            margin-bottom: 6px;
+            font-size: 26px; font-weight: 700;
+            color: var(--text-1); line-height: 1.2; margin-bottom: 6px;
         }
-
-        .ph h1 em {
-            color: var(--orange);
-            font-style: normal;
-        }
-
-        .ph-sub {
-            font-size: 13px;
-            color: var(--text-3);
-            font-family: var(--mono);
-        }
-
+ 
+        .ph h1 em { color: var(--orange); font-style: normal; }
+        .ph-sub { font-size: 13px; color: var(--text-3); font-family: var(--mono); }
+ 
         .sh {
             font-family: var(--mono);
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: .1em;
+            font-size: 11px; font-weight: 600; letter-spacing: .1em;
             color: var(--text-3);
             text-transform: uppercase;
             margin: 28px 0 12px;
             padding-bottom: 8px;
             border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex; align-items: center; gap: 8px;
         }
-
-        .sh::before {
-            content: '//';
-            color: var(--orange);
-            font-size: 11px;
-        }
-
-        p {
-            font-size: 13px;
-            line-height: 1.72;
-            color: var(--text-2);
-            margin-bottom: 12px;
-        }
-
+ 
+        .sh::before { content: '//'; color: var(--orange); font-size: 11px; }
+ 
+        p { font-size: 13px; line-height: 1.72; color: var(--text-2); margin-bottom: 12px; }
+ 
         /* CARDS */
         .card {
             background: var(--bg-card);
@@ -458,27 +297,17 @@
             padding: 18px 20px;
             transition: border-color .15s;
         }
-
-        .card:hover {
-            border-color: var(--border-light);
-        }
-
-        .card+.card {
-            margin-top: 10px;
-        }
-
+ 
+        .card:hover { border-color: var(--border-light); }
+        .card+.card { margin-top: 10px; }
+ 
         .card-title {
             font-family: var(--mono);
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-1);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            font-size: 12px; font-weight: 600;
+            color: var(--text-1); margin-bottom: 8px;
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
         }
-
+ 
         /* HERO */
         .hero-card {
             background: var(--bg-card);
@@ -486,138 +315,58 @@
             border-radius: 10px;
             padding: 36px 36px 32px;
             margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
         }
-
+ 
         .hero-card::after {
             content: '';
             position: absolute;
-            top: -80px;
-            right: -80px;
-            width: 320px;
-            height: 320px;
+            top: -80px; right: -80px;
+            width: 320px; height: 320px;
             background: radial-gradient(circle, rgba(249, 115, 22, .09) 0%, transparent 65%);
             pointer-events: none;
         }
-
-        .hero-card h1 {
-            font-family: var(--mono);
-            font-size: 34px;
-            font-weight: 700;
-            line-height: 1.15;
-            margin-bottom: 12px;
-        }
-
-        .hero-card h1 em {
-            color: var(--orange);
-            font-style: normal;
-        }
-
-        .hero-desc {
-            font-size: 14px;
-            line-height: 1.72;
-            color: var(--text-2);
-            max-width: 580px;
-            margin-bottom: 22px;
-        }
-
-        .btn-row {
-            display: flex;
-            gap: 9px;
-            flex-wrap: wrap;
-        }
-
+ 
+        .hero-card h1 { font-family: var(--mono); font-size: 34px; font-weight: 700; line-height: 1.15; margin-bottom: 12px; }
+        .hero-card h1 em { color: var(--orange); font-style: normal; }
+ 
+        .hero-desc { font-size: 14px; line-height: 1.72; color: var(--text-2); max-width: 580px; margin-bottom: 22px; }
+ 
+        .btn-row { display: flex; gap: 9px; flex-wrap: wrap; }
+ 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            display: inline-flex; align-items: center; gap: 6px;
             padding: 8px 16px;
             border-radius: 5px;
-            font-family: var(--sans);
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            border: none;
+            font-family: var(--sans); font-size: 12px; font-weight: 500;
+            cursor: pointer; text-decoration: none; border: none;
             transition: all .15s;
         }
-
-        .btn-fill {
-            background: var(--orange);
-            color: #000;
-            font-weight: 600;
-        }
-
+ 
+        .btn-fill { background: var(--orange); color: #000; font-weight: 600; }
+ 
         .btn-fill:hover {
             background: var(--orange-bright);
             box-shadow: 0 4px 14px rgba(249, 115, 22, .3);
             transform: translateY(-1px);
         }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-2);
-            border: 1px solid var(--border-light);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--orange-border);
-            color: var(--text-1);
-        }
-
+ 
+        .btn-outline { background: transparent; color: var(--text-2); border: 1px solid var(--border-light); }
+        .btn-outline:hover { border-color: var(--orange-border); color: var(--text-1); }
+ 
         /* GRID */
-        .g2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .g3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-        }
-
-        .g4 {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
+        .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+ 
         /* STAT */
-        .stat {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px 18px;
-            text-align: left;
-        }
-
-        .stat-n {
-            font-family: var(--mono);
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--orange);
-            line-height: 1;
-            margin-bottom: 5px;
-        }
-
-        .stat-l {
-            font-size: 11px;
-            color: var(--text-3);
-            font-family: var(--mono);
-            letter-spacing: .04em;
-        }
-
+        .stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 18px; text-align: left; }
+        .stat-n { font-family: var(--mono); font-size: 32px; font-weight: 700; color: var(--orange); line-height: 1; margin-bottom: 5px; }
+        .stat-l { font-size: 11px; color: var(--text-3); font-family: var(--mono); letter-spacing: .04em; }
+ 
         /* TEAM */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 10px;
-            margin-top: 4px;
-        }
-
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-top: 4px; }
+ 
         .team-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -626,151 +375,60 @@
             text-align: center;
             transition: border-color .15s, transform .15s;
         }
-
-        .team-card:hover {
-            border-color: var(--orange-border);
-            transform: translateY(-2px);
-        }
-
+ 
+        .team-card:hover { border-color: var(--orange-border); transform: translateY(-2px); }
+ 
         .t-av {
-            width: 56px;
-            height: 56px;
+            width: 56px; height: 56px;
             border-radius: 50%;
             background: var(--bg-input);
             border: 2px dashed var(--border-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             font-size: 22px;
             margin: 0 auto 10px;
             overflow: hidden;
             transition: border-color .15s;
         }
-
-        .team-card:hover .t-av {
-            border-color: var(--orange-border);
-        }
-
-        .t-av img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .t-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-1);
-            margin-bottom: 3px;
-        }
-
-        .t-role {
-            font-family: var(--mono);
-            font-size: 10px;
-            color: var(--orange);
-        }
-
-        .t-photo-hint {
-            font-family: var(--mono);
-            font-size: 8px;
-            color: var(--text-4);
-            margin-top: 4px;
-            letter-spacing: .05em;
-        }
-
+ 
+        .team-card:hover .t-av { border-color: var(--orange-border); }
+        .t-av img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .t-name { font-size: 13px; font-weight: 600; color: var(--text-1); margin-bottom: 3px; }
+        .t-role { font-family: var(--mono); font-size: 10px; color: var(--orange); }
+ 
         /* BADGE */
         .badge {
-            display: inline-flex;
-            align-items: center;
+            display: inline-flex; align-items: center;
             padding: 2px 7px;
             border-radius: 4px;
-            font-family: var(--mono);
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: .07em;
-            text-transform: uppercase;
-            white-space: nowrap;
+            font-family: var(--mono); font-size: 9px; font-weight: 700;
+            letter-spacing: .07em; text-transform: uppercase; white-space: nowrap;
         }
-
-        .b-orange {
-            background: var(--orange-subtle);
-            color: var(--orange);
-            border: 1px solid var(--orange-border);
-        }
-
-        .b-green {
-            background: var(--green-sub);
-            color: var(--green);
-            border: 1px solid rgba(34, 197, 94, .22);
-        }
-
-        .b-red {
-            background: var(--red-sub);
-            color: var(--red);
-            border: 1px solid rgba(239, 68, 68, .2);
-        }
-
-        .b-blue {
-            background: var(--blue-sub);
-            color: var(--blue);
-            border: 1px solid rgba(96, 165, 250, .2);
-        }
-
-        .b-purple {
-            background: var(--purple-sub);
-            color: var(--purple);
-            border: 1px solid rgba(167, 139, 250, .22);
-        }
-
-        .b-yellow {
-            background: rgba(234, 179, 8, .1);
-            color: var(--yellow);
-            border: 1px solid rgba(234, 179, 8, .2);
-        }
-
+ 
+        .b-orange { background: var(--orange-subtle); color: var(--orange); border: 1px solid var(--orange-border); }
+        .b-green  { background: var(--green-sub); color: var(--green); border: 1px solid rgba(34, 197, 94, .22); }
+        .b-red    { background: var(--red-sub); color: var(--red); border: 1px solid rgba(239, 68, 68, .2); }
+        .b-blue   { background: var(--blue-sub); color: var(--blue); border: 1px solid rgba(96, 165, 250, .2); }
+        .b-purple { background: var(--purple-sub); color: var(--purple); border: 1px solid rgba(167, 139, 250, .22); }
+        .b-yellow { background: rgba(234, 179, 8, .1); color: var(--yellow); border: 1px solid rgba(234, 179, 8, .2); }
+ 
         /* TABLE */
-        .tbl-wrap {
-            overflow-x: auto;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            margin-bottom: 16px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-        }
-
+        .tbl-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 16px; }
+ 
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+ 
         th {
-            font-family: var(--mono);
-            font-size: 9px;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            color: var(--text-3);
-            text-align: left;
-            padding: 10px 14px;
+            font-family: var(--mono); font-size: 9px; letter-spacing: .1em;
+            text-transform: uppercase; color: var(--text-3);
+            text-align: left; padding: 10px 14px;
             background: var(--bg-card);
             border-bottom: 1px solid var(--border);
             white-space: nowrap;
         }
-
-        td {
-            padding: 10px 14px;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-2);
-            vertical-align: middle;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:hover td {
-            background: rgba(249, 115, 22, .03);
-        }
-
+ 
+        td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-2); vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(249, 115, 22, .03); }
+ 
         /* CODE */
         pre {
             background: #0a0b0c;
@@ -779,78 +437,26 @@
             border-radius: 6px;
             padding: 14px 16px;
             overflow-x: auto;
-            font-family: var(--mono);
-            font-size: 12px;
-            line-height: 1.6;
+            font-family: var(--mono); font-size: 12px; line-height: 1.6;
             margin-bottom: 14px;
             color: #cdd6f4;
         }
-
-        .kw {
-            color: #89b4fa;
-        }
-
-        .str {
-            color: #a6e3a1;
-        }
-
-        .key {
-            color: #89dceb;
-        }
-
-        .num {
-            color: var(--orange-bright);
-        }
-
-        .cmt {
-            color: #585b70;
-        }
-
+ 
+        .kw  { color: #89b4fa; }
+        .str { color: #a6e3a1; }
+        .key { color: #89dceb; }
+        .num { color: var(--orange-bright); }
+        .cmt { color: #585b70; }
+ 
         /* RISK BARS */
-        .rbar-wrap {
-            margin: 6px 0 10px;
-        }
-
-        .rbar-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-
-        .rbar-label {
-            font-family: var(--mono);
-            font-size: 10px;
-            color: var(--text-2);
-            width: 110px;
-            flex-shrink: 0;
-        }
-
-        .rbar-track {
-            flex: 1;
-            height: 5px;
-            background: var(--bg-input);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .rbar-fill {
-            height: 100%;
-            border-radius: 3px;
-            width: 0;
-            transition: width .9s cubic-bezier(.4, 0, .2, 1) .2s;
-        }
-
-        .rbar-val {
-            font-family: var(--mono);
-            font-size: 10px;
-            color: var(--text-2);
-            width: 28px;
-            text-align: right;
-            flex-shrink: 0;
-        }
-
-        /* DIAGRAM — zoomable */
+        .rbar-wrap { margin: 6px 0 10px; }
+        .rbar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .rbar-label { font-family: var(--mono); font-size: 10px; color: var(--text-2); width: 110px; flex-shrink: 0; }
+        .rbar-track { flex: 1; height: 5px; background: var(--bg-input); border-radius: 3px; overflow: hidden; }
+        .rbar-fill { height: 100%; border-radius: 3px; width: 0; transition: width .9s cubic-bezier(.4, 0, .2, 1) .2s; }
+        .rbar-val { font-family: var(--mono); font-size: 10px; color: var(--text-2); width: 28px; text-align: right; flex-shrink: 0; }
+ 
+        /* DIAGRAM */
         .diagram {
             background: var(--bg-input);
             border: 1px dashed var(--border-light);
@@ -858,401 +464,165 @@
             padding: 36px 24px;
             text-align: center;
             color: var(--text-4);
-            font-family: var(--mono);
-            font-size: 11px;
-            line-height: 1.8;
+            font-family: var(--mono); font-size: 11px; line-height: 1.8;
             margin-bottom: 4px;
             cursor: zoom-in;
             transition: border-color .15s, background .15s;
         }
-
-        .diagram:hover {
-            border-color: var(--orange-border);
-            background: rgba(249, 115, 22, .04);
-        }
-
-        .diagram strong {
-            color: var(--text-3);
-            display: block;
-            margin-bottom: 6px;
-            font-size: 12px;
-        }
-
-        .diagram-hint {
-            font-family: var(--mono);
-            font-size: 9px;
-            color: var(--text-4);
-            margin-bottom: 14px;
-            letter-spacing: .06em;
-            padding: 0 4px;
-        }
-
-        .diagram-hint span {
-            color: var(--orange);
-        }
-
+ 
+        .diagram:hover { border-color: var(--orange-border); background: rgba(249, 115, 22, .04); }
+        .diagram strong { color: var(--text-3); display: block; margin-bottom: 6px; font-size: 12px; }
+ 
         /* ZOOM MODAL */
         .zoom-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, .88);
-            z-index: 999;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            cursor: zoom-out;
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,.88); z-index: 999;
+            align-items: center; justify-content: center;
+            padding: 24px; cursor: zoom-out;
         }
-
-        .zoom-modal.open {
-            display: flex;
-        }
-
+ 
+        .zoom-modal.open { display: flex; }
+ 
         .zoom-modal-inner {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
             border-radius: 10px;
             padding: 40px 48px;
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow: auto;
-            cursor: default;
+            max-width: 800px; width: 100%; max-height: 90vh;
+            overflow: auto; cursor: default;
         }
-
-        .zoom-modal-inner img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-        }
-
+ 
+        .zoom-modal-inner img { max-width: 100%; height: auto; border-radius: 6px; }
+ 
         /* POSTER BANNER */
         .poster-banner {
             background: var(--bg-card-2);
             border: 1px dashed var(--orange-border);
             border-radius: 10px;
-            padding: 32px 28px;
-            margin-bottom: 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            padding: 32px 28px; margin-bottom: 20px;
+            text-align: center; position: relative; overflow: hidden;
         }
-
+ 
         .poster-banner::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(249, 115, 22, .03) 8px, rgba(249, 115, 22, .03) 16px);
+            content: ''; position: absolute; inset: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(249,115,22,.03) 8px, rgba(249,115,22,.03) 16px);
             pointer-events: none;
         }
-
-        .poster-banner-label {
-            font-family: var(--mono);
-            font-size: 9px;
-            letter-spacing: .14em;
-            color: var(--orange);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .poster-banner h2 {
-            font-family: var(--mono);
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-1);
-            margin-bottom: 8px;
-        }
-
-        .poster-banner p {
-            font-size: 12px;
-            color: var(--text-3);
-            margin: 0;
-            line-height: 1.7;
-        }
-
+ 
+        .poster-banner h2 { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; }
+        .poster-banner p { font-size: 12px; color: var(--text-3); margin: 0; line-height: 1.7; }
+ 
         /* FIGMA EMBED */
-        .figma-embed-wrap {
-            background: var(--bg-input);
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-
-        .figma-embed-wrap iframe {
-            width: 100%;
-            height: 480px;
-            border: none;
-            display: block;
-        }
-
-        .figma-placeholder {
-            padding: 60px 24px;
-            text-align: center;
-            font-family: var(--mono);
-            font-size: 11px;
-            color: var(--text-4);
-            line-height: 1.9;
-        }
-
-        .figma-placeholder strong {
-            color: var(--text-3);
-            display: block;
-            margin-bottom: 8px;
-            font-size: 13px;
-        }
-
+        .figma-embed-wrap { background: var(--bg-input); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+        .figma-embed-wrap iframe { width: 100%; height: 480px; border: none; display: block; }
+ 
         /* TIMELINE */
-        .timeline {
-            padding-left: 20px;
-            position: relative;
-        }
-
+        .timeline { padding-left: 20px; position: relative; }
+ 
         .timeline::before {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: var(--border-light);
+            content: ''; position: absolute;
+            left: 6px; top: 0; bottom: 0;
+            width: 1px; background: var(--border-light);
         }
-
-        .tl-item {
-            position: relative;
-            padding-bottom: 22px;
-        }
-
+ 
+        .tl-item { position: relative; padding-bottom: 22px; }
+ 
         .tl-item::before {
-            content: '';
-            position: absolute;
-            left: -18px;
-            top: 4px;
-            width: 8px;
-            height: 8px;
+            content: ''; position: absolute;
+            left: -18px; top: 4px;
+            width: 8px; height: 8px;
             border-radius: 50%;
             background: var(--orange);
-            box-shadow: 0 0 8px rgba(249, 115, 22, .5);
+            box-shadow: 0 0 8px rgba(249,115,22,.5);
         }
-
-        .tl-item.done::before {
-            background: var(--green);
-            box-shadow: 0 0 8px rgba(34, 197, 94, .4);
-        }
-
-        .tl-week {
-            font-family: var(--mono);
-            font-size: 9px;
-            color: var(--orange);
-            letter-spacing: .08em;
-            margin-bottom: 2px;
-        }
-
-        .tl-item.done .tl-week {
-            color: var(--green);
-        }
-
-        .tl-task {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-1);
-        }
-
-        .tl-sub {
-            font-size: 12px;
-            color: var(--text-3);
-            margin-top: 2px;
-        }
-
+ 
+        .tl-item.done::before { background: var(--green); box-shadow: 0 0 8px rgba(34,197,94,.4); }
+        .tl-week { font-family: var(--mono); font-size: 9px; color: var(--orange); letter-spacing: .08em; margin-bottom: 2px; }
+        .tl-item.done .tl-week { color: var(--green); }
+        .tl-task { font-size: 13px; font-weight: 500; color: var(--text-1); }
+        .tl-sub { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+ 
         /* FEATURES */
-        .feat-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
+        .feat-list { display: flex; flex-direction: column; gap: 10px; }
+ 
         .feat {
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px 18px;
+            display: flex; gap: 14px; align-items: flex-start;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 8px; padding: 16px 18px;
             transition: border-color .15s;
         }
-
-        .feat:hover {
-            border-color: var(--orange-border);
-        }
-
+ 
+        .feat:hover { border-color: var(--orange-border); }
+ 
         .feat-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 7px;
-            background: var(--orange-subtle);
-            border: 1px solid var(--orange-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
+            width: 34px; height: 34px; border-radius: 7px;
+            background: var(--orange-subtle); border: 1px solid var(--orange-border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; flex-shrink: 0;
         }
-
-        .feat-body h3 {
-            font-family: var(--mono);
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-1);
-            margin-bottom: 4px;
-        }
-
-        .feat-body p {
-            font-size: 12px;
-            color: var(--text-2);
-            margin: 0;
-            line-height: 1.6;
-        }
-
+ 
+        .feat-body h3 { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--text-1); margin-bottom: 4px; }
+        .feat-body p { font-size: 12px; color: var(--text-2); margin: 0; line-height: 1.6; }
+ 
         /* NOTICE */
         .notice {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
+            display: flex; gap: 12px; align-items: flex-start;
             background: var(--orange-subtle);
             border: 1px solid var(--orange-border);
-            border-radius: 7px;
-            padding: 14px 16px;
-            margin-bottom: 14px;
+            border-radius: 7px; padding: 14px 16px; margin-bottom: 14px;
         }
-
-        .notice-icon {
-            font-size: 16px;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-
-        .notice p {
-            margin: 0;
-            font-size: 12px;
-            color: var(--text-2);
-            line-height: 1.65;
-        }
-
-        .notice strong {
-            color: var(--orange);
-        }
-
+ 
+        .notice-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+        .notice p { margin: 0; font-size: 12px; color: var(--text-2); line-height: 1.65; }
+        .notice strong { color: var(--orange); }
+ 
         /* IRB LINK */
         .irb-link {
-            font-family: var(--mono);
-            font-size: 10px;
-            color: var(--orange);
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 8px;
-            border-bottom: 1px dashed var(--orange-border);
-            padding-bottom: 1px;
+            font-family: var(--mono); font-size: 10px; color: var(--orange);
+            text-decoration: none; display: inline-block; margin-top: 8px;
+            border-bottom: 1px dashed var(--orange-border); padding-bottom: 1px;
         }
-
-        .irb-link:hover {
-            color: var(--orange-bright);
-        }
-
+ 
+        .irb-link:hover { color: var(--orange-bright); }
+ 
         /* MOBILE */
         .hamburger {
-            display: none;
-            position: fixed;
-            top: 13px;
-            left: 13px;
-            z-index: 200;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 6px;
-            padding: 6px 9px;
-            cursor: pointer;
-            font-size: 15px;
-            color: var(--text-1);
+            display: none; position: fixed;
+            top: 13px; left: 13px; z-index: 200;
+            background: var(--bg-card); border: 1px solid var(--border-light);
+            border-radius: 6px; padding: 6px 9px;
+            cursor: pointer; font-size: 15px; color: var(--text-1);
         }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, .6);
-            z-index: 80;
-        }
-
+ 
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 80; }
+ 
         @media(max-width:768px) {
-            #sidebar {
-                transform: translateX(-100%);
-            }
-
-            #sidebar.open {
-                transform: translateX(0);
-            }
-
-            #main {
-                margin-left: 0;
-            }
-
-            .hamburger {
-                display: block;
-            }
-
-            .overlay.show {
-                display: block;
-            }
-
-            .pg {
-                padding: 20px 16px 48px;
-            }
-
-            .g2,
-            .g3,
-            .g4 {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-card {
-                padding: 22px;
-            }
-
-            .hero-card h1 {
-                font-size: 22px;
-            }
-
-            #topbar {
-                padding: 0 16px 0 52px;
-            }
-
-            .zoom-modal-inner {
-                padding: 24px 20px;
-            }
+            #sidebar { transform: translateX(-100%); }
+            #sidebar.open { transform: translateX(0); }
+            #main { margin-left: 0; }
+            .hamburger { display: block; }
+            .overlay.show { display: block; }
+            .pg { padding: 20px 16px 48px; }
+            .g2,.g3,.g4 { grid-template-columns: 1fr; }
+            .hero-card { padding: 22px; }
+            .hero-card h1 { font-size: 22px; }
+            #topbar { padding: 0 16px 0 52px; }
+            .zoom-modal-inner { padding: 24px 20px; }
         }
-
+ 
         @media(max-width:480px) {
-            .stat-n {
-                font-size: 24px;
-            }
-
-            table {
-                font-size: 11px;
-            }
-
-            td,
-            th {
-                padding: 8px 10px;
-            }
+            .stat-n { font-size: 24px; }
+            table { font-size: 11px; }
+            td,th { padding: 8px 10px; }
         }
     </style>
 </head>
-
+ 
 <body>
-
+ 
     <button class="hamburger" onclick="openSidebar()">☰</button>
     <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
-
+ 
     <!-- SIDEBAR -->
     <aside id="sidebar">
         <div class="sb-logo">
@@ -1290,8 +660,6 @@
                 </svg>
                 Architecture
             </div>
-
-
             <div class="sb-item" data-page="design" onclick="go('design')">
                 <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
                     <polyline points="2,11 5,8 8,10 11,6 14,7" />
@@ -1320,35 +688,29 @@
         <div class="sb-footer">
             <a class="sb-gh" href="https://github.com/ForhaadM/adaptivesec_capstone_site.git" target="_blank">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                        d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12" />
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12" />
                 </svg>
                 GitHub Repository
             </a>
         </div>
     </aside>
-
+ 
     <!-- MAIN -->
     <div id="main">
         <div id="topbar">
             <div class="tb-breadcrumb">ADAPTIVESEC &nbsp;/&nbsp; <span id="tbCrumb">HOME</span></div>
-            <div class="tb-right">
-            </div>
+            <div class="tb-right"></div>
         </div>
-
+ 
         <!-- ═══ HOME ═══ -->
         <div class="page active" id="page-home">
             <div class="pg">
-
-                <!-- POSTER — front and center per assignment requirements -->
                 <div class="poster-banner">
                     <h2>Project Poster</h2>
-                    <p><br />
-                        Replace this banner with your poster image before final submission.</p>
+                    <p><br />Replace this banner with your poster image before final submission.</p>
                 </div>
-
+ 
                 <div class="hero-card">
-                    <div class="ph-eyebrow" style="margin-bottom:12px">CSI 4999 · Winter 2026</div>
                     <h1><em>Adaptive</em>Sec</h1>
                     <p class="hero-desc">
                         AdaptiveSec is a cybersecurity awareness and behavioral risk analysis platform delivered through
@@ -1359,701 +721,410 @@
                         security awareness training and improved human risk management.
                     </p>
                     <div class="btn-row">
-                        <a href="https://github.com/ForhaadM/adaptivesec_capstone_site.git" target="_blank"
-                            class="btn btn-fill">↗ GitHub
-                            Repo</a>
-                        <a href="https://www.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?t=88JRfEmGj5VQcXX6-1"
-                            target="_blank" class="btn btn-outline">⬡ Figma
-                            Prototype</a>
+                        <a href="https://github.com/ForhaadM/adaptivesec_capstone_site.git" target="_blank" class="btn btn-fill">↗ GitHub Repo</a>
+                        <a href="https://www.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?t=88JRfEmGj5VQcXX6-1" target="_blank" class="btn btn-outline">⬡ Figma Prototype</a>
                         <span class="btn btn-outline" onclick="go('design')" style="cursor:pointer">◫ API Spec</span>
-                        <span class="btn btn-outline" onclick="go('architecture')" style="cursor:pointer">◈
-                            Architecture</span>
+                        <span class="btn btn-outline" onclick="go('architecture')" style="cursor:pointer">◈ Architecture</span>
                     </div>
                 </div>
-
-              
-
+ 
                 <div class="sh">The Problem</div>
                 <p>Most successful cyberattacks exploit human behavior rather than technical vulnerabilities.
                     Despite this reality, most enterprise cybersecurity awareness programs remain static,
                     compliance-driven, and one-size-fits-all. Training is typically delivered annually or after a user
-                    has already made a risky decision, which breaks the connection between the user’s action and the
-                    lesson intended to prevent it. As a result, retention is low and the same mistakes continue to
-                    occur.
-
+                    has already made a risky decision, which breaks the connection between the user's action and the
+                    lesson intended to prevent it. As a result, retention is low and the same mistakes continue to occur.
                     Traditional awareness platforms also focus primarily on blocking threats silently at the system
                     level, missing the opportunity to explain to users why an action was risky and how similar attacks
                     operate. Without real-time feedback or behavioral insight, users are unable to build practical
                     intuition against modern phishing and social engineering tactics.
-
                     This creates a significant disconnect between rapidly evolving social engineering attacks and
                     outdated awareness models that do not adapt to individual behavior, cognitive biases, or emerging
                     threat patterns. Organizations are left with limited visibility into human risk, while employees
                     remain unprepared to recognize and respond to sophisticated psychological manipulation techniques
                     used in modern cyberattacks.</p>
-
+ 
                 <div class="sh">Our Solution</div>
                 <div class="feat-list" style="margin-bottom:20px">
                     <div class="feat">
                         <div class="feat-icon">⚡</div>
                         <div class="feat-body">
                             <h3>Cognitive Vulnerability Profiling</h3>
-                            <p>We model each user's susceptibility across four dimensions. Urgency Bias, Authority
-                                Bias, Social Proof, and Scarcity and build a personalized vulnerability profile.
+                            <p>We model each user's susceptibility across four dimensions — Urgency Bias, Authority Bias, Social Proof, and Scarcity — and build a personalized vulnerability profile.</p>
                         </div>
                     </div>
                     <div class="feat">
                         <div class="feat-icon">🎯</div>
                         <div class="feat-body">
                             <h3>Adaptive Just-in-Time Training</h3>
-                            <p>Training nudges fire at the moment of risky behavior (e.g., clicking an unverified link),
-                                delivering context-aware lessons matched to the user's active vulnerability profile.</p>
+                            <p>Training nudges fire at the moment of risky behavior (e.g., clicking an unverified link), delivering context-aware lessons matched to the user's active vulnerability profile.</p>
                         </div>
                     </div>
                     <div class="feat">
                         <div class="feat-icon">📊</div>
                         <div class="feat-body">
                             <h3>Live Security Dashboard</h3>
-                            <p>Users see their risk score, 30, 90, or all time trend, score change explanations, and
-                                training
-                                progress in one unified dashboard.</p>
+                            <p>Users see their risk score, 30, 90, or all-time trend, score change explanations, and training progress in one unified dashboard.</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Team Gallery — Name, Photo, Role per requirements -->
+ 
                 <div class="sh">The Team</div>
                 <div class="team-grid">
-
-
-                    <div class="team-card">
-                        <div class="t-av">FM</div>
-                        <div class="t-name">Forhaad Miah</div>
-                        <div class="t-role">Developer</div>
-                    </div>
-                    <div class="team-card">
-                        <div class="t-av">HS</div>
-                        <div class="t-name">Hamza Siddiqui </div>
-                        <div class="t-role">Developer</div>
-                    </div>
-                    <div class="team-card">
-                        <div class="t-av">NF</div>
-                        <div class="t-name">Niko Fushi</div>
-                        <div class="t-role">Developer</div>
-                    </div>
-                    <div class="team-card">
-                        <div class="t-av">AV</div>
-                        <div class="t-name">Adnan Vaktapuriya</div>
-                        <div class="t-role">Developer</div>
-                    </div>
-                    <div class="team-card">
-                        <div class="t-av">AL</div>
-                        <div class="t-name">Aiden Lee</div>
-                        <div class="t-role">Developer</div>
-                    </div>
+                    <div class="team-card"><div class="t-av">FM</div><div class="t-name">Forhaad Miah</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">forhaadmiah1@gmail.com</div></div>
+                    <div class="team-card"><div class="t-av">HS</div><div class="t-name">Hamza Siddiqui</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">hamza2608@gmail.com
+</div></div>
+                    <div class="team-card"><div class="t-av">NF</div><div class="t-name">Niko Fushi</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">nikofushi25@gmail.com
+</div></div>
+                    <div class="team-card"><div class="t-av">AV</div><div class="t-name">Adnan Vaktapuriya</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">adnanvaktapuriya@gmail.com
+</div></div>
+                    <div class="team-card"><div class="t-av">AL</div><div class="t-name">Aiden Lee</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">aidenlee0814@gmail.com</div></div>
                 </div>
-
             </div>
         </div>
-
+ 
         <!-- ═══ REQUIREMENTS ═══ -->
         <div class="page" id="page-requirements">
             <div class="pg">
-
                 <div class="ph">
                     <div class="ph-eyebrow">Documentation</div>
                     <h1>Requirements & <em>UX (PRD)</em></h1>
                 </div>
-
+ 
                 <div class="sh">Primary Persona</div>
                 <div class="card" style="margin-bottom:14px">
-                    <div class="card-title">🧑‍💼 "Security Project Manager Alex" <span class="badge b-orange"
-                            style="margin-left:auto">P0 Persona</span></div>
+                    <div class="card-title">🧑‍💼 "Security Project Manager Alex" <span class="badge b-orange" style="margin-left:auto">P0 Persona</span></div>
                     <div class="g2" style="gap:16px">
                         <div>
-                            <p><strong style="color:var(--text-1)">Who:</strong> Organizations and universities
-                                responsible for managing cybersecurity awareness and reducing human-related security
-                                risks across employees, staff, and students.</p>
-                            <p><strong style="color:var(--text-1)">Goal:</strong> Implement an adaptive security
-                                awareness program that continuously evaluates human risk, strengthens user
-                                decision-making, and improves overall organizational security posture.</p>
+                            <p><strong style="color:var(--text-1)">Who:</strong> Organizations and universities responsible for managing cybersecurity awareness and reducing human-related security risks across employees, staff, and students.</p>
+                            <p><strong style="color:var(--text-1)">Goal:</strong> Implement an adaptive security awareness program that continuously evaluates human risk, strengthens user decision-making, and improves overall organizational security posture.</p>
                         </div>
                         <div>
-                            <p><strong style="color:var(--text-1)">Pain Point:</strong> Traditional security awareness
-                                programs are static, compliance-driven, and provide limited insight into real user
-                                behavior or evolving social engineering threats.
-                            </p>
-                            <p><strong style="color:var(--text-1)">Key Vulnerability:</strong> Limited visibility into
-                                behavioral risk patterns, making it difficult to identify high-risk users or tailor
-                                training to emerging phishing and social engineering tactics.</p>
+                            <p><strong style="color:var(--text-1)">Pain Point:</strong> Traditional security awareness programs are static, compliance-driven, and provide limited insight into real user behavior or evolving social engineering threats.</p>
+                            <p><strong style="color:var(--text-1)">Key Vulnerability:</strong> Limited visibility into behavioral risk patterns, making it difficult to identify high-risk users or tailor training to emerging phishing and social engineering tactics.</p>
                         </div>
                     </div>
-                    <div class="rbar-wrap" id="personaBars">
-
-                    </div>
+                    <div class="rbar-wrap" id="personaBars"></div>
                 </div>
-
+ 
                 <div class="sh">User Stories</div>
                 <div class="tbl-wrap">
                     <table>
                         <thead>
-                            <tr>
-                                <th>Priority</th>
-                                <th>As a…</th>
-                                <th>I want to…</th>
-                                <th>So that…</th>
-                            </tr>
+                            <tr><th>Priority</th><th>As a…</th><th>I want to…</th><th>So that…</th></tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><span class="badge b-red">P0</span></td>
-                                <td>User</td>
-                                <td>The Chrome Extension to analyze my browser interactions in the background</td>
-                                <td>My risk profile is built on my actual daily habits without interrupting my workflow.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge b-red">P0</span></td>
-                                <td>User</td>
-                                <td>To see my Risk Score (0-100) update on my dashboard shortly after if I make a risky
-                                    decision</td>
-                                <td>I can understand the impact of my actions.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge b-red">P0</span></td>
-                                <td>User</td>
-                                <td>If my score drops, I want to see a plain-English explanation generated by the system
-                                    (e.g., "Your score dropped because you clicked a link from an unverified domain")
-                                </td>
-                                <td>I understand exactly why I am considered high risk and how to change my behavior.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge b-orange">P1</span></td>
-                                <td>User</td>
-                                <td>Receive training modules that specifically target my detected weaknesses</td>
-                                <td>My training feels relevant and respects my time.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge b-orange">P1</span></td>
-                                <td>User</td>
-                                <td>View my historical event history and score trends on my dashboard</td>
-                                <td>I can visualize my risk level and track my improvement over time.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge b-orange">P1</span></td>
-                                <td>User</td>
-                                <td>The system to automatically categorize my score into Vulnerability Profiles (e.g.,
-                                    'High Urgency Susceptibility') based on their aggregated behavioral signals</td>
-                                <td>I can understand the specific types of risks prevalent across the organization.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge b-blue">P2</span></td>
-                                <td>User</td>
-                                <td>My risk score to immediately improve upon the successful completion of an assigned
-                                    training module</td>
-                                <td> I feel tangibly rewarded for actively participating in my cybersecurity education.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge b-blue">P2</span></td>
-                                <td>User</td>
-                                <td>Receive a short, localized training nudge (e.g., via browser popup) shortly after
-                                    clicking a risky link or failing a simulation,</td>
-                                <td> I can learn from my mistake while the context is still fresh in my mind.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge b-blue">P2</span></td>
-                                <td>User</td>
-                                <td>Access a unified dashboard view that consolidates my 0-100 Risk Score, current
-                                    training progress, alerts, and counterfactual explanations all in one place ,</td>
-                                <td> I can instantly understand my overall security posture without clicking through
-                                    multiple pages.
-
-                                </td>
-                            </tr>
+                            <tr><td><span class="badge b-red">P0</span></td><td>User</td><td>The Chrome Extension to analyze my browser interactions in the background</td><td>My risk profile is built on my actual daily habits without interrupting my workflow.</td></tr>
+                            <tr><td><span class="badge b-red">P0</span></td><td>User</td><td>To see my Risk Score (0-100) update on my dashboard shortly after if I make a risky decision</td><td>I can understand the impact of my actions.</td></tr>
+                            <tr><td><span class="badge b-red">P0</span></td><td>User</td><td>If my score drops, I want to see a plain-English explanation generated by the system</td><td>I understand exactly why I am considered high risk and how to change my behavior.</td></tr>
+                            <tr><td><span class="badge b-orange">P1</span></td><td>User</td><td>Receive training modules that specifically target my detected weaknesses</td><td>My training feels relevant and respects my time.</td></tr>
+                            <tr><td><span class="badge b-orange">P1</span></td><td>User</td><td>View my historical event history and score trends on my dashboard</td><td>I can visualize my risk level and track my improvement over time.</td></tr>
+                            <tr><td><span class="badge b-orange">P1</span></td><td>User</td><td>The system to automatically categorize my score into Vulnerability Profiles</td><td>I can understand the specific types of risks prevalent across the organization.</td></tr>
+                            <tr><td><span class="badge b-blue">P2</span></td><td>User</td><td>My risk score to immediately improve upon the successful completion of an assigned training module</td><td>I feel tangibly rewarded for actively participating in my cybersecurity education.</td></tr>
+                            <tr><td><span class="badge b-blue">P2</span></td><td>User</td><td>Receive a short, localized training nudge (e.g., via browser popup) shortly after clicking a risky link or failing a simulation</td><td>I can learn from my mistake while the context is still fresh in my mind.</td></tr>
+                            <tr><td><span class="badge b-blue">P2</span></td><td>User</td><td>Access a unified dashboard view that consolidates my 0-100 Risk Score, current training progress, alerts, and counterfactual explanations all in one place</td><td>I can instantly understand my overall security posture without clicking through multiple pages.</td></tr>
                         </tbody>
                     </table>
                 </div>
+ 
                 <div class="sh">Figma Prototype</div>
                 <div class="figma-embed-wrap">
-                    <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450"
+                    <iframe style="border: 1px solid rgba(0,0,0,0.1);" width="800" height="450"
                         src="https://embed.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&embed-host=share"
                         allowfullscreen></iframe>
                 </div>
                 <div style="text-align:center;margin-bottom:20px">
-                    <a href="https://www.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&t=aWZNYP38prKeBDaU-1"
-                        target="_blank" class="btn btn-fill">↗ Open Full
-                        Prototype in Figma</a>
+                    <a href="https://www.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&t=aWZNYP38prKeBDaU-1" target="_blank" class="btn btn-fill">↗ Open Full Prototype in Figma</a>
                 </div>
-
             </div>
         </div>
-
+ 
         <!-- ═══ ARCHITECTURE ═══ -->
         <div class="page" id="page-architecture">
             <div class="pg">
-
                 <div class="ph">
                     <div class="ph-eyebrow">Documentation</div>
                     <h1>Architecture & <em>High-Level Design</em></h1>
                     <div class="ph-sub">// Tech Spec — System Diagram · Stack · Security</div>
                 </div>
-
+ 
                 <div class="sh">System Diagram</div>
-                <div
-                    style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:8px;padding:28px 20px;overflow-x:auto;margin-bottom:4px">
-                    <div class="mermaid">
-                    flowchart TD
-                    subgraph Client["Client Layer"]
-                    CE["Chrome Extension (MV3)"]
-                    WD["Web Dashboard - React + TypeScript"]
-                    end
-                    subgraph Gateway["API Gateway"]
-                    AG["API Gateway - Rate Limiting - HMAC - TLS 1.3"]
-                    end
-                    subgraph Auth["Auth Service"]
-                    AS["Auth Service - JWT + OAuth2 PKCE"]
-                    end
-                    subgraph Core["Core Services"]
-                    RE["Risk Engine - XGBoost Model"]
-                    TS["Training Service - Module Assignment"]
-                    NS["Nudge Service - Real-time Alerts"]
-                    end
-                    subgraph Data["Data Layer"]
-                    DB[("Neo4j Graph DB")]
-                    CACHE[("Redis Cache")]
-                    end
-                    CE -->|"Behavioral Events"| AG
-                    WD -->|"API Requests"| AG
-                    AG --> AS
-                    AS --> RE
-                    AS --> TS
-                    RE -->|"Score Delta"| NS
-                    RE --> DB
-                    TS --> DB
-                    NS -->|"Browser Popup"| CE
-                    RE <--> CACHE
-                    </div>
-                    </div>
-                
-                <!-- Leave a space here for the diagram above so it does not break-->
+                <div style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:8px;overflow:hidden;margin-bottom:4px">
+                    <img src="https://kroki.io/mermaid/svg/eNqVV91u4kYUvucpRqxWIqrZACbZFG0jYQwE1bBOTJK2qBeDPYZpjMeaGSdxlYv2CXrRmz5Kn2dfoK_QM_4BG4g26wtkPGfOz3e-c-aMH7And425RHOjhuB5_x798NpTCDjzn63JbIwaJiERMjF_QAMWMC5O3qxit9MIYpJ-dQMshEl85HO8IW1HJgFBPg2C3ruW2f3Yb2tCcvZA4G-r0_5Y_G0-UU-ue3r0rLnKid473_cPzXzmOFwdM9QpGzJG-nlrsDV08bEFz7cZsmMeBccM6WVD3X67e7Ez1O60WmfDbzM05oSER-x0y3baxtmw0yohp-tvC8jA7gMJPWSwOPQwT1BjRmLJcXBSNbnM5Mo2_a5_7l9sbXbO9Y5-UbXZBZv5Bw8L4B_HSQ9doIvCE4C99mYyjVTYqI2-_PE3mq8JGnorghpzFr2RjyJerjiO1mjUXtTLygaMR4xjSdAkhNhDIlFjuIkClhCC7hl_EBJLysKT-q-pIvV4lBNXfSwqqmLB4OxJEL6ojxlbAWKDNWdgrjHFIfWJkOhOLyurKrRuKgu3k0V9-CxJKNTi7eTTkp9eNkzAc8kw9_b1VP5sHbonSxWIckmlfMVVvgFFTrCHGrCKsuV9bepx7hd1h_BH6pJcKnNh-EhCiW5YLI_v--z7wlXsXdS3r8hkbrxR-_p2HomRREAyItD0TkcW3VApjmlT2e4DFNcxDiX9nXhoMptfoCnzSJAparc2Ag2fiRunMBox7JD7qoDEtWPvtR3cqNm8fKnfQv7QIKDugzi9Yo-Ei_oLQFHboZLJzTldrWAVXVHPgwBtvCIguY24dgBHts9i2BOZ-yCeRVerBpsJOtgnp2mmAGwi4kAeOvIh9TjygMMC3VHyBCK3mToV5JtLbH41REZ_8ONwZqKGkwhJNtvW8K1VlreWTMui_uWfP__79y_Uv3fQMATGRJwKgu7sAZQwj0HGQ7-wkHy1xrYv247Q6Sl6IwsnhB-W4qhTFHsnLXblwAjzlSr3QaAM8z2KWMairqT6UQTpx1lNQrYgogCH7oE8MBk22BM0Bp1POMnYOMJCqo_fKeccBlgc8vqGeFRAdUOXlXSAXWhqjfTbSabjiknkEJEWvoklLu_f5rWKxYezHuqLJHRfx-NsC8iHsxQSYBUNKAndJNu05-X0elGfghdAbHQdk5hkzt3g5ZLK6TU6Rc61sx-aacEuU3UXi0jAuLzTZlRARIXOOfj19cj0HiRhRV-PSy_C0vOmvomgMx2NyLTBN8AT2ZxEnLngCMubmj2ZoCkWDzRc7Yc0ugNijKAMYw7EBWYyDk2GBt4hYtaifkPFA3JcxkETMH5Fwzz6n8YGY3AETC1738KArRZ1-AmppI9gIw5CwvESkiOTcqebWTbK-w5wGLon9elhDx4-RwGmoTo94CXMiDwmSqUswrUCvMFNHXI4gDKHPPnYlTEOjlDVhZiIyzbQvb1MVzmqad8AFaDhWW2HUgm9I40cUg074BCaWp8jAUql-qAQsmlEgq22fizZBqueMKOrtQySQ3cAqRQR9UphyMjL7g5asfJN-cJZ8HVedXtpab1Kq25Bq25KKwegU6Q9Sivgx4yw7m-oH3NsGplH41TPDQlS0MSaRgewjAPsUgWLajuOXvwvsAAkFfcFukTft8DbROyHdaw5TlQ6Q8gFQBFmfVTUdj0uO1xMBR1dxgpqSI7vUxeODuhbtVJ3Q6zZZC-Qfeyd3nOqGqfqVSCYNquKaKo1a0DpfKBOzel1bddL8sNqhGkgkP4My9AqKutq2Yh9n3BwaqvEtA-jNO1cG9xLvCI1IJvjV5FLxQIC052XJhzEoKBrpeLOZGYwnnBo-wHqq3E19d_a-WdlUtvqho7darZbrROQg8o99BE-VgaFokrUoZ8V6KFoOns4MHRmGLtViTRiE_BL0JBzlg4meWEdqkod3YF45BzNt2biNsypDBJczCVQXLVSzeXupYMGnGuqNvfU5jEVeUnPtFL_ERXSlGeTccCWR8gK0w1MFpcvWzZfzee28wIEruXT2qd0HcgZNCXdkNJxmxG5MKCO8wSlNxiBJMvKX-yuOXAtKN9Jywud8h2ysnD22opevg2WF7rl61tpoTIuVe5br0YwgySlL3A3UGeSXJMEQdt01-oVeer6CC-bspnbiebca9tZVMsnzeOBW4YGCGppwrTptQaV-kq8pq1BBWlTSwPmaTkJYKOr5fTSFHuOQ2IaWl6wZWj-Bzeuy9Y=" 
+                        style="width:100%;height:auto;display:block;border-radius:8px" 
+                        alt="System Architecture Diagram" />
+                </div>
+              
+ 
                 <div class="sh">Tech Stack Justification</div>
                 <div class="tbl-wrap">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Layer</th>
-                                <th>Technology</th>
-                                <th>Why We Chose It</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>Layer</th><th>Technology</th><th>Why We Chose It</th></tr></thead>
                         <tbody>
-                            <tr>
-                                <td>Frontend</td>
-                                <td><span class="badge b-blue">React + TypeScript</span></td>
-                                <td>Component-based UI, strong typing for risk data models, rich dashboard component
-                                    ecosystem</td>
-                            </tr>
-                            <tr>
-                                <td>Backend API</td>
-                                <td><span class="badge b-green">FastAPI (Python)</span></td>
-                                <td>High-performance async endpoints, native Pydantic validation, seamless ML model
-                                    integration</td>
-                            </tr>
-                            <tr>
-                                <td>Risk Engine</td>
-                                <td><span class="badge b-purple">XGBoost</span></td>
-                                <td>Gradient-boosted decision trees optimized for high-accuracy behavioral risk scoring.
-                                    Provides low-latency inference, strong performance on structured telemetry data,
-                                    built-in feature importance for explainability, and robustness against noisy
-                                    behavioral signals.</td>
-                            </tr>
-                            <tr>
-                                <td>Database</td>
-                                <td><span class="badge b-orange">Neo4j</span></td>
-                                <td>Graph
-                                    databases excel at querying patterns like 'which users are vulnerable to
-                                    authority-based attacks who haven't completed related training
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Auth</td>
-                                <td><span class="badge b-red">JWT + OAuth2</span></td>
-                                <td>Stateless auth for API, SSO integration for enterprise IdP environments</td>
-                            </tr>
-                            <tr>
-                                <td>Browser Layer</td>
-                                <td><span class="badge b-yellow">Chrome Extension (MV3)</span></td>
-                                <td>Passive behavioral signal collection without proxying all traffic</td>
-                            </tr>
+                            <tr><td>Frontend</td><td><span class="badge b-blue">React + TypeScript</span></td><td>Component-based UI, strong typing for risk data models, rich dashboard component ecosystem</td></tr>
+                            <tr><td>Backend API</td><td><span class="badge b-green">FastAPI (Python)</span></td><td>High-performance async endpoints, native Pydantic validation, seamless ML model integration</td></tr>
+                            <tr><td>Risk Engine</td><td><span class="badge b-purple">XGBoost</span></td><td>Gradient-boosted decision trees optimized for high-accuracy behavioral risk scoring. Provides low-latency inference, strong performance on structured telemetry data, built-in feature importance for explainability, and robustness against noisy behavioral signals.</td></tr>
+                            <tr><td>Database</td><td><span class="badge b-orange">Neo4j</span></td><td>Graph databases excel at querying patterns like 'which users are vulnerable to authority-based attacks who haven't completed related training'</td></tr>
+                            <tr><td>Auth</td><td><span class="badge b-red">JWT + OAuth2</span></td><td>Stateless auth for API, SSO integration for enterprise IdP environments</td></tr>
+                            <tr><td>Browser Layer</td><td><span class="badge b-yellow">Chrome Extension (MV3)</span></td><td>Passive behavioral signal collection without proxying all traffic</td></tr>
                         </tbody>
                     </table>
                 </div>
-
+ 
                 <div class="sh">Security Architecture</div>
                 <div class="g2">
-                    <div class="card">
-                        <div class="card-title">🔐 Auth &amp; Authorization</div>
-                        <p>All API endpoints require JWT bearer tokens. RBAC enforces separation between Employee,
-                            Manager, and Admin views. OAuth2 PKCE flow for SSO.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">🛡️ Data Privacy</div>
-                        <p>User behavioral data stored encrypted at rest (AES-256). Risk scores are user-owned;
-                            org-level aggregation is opt-in. GDPR &amp; CCPA data deletion supported.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">⚡ Real-Time Event Security</div>
-                        <p>Browser extension events are HMAC-signed to prevent spoofing. Rate limiting prevents score
-                            manipulation. All audit events are append-only logs.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">📡 Transport Security</div>
-                        <p>TLS 1.3 enforced throughout. HSTS headers set. Content-Security-Policy prevents XSS. Pydantic
-                            schema validation on all API inputs before processing.</p>
-                    </div>
+                    <div class="card"><div class="card-title">🔐 Auth &amp; Authorization</div><p>All API endpoints require JWT bearer tokens. RBAC enforces separation between Employee, Manager, and Admin views. OAuth2 PKCE flow for SSO.</p></div>
+                    <div class="card"><div class="card-title">🛡️ Data Privacy</div><p>User behavioral data stored encrypted at rest (AES-256). Risk scores are user-owned; org-level aggregation is opt-in. GDPR &amp; CCPA data deletion supported.</p></div>
+                    <div class="card"><div class="card-title">⚡ Real-Time Event Security</div><p>Browser extension events are HMAC-signed to prevent spoofing. Rate limiting prevents score manipulation. All audit events are append-only logs.</p></div>
+                    <div class="card"><div class="card-title">📡 Transport Security</div><p>TLS 1.3 enforced throughout. HSTS headers set. Content-Security-Policy prevents XSS. Pydantic schema validation on all API inputs before processing.</p></div>
                 </div>
-
             </div>
         </div>
-
+ 
         <!-- ═══ DETAILED DESIGN ═══ -->
         <div class="page" id="page-design">
             <div class="pg">
-
                 <div class="ph">
                     <div class="ph-eyebrow">Documentation</div>
-                    <h1>Detailed Component Design</em></h1>
+                    <h1>Detailed Component <em>Design</em></h1>
                     <div class="ph-sub">// DB Schema · API Specification · Algorithm Logic</div>
                 </div>
-
-                <div class="sh">Database Schema</div>
-<div class="diagram" onclick="openZoom('er')">
-    <strong>Database Schema — ERD Placeholder</strong>
-    Replace this with your exported ER diagram or Mermaid erDiagram block<br />
-    <span style="color:var(--orange)">🔍 Click to zoom fullscreen</span>
-</div>
-               
-             <div class="sh">API Specification</div>
  
-<!-- POST telemetry/click -->
-<div class="card" style="margin-bottom:10px">
-    <div class="card-title">
-        <span class="badge b-blue">POST</span>
-        /api/v1/telemetry/click
-        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
+                <div class="sh">Database Schema</div>
+                <div style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:8px;padding:24px;margin-bottom:4px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+
+        <div style="background:var(--bg-card);border:1px solid var(--orange-border);border-radius:7px;padding:14px">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">USER</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
+                <span style="color:var(--orange-bright)">PK</span> user_id<br>
+                email<br>org_id<br>baseline_risk_score<br>baseline_caution<br>fatigue_factor<br>created_at
+            </div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">SIMULATION</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
+                <span style="color:var(--orange-bright)">PK</span> simulation_id<br>
+                trigger_type<br>template<br>phishing_link<br>delivery_schedule
+            </div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">CLICK_EVENT</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
+                <span style="color:var(--orange-bright)">PK</span> event_id<br>
+                <span style="color:var(--blue)">FK</span> user_id<br>
+                <span style="color:var(--blue)">FK</span> simulation_id<br>
+                url_hash<br>page_context<br>timestamp<br>risk_delta<br>threat_score
+            </div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">VULNERABILITY_PROFILE</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
+                <span style="color:var(--orange-bright)">PK</span> profile_id<br>
+                <span style="color:var(--blue)">FK</span> user_id<br>
+                dominant_trait<br>urgency_score<br>authority_score<br>social_proof_score<br>scarcity_score<br>updated_at
+            </div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">TRAINING_MODULE</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
+                <span style="color:var(--orange-bright)">PK</span> module_id<br>
+                title<br>bias_target<br>content_url<br>estimated_duration
+            </div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">TRAINING_ASSIGNMENT</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
+                <span style="color:var(--orange-bright)">PK</span> assignment_id<br>
+                <span style="color:var(--blue)">FK</span> user_id<br>
+                <span style="color:var(--blue)">FK</span> module_id<br>
+                progress<br>due_date<br>completed<br>completed_at
+            </div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">EXPLANATION</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
+                <span style="color:var(--orange-bright)">PK</span> explanation_id<br>
+                <span style="color:var(--blue)">FK</span> event_id<br>
+                cognitive_bias_tag<br>plain_english_text<br>generated_at
+            </div>
+        </div>
+
     </div>
-    <p>Triggered by the Chrome Extension when a risky link is clicked. Drops the event payload into a RabbitMQ message queue for background processing. Returns 202 immediately to prevent browser lag.</p>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">REQUEST BODY</div>
-    <pre><code>{
+
+    <!-- Relationships -->
+    <div style="margin-top:16px;padding:12px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--text-3);line-height:2">
+        <span style="color:var(--orange)">// RELATIONSHIPS</span><br>
+        USER <span style="color:var(--orange)">||--o{</span> CLICK_EVENT &nbsp;·&nbsp; USER <span style="color:var(--orange)">||--||</span> VULNERABILITY_PROFILE &nbsp;·&nbsp; USER <span style="color:var(--orange)">||--o{</span> TRAINING_ASSIGNMENT<br>
+        SIMULATION <span style="color:var(--orange)">||--o{</span> CLICK_EVENT &nbsp;·&nbsp; TRAINING_MODULE <span style="color:var(--orange)">||--o{</span> TRAINING_ASSIGNMENT &nbsp;·&nbsp; CLICK_EVENT <span style="color:var(--orange)">||--||</span> EXPLANATION
+    </div>
+</div>
+                <div class="sh">API Specification</div>
+ 
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title"><span class="badge b-blue">POST</span> /api/v1/telemetry/click <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
+                    <p>Triggered by the Chrome Extension when a risky link is clicked. Drops the event payload into a RabbitMQ message queue for background processing. Returns 202 immediately to prevent browser lag.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">REQUEST BODY</div>
+                    <pre><code>{
   <span class="key">"user_id"</span>:       <span class="str">"uuid-1234"</span>,
   <span class="key">"url"</span>:           <span class="str">"https://update-payroll-now.com"</span>,
   <span class="key">"page_context"</span>: <span class="str">"URGENT: Verify your credentials"</span>,
   <span class="key">"timestamp"</span>:    <span class="str">"2026-03-10T14:00:00Z"</span>
 }</code></pre>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 202</div>
-    <pre><code>{
-  <span class="key">"status"</span>:  <span class="num">202</span>,
-  <span class="key">"message"</span>: <span class="str">"Event queued for background processing"</span>
-}</code></pre>
-    <div class="tbl-wrap">
-        <table>
-            <thead>
-                <tr><th>Code</th><th>Meaning</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><span class="badge b-orange">400</span></td><td>Missing required fields (user_id, url, timestamp)</td></tr>
-                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                <tr><td><span class="badge b-red">500</span></td><td>RabbitMQ queue unavailable</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 202</div>
+                    <pre><code>{ <span class="key">"status"</span>: <span class="num">202</span>, <span class="key">"message"</span>: <span class="str">"Event queued for background processing"</span> }</code></pre>
+                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+                        <tr><td><span class="badge b-orange">400</span></td><td>Missing required fields (user_id, url, timestamp)</td></tr>
+                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                        <tr><td><span class="badge b-red">500</span></td><td>RabbitMQ queue unavailable</td></tr>
+                    </tbody></table></div>
+                </div>
  
-<!-- WS alerts -->
-<div class="card" style="margin-bottom:10px">
-    <div class="card-title">
-        <span class="badge b-purple">WS</span>
-        /ws/v1/alerts/{user_id}
-        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
-    </div>
-    <p>Maintains a persistent WebSocket connection with the Chrome Extension and dashboard. Used to push real-time training nudges and risk score updates back to the user without requiring a page refresh. Backed by Redis Pub/Sub as a state backplane across ALB nodes.</p>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">PUSHED PAYLOAD (Server → Client)</div>
-    <pre><code>{
-  <span class="key">"event"</span>:          <span class="str">"risk_update"</span>,
-  <span class="key">"new_score"</span>:      <span class="num">45</span>,
-  <span class="key">"score_change"</span>:   <span class="num">+15</span>,
-  <span class="key">"explanation"</span>:    <span class="str">"Your score increased because you clicked a link
-  utilizing an Urgency exploit. A new training module has been assigned."</span>,
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title"><span class="badge b-purple">WS</span> /ws/v1/alerts/{user_id} <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
+                    <p>Maintains a persistent WebSocket connection with the Chrome Extension and dashboard. Used to push real-time training nudges and risk score updates back to the user without requiring a page refresh. Backed by Redis Pub/Sub as a state backplane across ALB nodes.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">PUSHED PAYLOAD (Server → Client)</div>
+                    <pre><code>{
+  <span class="key">"event"</span>:           <span class="str">"risk_update"</span>,
+  <span class="key">"new_score"</span>:       <span class="num">45</span>,
+  <span class="key">"score_change"</span>:    <span class="num">+15</span>,
+  <span class="key">"explanation"</span>:     <span class="str">"Your score increased because you clicked a link utilizing an Urgency exploit."</span>,
   <span class="key">"new_training_id"</span>: <span class="str">"TM-URG-01"</span>
 }</code></pre>
-    <div class="tbl-wrap">
-        <table>
-            <thead>
-                <tr><th>Code</th><th>Meaning</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                <tr><td><span class="badge b-red">404</span></td><td>User ID not found</td></tr>
-                <tr><td><span class="badge b-red">1011</span></td><td>WebSocket server error — connection dropped</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                        <tr><td><span class="badge b-red">404</span></td><td>User ID not found</td></tr>
+                        <tr><td><span class="badge b-red">1011</span></td><td>WebSocket server error — connection dropped</td></tr>
+                    </tbody></table></div>
+                </div>
  
-<!-- GET dashboard -->
-<div class="card" style="margin-bottom:10px">
-    <div class="card-title">
-        <span class="badge b-green">GET</span>
-        /api/v1/users/{user_id}/dashboard
-        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
-    </div>
-    <p>Fetches aggregated dashboard state including the current risk score (0–100), active alerts, and historical score graph data. Called on DashboardLayout mount.</p>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-    <pre><code>{
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/users/{user_id}/dashboard <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
+                    <p>Fetches aggregated dashboard state including the current risk score (0–100), active alerts, and historical score graph data. Called on DashboardLayout mount.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+                    <pre><code>{
   <span class="key">"risk_score"</span>:   <span class="num">56</span>,
   <span class="key">"risk_label"</span>:   <span class="str">"HIGH"</span>,
   <span class="key">"point_change"</span>: <span class="num">+6</span>,
-  <span class="key">"alert_feed"</span>: [
-    {
-      <span class="key">"event_id"</span>:    <span class="str">"evt_001"</span>,
-      <span class="key">"trigger_type"</span>: <span class="str">"urgency"</span>,
-      <span class="key">"timestamp"</span>:   <span class="str">"2026-03-10T09:14:22Z"</span>
-    }
-  ],
+  <span class="key">"alert_feed"</span>: [{ <span class="key">"event_id"</span>: <span class="str">"evt_001"</span>, <span class="key">"trigger_type"</span>: <span class="str">"urgency"</span>, <span class="key">"timestamp"</span>: <span class="str">"2026-03-10T09:14:22Z"</span> }],
   <span class="key">"vulnerability_profile"</span>: {
     <span class="key">"dominant_trait"</span>: <span class="str">"Urgency"</span>,
-    <span class="key">"bias_scores"</span>: {
-      <span class="key">"urgency"</span>:     <span class="num">0.48</span>,
-      <span class="key">"authority"</span>:   <span class="num">0.15</span>,
-      <span class="key">"social_proof"</span>: <span class="num">0.12</span>,
-      <span class="key">"scarcity"</span>:    <span class="num">0.35</span>
-    }
+    <span class="key">"bias_scores"</span>: { <span class="key">"urgency"</span>: <span class="num">0.48</span>, <span class="key">"authority"</span>: <span class="num">0.15</span>, <span class="key">"social_proof"</span>: <span class="num">0.12</span>, <span class="key">"scarcity"</span>: <span class="num">0.35</span> }
   }
 }</code></pre>
-    <div class="tbl-wrap">
-        <table>
-            <thead>
-                <tr><th>Code</th><th>Meaning</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                <tr><td><span class="badge b-red">404</span></td><td>User not found</td></tr>
-                <tr><td><span class="badge b-red">500</span></td><td>Neo4j graph query failed</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                        <tr><td><span class="badge b-red">404</span></td><td>User not found</td></tr>
+                        <tr><td><span class="badge b-red">500</span></td><td>Neo4j graph query failed</td></tr>
+                    </tbody></table></div>
+                </div>
  
-<!-- GET profile -->
-<div class="card" style="margin-bottom:10px">
-    <div class="card-title">
-        <span class="badge b-green">GET</span>
-        /api/v1/users/{user_id}/profile
-        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
-    </div>
-    <p>Queries Neo4j to return the user's specific cognitive vulnerability tags and bias scores across all four trigger dimensions. Called on CognitiveVulnerabilityProfile component mount.</p>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-    <pre><code>{
-  <span class="key">"user_id"</span>:            <span class="str">"uuid-1234"</span>,
-  <span class="key">"dominant_trait"</span>:     <span class="str">"Urgency"</span>,
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/users/{user_id}/profile <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
+                    <p>Queries Neo4j to return the user's specific cognitive vulnerability tags and bias scores across all four trigger dimensions. Called on CognitiveVulnerabilityProfile component mount.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+                    <pre><code>{
+  <span class="key">"user_id"</span>: <span class="str">"uuid-1234"</span>, <span class="key">"dominant_trait"</span>: <span class="str">"Urgency"</span>,
   <span class="key">"profile_description"</span>: <span class="str">"High susceptibility to time-pressure attacks"</span>,
   <span class="key">"bias_scores"</span>: [
-    { <span class="key">"trigger"</span>: <span class="str">"urgency"</span>,     <span class="key">"score"</span>: <span class="num">0.48</span> },
-    { <span class="key">"trigger"</span>: <span class="str">"authority"</span>,   <span class="key">"score"</span>: <span class="num">0.15</span> },
+    { <span class="key">"trigger"</span>: <span class="str">"urgency"</span>, <span class="key">"score"</span>: <span class="num">0.48</span> },
+    { <span class="key">"trigger"</span>: <span class="str">"authority"</span>, <span class="key">"score"</span>: <span class="num">0.15</span> },
     { <span class="key">"trigger"</span>: <span class="str">"social_proof"</span>, <span class="key">"score"</span>: <span class="num">0.12</span> },
-    { <span class="key">"trigger"</span>: <span class="str">"scarcity"</span>,    <span class="key">"score"</span>: <span class="num">0.35</span> }
+    { <span class="key">"trigger"</span>: <span class="str">"scarcity"</span>, <span class="key">"score"</span>: <span class="num">0.35</span> }
   ]
 }</code></pre>
-    <div class="tbl-wrap">
-        <table>
-            <thead>
-                <tr><th>Code</th><th>Meaning</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                <tr><td><span class="badge b-red">404</span></td><td>User profile not yet established (insufficient simulation data)</td></tr>
-                <tr><td><span class="badge b-red">500</span></td><td>Neo4j graph query failed</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                        <tr><td><span class="badge b-red">404</span></td><td>User profile not yet established (insufficient simulation data)</td></tr>
+                        <tr><td><span class="badge b-red">500</span></td><td>Neo4j graph query failed</td></tr>
+                    </tbody></table></div>
+                </div>
  
-<!-- GET risk-history -->
-<div class="card" style="margin-bottom:10px">
-    <div class="card-title">
-        <span class="badge b-green">GET</span>
-        /api/v1/users/{user_id}/risk-history?range={range}
-        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
-    </div>
-    <p>Returns an array of historical risk score data points for the given time range. Fires on TimeRangeFilter tab selection. Used to render the interactive line chart with annotated event points.</p>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">QUERY PARAMS</div>
-    <pre><code>range: <span class="str">"30d"</span> | <span class="str">"90d"</span> | <span class="str">"all"</span></code></pre>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-    <pre><code>{
-  <span class="key">"user_id"</span>: <span class="str">"uuid-1234"</span>,
-  <span class="key">"range"</span>:   <span class="str">"30d"</span>,
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/users/{user_id}/risk-history?range={range} <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
+                    <p>Returns an array of historical risk score data points for the given time range. Fires on TimeRangeFilter tab selection.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">QUERY PARAMS</div>
+                    <pre><code>range: <span class="str">"30d"</span> | <span class="str">"90d"</span> | <span class="str">"all"</span></code></pre>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+                    <pre><code>{
+  <span class="key">"user_id"</span>: <span class="str">"uuid-1234"</span>, <span class="key">"range"</span>: <span class="str">"30d"</span>,
   <span class="key">"data_points"</span>: [
     { <span class="key">"timestamp"</span>: <span class="str">"2026-02-10T09:00:00Z"</span>, <span class="key">"score"</span>: <span class="num">50</span>, <span class="key">"event"</span>: <span class="kw">null</span> },
     { <span class="key">"timestamp"</span>: <span class="str">"2026-03-03T09:14:22Z"</span>, <span class="key">"score"</span>: <span class="num">56</span>, <span class="key">"event"</span>: <span class="str">"SIM-001 click"</span> },
     { <span class="key">"timestamp"</span>: <span class="str">"2026-03-10T11:00:00Z"</span>, <span class="key">"score"</span>: <span class="num">48</span>, <span class="key">"event"</span>: <span class="str">"Training completed"</span> }
   ]
 }</code></pre>
-    <div class="tbl-wrap">
-        <table>
-            <thead>
-                <tr><th>Code</th><th>Meaning</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><span class="badge b-orange">400</span></td><td>Invalid range parameter</td></tr>
-                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                <tr><td><span class="badge b-red">404</span></td><td>User not found</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+                        <tr><td><span class="badge b-orange">400</span></td><td>Invalid range parameter</td></tr>
+                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                        <tr><td><span class="badge b-red">404</span></td><td>User not found</td></tr>
+                    </tbody></table></div>
+                </div>
  
-<!-- GET training list -->
-<div class="card" style="margin-bottom:10px">
-    <div class="card-title">
-        <span class="badge b-green">GET</span>
-        /api/v1/users/{user_id}/training
-        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
-    </div>
-    <p>Returns the list of training modules assigned to the user, including progress, due dates, and completion status. Called on TrainingProgressSection mount.</p>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-    <pre><code>{
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/users/{user_id}/training <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
+                    <p>Returns the list of training modules assigned to the user, including progress, due dates, and completion status. Called on TrainingProgressSection mount.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+                    <pre><code>{
   <span class="key">"user_id"</span>: <span class="str">"uuid-1234"</span>,
-  <span class="key">"modules"</span>: [
-    {
-      <span class="key">"module_id"</span>:   <span class="str">"TM-URG-01"</span>,
-      <span class="key">"title"</span>:       <span class="str">"Recognizing Urgency-Based Phishing"</span>,
-      <span class="key">"bias_target"</span>: <span class="str">"urgency"</span>,
-      <span class="key">"progress"</span>:    <span class="num">0</span>,
-      <span class="key">"due_date"</span>:    <span class="str">"2026-03-10"</span>,
-      <span class="key">"completed"</span>:   <span class="kw">false</span>
-    }
-  ]
+  <span class="key">"modules"</span>: [{ <span class="key">"module_id"</span>: <span class="str">"TM-URG-01"</span>, <span class="key">"title"</span>: <span class="str">"Recognizing Urgency-Based Phishing"</span>, <span class="key">"bias_target"</span>: <span class="str">"urgency"</span>, <span class="key">"progress"</span>: <span class="num">0</span>, <span class="key">"due_date"</span>: <span class="str">"2026-03-10"</span>, <span class="key">"completed"</span>: <span class="kw">false</span> }]
 }</code></pre>
-    <div class="tbl-wrap">
-        <table>
-            <thead>
-                <tr><th>Code</th><th>Meaning</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                <tr><td><span class="badge b-red">404</span></td><td>User not found or no modules assigned</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                        <tr><td><span class="badge b-red">404</span></td><td>User not found or no modules assigned</td></tr>
+                    </tbody></table></div>
+                </div>
  
-<!-- GET training module content -->
-<div class="card" style="margin-bottom:10px">
-    <div class="card-title">
-        <span class="badge b-green">GET</span>
-        /api/v1/training/{module_id}
-        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
-    </div>
-    <p>Fetches content URL and metadata for a specific training module. Fires on TrainingModuleCard click to load the training video or interactive content.</p>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-    <pre><code>{
-  <span class="key">"module_id"</span>:          <span class="str">"TM-URG-01"</span>,
-  <span class="key">"title"</span>:              <span class="str">"Recognizing Urgency-Based Phishing"</span>,
-  <span class="key">"content_url"</span>:        <span class="str">"https://cdn.adaptivesec.com/modules/TM-URG-01"</span>,
-  <span class="key">"bias_target"</span>:        <span class="str">"urgency"</span>,
-  <span class="key">"estimated_duration"</span>: <span class="num">8</span>
-}</code></pre>
-    <div class="tbl-wrap">
-        <table>
-            <thead>
-                <tr><th>Code</th><th>Meaning</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                <tr><td><span class="badge b-red">404</span></td><td>Module ID not found</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/training/{module_id} <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
+                    <p>Fetches content URL and metadata for a specific training module. Fires on TrainingModuleCard click.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+                    <pre><code>{ <span class="key">"module_id"</span>: <span class="str">"TM-URG-01"</span>, <span class="key">"title"</span>: <span class="str">"Recognizing Urgency-Based Phishing"</span>, <span class="key">"content_url"</span>: <span class="str">"https://cdn.adaptivesec.com/modules/TM-URG-01"</span>, <span class="key">"bias_target"</span>: <span class="str">"urgency"</span>, <span class="key">"estimated_duration"</span>: <span class="num">8</span> }</code></pre>
+                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                        <tr><td><span class="badge b-red">404</span></td><td>Module ID not found</td></tr>
+                    </tbody></table></div>
+                </div>
  
-<!-- GET explanation -->
-<div class="card" style="margin-bottom:10px">
-    <div class="card-title">
-        <span class="badge b-green">GET</span>
-        /api/v1/events/{event_id}/explanation
-        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
-    </div>
-    <p>Fetches the full counterfactual plain-English explanation generated by the ExplanationGenerator (Gemini API) for a specific simulation click event. Fires on individual alert item click.</p>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-    <pre><code>{
-  <span class="key">"event_id"</span>:          <span class="str">"evt_001"</span>,
-  <span class="key">"cognitive_bias_tag"</span>: <span class="str">"Urgency_Bias"</span>,
-  <span class="key">"explanation"</span>:       <span class="str">"Your score increased because you clicked a link
-  designed to pressure you with a time limit. This is an Urgency Bias
-  trigger. Not clicking this link would have prevented the 6-point increase."</span>
-}</code></pre>
-    <div class="tbl-wrap">
-        <table>
-            <thead>
-                <tr><th>Code</th><th>Meaning</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                <tr><td><span class="badge b-red">404</span></td><td>Event ID not found</td></tr>
-                <tr><td><span class="badge b-red">500</span></td><td>ExplanationGenerator (Gemini API) unavailable</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/events/{event_id}/explanation <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
+                    <p>Fetches the full counterfactual plain-English explanation generated by the ExplanationGenerator (Gemini API) for a specific simulation click event.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+                    <pre><code>{ <span class="key">"event_id"</span>: <span class="str">"evt_001"</span>, <span class="key">"cognitive_bias_tag"</span>: <span class="str">"Urgency_Bias"</span>, <span class="key">"explanation"</span>: <span class="str">"Your score increased because you clicked a link designed to pressure you with a time limit. Not clicking this link would have prevented the 6-point increase."</span> }</code></pre>
+                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                        <tr><td><span class="badge b-red">404</span></td><td>Event ID not found</td></tr>
+                        <tr><td><span class="badge b-red">500</span></td><td>ExplanationGenerator (Gemini API) unavailable</td></tr>
+                    </tbody></table></div>
+                </div>
  
-<!-- POST training complete -->
-<div class="card" style="margin-bottom:10px">
-    <div class="card-title">
-        <span class="badge b-blue">POST</span>
-        /api/v1/users/{user_id}/training/{module_id}/complete
-        <span class="badge b-orange" style="margin-left:auto">Auth Required</span>
-    </div>
-    <p>Marks a training module as complete, triggers a risk score recalculation, and applies the susceptibility reduction. Fires on Complete button click inside TrainingModuleCard.</p>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-    <pre><code>{
-  <span class="key">"module_id"</span>:        <span class="str">"TM-URG-01"</span>,
-  <span class="key">"updated_risk_score"</span>: <span class="num">48</span>,
-  <span class="key">"score_improvement"</span>: <span class="num">8</span>,
-  <span class="key">"explanation"</span>:      <span class="str">"Your score dropped because you completed
-  Urgency Bias training."</span>,
-  <span class="key">"new_susceptibility"</span>: <span class="num">0.6375</span>
-}</code></pre>
-    <div class="tbl-wrap">
-        <table>
-            <thead>
-                <tr><th>Code</th><th>Meaning</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><span class="badge b-orange">400</span></td><td>Module already completed</td></tr>
-                <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                <tr><td><span class="badge b-red">403</span></td><td>Module not assigned to this user</td></tr>
-                <tr><td><span class="badge b-red">404</span></td><td>User or module ID not found</td></tr>
-                <tr><td><span class="badge b-red">500</span></td><td>Score update service unavailable</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title"><span class="badge b-blue">POST</span> /api/v1/users/{user_id}/training/{module_id}/complete <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
+                    <p>Marks a training module as complete, triggers a risk score recalculation, and applies the susceptibility reduction.</p>
+                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
+                    <pre><code>{ <span class="key">"module_id"</span>: <span class="str">"TM-URG-01"</span>, <span class="key">"updated_risk_score"</span>: <span class="num">48</span>, <span class="key">"score_improvement"</span>: <span class="num">8</span>, <span class="key">"explanation"</span>: <span class="str">"Your score dropped because you completed Urgency Bias training."</span>, <span class="key">"new_susceptibility"</span>: <span class="num">0.6375</span> }</code></pre>
+                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+                        <tr><td><span class="badge b-orange">400</span></td><td>Module already completed</td></tr>
+                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
+                        <tr><td><span class="badge b-red">403</span></td><td>Module not assigned to this user</td></tr>
+                        <tr><td><span class="badge b-red">404</span></td><td>User or module ID not found</td></tr>
+                        <tr><td><span class="badge b-red">500</span></td><td>Score update service unavailable</td></tr>
+                    </tbody></table></div>
+                </div>
  
-<div class="sh">ML Pipeline — Order of Execution</div>
-<div class="card" style="margin-bottom:10px">
-    <div class="card-title">Background Worker Pipeline (backend/ml_pipeline/)</div>
-    <p>When RabbitMQ passes a click event to a background worker, it processes through the following sequential Python class modules:</p>
-    <pre><code><span class="cmt"># Step 1 — Sanitize PII from payload</span>
+                <div class="sh">ML Pipeline — Order of Execution</div>
+                <div class="card" style="margin-bottom:10px">
+                    <div class="card-title">Background Worker Pipeline (backend/ml_pipeline/)</div>
+                    <p>When RabbitMQ passes a click event to a background worker, it processes through the following sequential Python class modules:</p>
+                    <pre><code><span class="cmt"># Step 1 — Sanitize PII from payload</span>
 <span class="key">DataPreprocessor</span>.sanitize(payload)
-<span class="cmt">→ Strips PII from URL, hashes user_id</span>
-<span class="cmt">→ Output: sanitized dict</span>
+<span class="cmt">→ Strips PII from URL, hashes user_id → Output: sanitized dict</span>
  
 <span class="cmt"># Step 2 — Build feature vector</span>
 <span class="key">FeatureVectorBuilder</span>.extract(sanitized_data)
@@ -2078,13 +1149,13 @@
 <span class="cmt"># Step 7 — Counterfactual explanation (Gemini API)</span>
 <span class="key">ExplanationGenerator</span>.generate(event_context)
 <span class="cmt">→ Publishes alert to Redis Pub/Sub → pushed via WebSocket to user</span></code></pre>
-</div>
+                </div>
  
-<div class="sh">Risk Scoring Algorithm</div>
-<div class="card">
-    <div class="card-title">Cognitive Susceptibility Update Model</div>
-    <p>After each simulation interaction, cognitive susceptibility scores are updated using a configurable learning rate. The click decision model is derived from Protection Motivation Theory.</p>
-    <pre><code><span class="cmt"># Click probability (Protection Motivation Theory)</span>
+                <div class="sh">Risk Scoring Algorithm</div>
+                <div class="card">
+                    <div class="card-title">Cognitive Susceptibility Update Model</div>
+                    <p>After each simulation interaction, cognitive susceptibility scores are updated using a configurable learning rate. The click decision model is derived from Protection Motivation Theory.</p>
+                    <pre><code><span class="cmt"># Click probability (Protection Motivation Theory)</span>
 click_probability = (
     trigger_susceptibility
     × (<span class="num">1</span> − baseline_caution)
@@ -2094,8 +1165,7 @@ click_probability = (
  
 <span class="cmt"># Susceptibility reduction after training completion</span>
 new_susceptibility = current_susceptibility × (<span class="num">1</span> − learning_rate)
-<span class="cmt"># learning_rate defaults to 0.25</span>
-<span class="cmt"># e.g. 0.85 → 0.6375 after one module completion</span>
+<span class="cmt"># learning_rate defaults to 0.25 → e.g. 0.85 → 0.6375 after one completion</span>
  
 <span class="cmt"># Partial recovery if same trigger clicked again post-training</span>
 new_susceptibility = current_susceptibility + (click_penalty × <span class="num">0.5</span>)
@@ -2103,238 +1173,214 @@ new_susceptibility = current_susceptibility + (click_penalty × <span class="num
 <span class="cmt"># Final risk score clamped to 0–100</span>
 <span class="kw">return</span> clamp(ema_update(raw_score), <span class="num">0</span>, <span class="num">100</span>)
 <span class="cmt"># 0 = minimal risk · 100 = critical risk</span></code></pre>
-</div>
-
+                </div>
+ 
+            </div>
+        </div>
+        <!-- ✅ page-design correctly closed above -->
+ 
         <!-- ═══ TESTING ═══ -->
         <div class="page" id="page-testing">
             <div class="pg">
-
+ 
                 <div class="ph">
                     <div class="ph-eyebrow">Documentation</div>
                     <h1>Testing & <em>Validation</em></h1>
-                    <div class="ph-sub">// Unit Tests · Integration Tests · Benchmarks · Traceability</div>
+                    <div class="ph-sub">// Unit Tests · Integration Tests · E2E · Performance · Synthetic Agents</div>
                 </div>
-
-                <div class="sh">Unit Tests</div>
+ 
+                <div class="sh">Backend Unit Tests</div>
                 <div class="tbl-wrap">
                     <table>
                         <thead>
-                            <tr>
-                                <th>Function</th>
-                                <th>Test Case</th>
-                                <th>Status</th>
-                            </tr>
+                            <tr><th>Test Case</th><th>Method / Endpoint</th><th>Input</th><th>Expected Output</th></tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><code>calculate_risk_score()</code></td>
-                                <td>Returns value in [0, 100] for any valid input</td>
-                                <td><span class="badge b-green">PASS</span></td>
-                            </tr>
-                            <tr>
-                                <td><code>score_dimension()</code></td>
-                                <td>Null event array returns baseline score of 50</td>
-                                <td><span class="badge b-green">PASS</span></td>
-                            </tr>
-                            <tr>
-                                <td><code>trigger_nudge()</code></td>
-                                <td>Fires only when score delta exceeds threshold</td>
-                                <td><span class="badge b-yellow">IN PROGRESS</span></td>
-                            </tr>
-                            <tr>
-                                <td><code>validate_jwt()</code></td>
-                                <td>Rejects expired and malformed tokens</td>
-                                <td><span class="badge b-green">PASS</span></td>
-                            </tr>
-                            <tr>
-                                <td><code>record_event()</code></td>
-                                <td>Rejects events with missing required fields</td>
-                                <td><span class="badge b-green">PASS</span></td>
-                            </tr>
-                            <tr>
-                                <td><code>ema_update()</code></td>
-                                <td>Smooth update within expected alpha range</td>
-                                <td><span class="badge b-yellow">IN PROGRESS</span></td>
-                            </tr>
+                            <tr><td>Risk score calculation</td><td><code>RiskScoringEngine.predict()</code></td><td><code>[URL_length: 25, Domain_age: 2]</code></td><td><code>{ threat_score: 45, risk_delta: +15 }</code></td><td></td></tr>
+                            <tr><td>Cognitive trigger tagging</td><td><code>CognitiveModel.tag_trigger()</code></td><td><code>'URGENT: Verify your credentials'</code></td><td><code>{ cognitive_trigger: 'Urgency_Bias' }</code></td><td></td></tr>
+                            <tr><td>Training assignment (Urgency)</td><td><code>RecommendationEngine.assign_training()</code></td><td><code>user_id, 'Urgency_Bias'</code></td><td><code>{ assigned_module: 'TM-URG-01' }</code></td><td></td></tr>
+                            <tr><td>Training assignment (Authority)</td><td><code>RecommendationEngine.assign_training()</code></td><td><code>user_id, 'Authority_Bias'</code></td><td><code>{ assigned_module: 'TM-AUT-01' }</code></td><td></td></tr>
+                            <tr><td>Data sanitization (PII removal)</td><td><code>DataPreprocessor.sanitize()</code></td><td>Raw click event payload</td><td>Sanitized dict, user_id hashed</td><td></td></tr>
+                            <tr><td>Feature vector extraction</td><td><code>FeatureVectorBuilder.extract()</code></td><td>Sanitized URL and context</td><td>Array of floats [F1…F8]</td><td></td></tr>
+                            <tr><td>Simulation event parsing</td><td><code>SimulationEngine.parse()</code></td><td>Simulation JSON object</td><td>Structured simulation record</td><td></td></tr>
+                            <tr><td>Module completion scoring</td><td><code>POST /api/v1/users/{id}/training/{id}/complete</code></td><td><code>userId, moduleId</code></td><td><code>UpdatedRiskScore, ScoreImprovement</code></td><td></td></tr>
                         </tbody>
                     </table>
                 </div>
-
-                <div class="sh">Integration Tests</div>
+ 
+                <div class="sh">Frontend Unit Tests</div>
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Test Case</th><th>Method</th><th>Input</th><th>Expected Output</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>loadDashboard()</code> data binding</td><td><code>loadDashboard(userId)</code></td><td>Valid userId string</td><td>RiskScore, VulnerabilityProfile, TrainingModules populated</td><td></td></tr>
+                            <tr><td><code>fetchRiskHistory()</code> — 30d range</td><td><code>fetchRiskHistory(userId, '30d')</code></td><td><code>userId, '30d'</code></td><td>Array of 30 ScoreDataPoints</td><td></td></tr>
+                            <tr><td><code>loadVulnerabilityProfile()</code> bias bars</td><td><code>loadVulnerabilityProfile(userId)</code></td><td>Valid userId string</td><td><code>dominantTrait, BiasScores[]</code> with 4 entries</td><td></td></tr>
+                            <tr><td><code>loadTrainingModules()</code> progress</td><td><code>loadTrainingModules(userId)</code></td><td>Valid userId string</td><td><code>TrainingModule[], DueDate, Progress</code></td><td></td></tr>
+                            <tr><td><code>fetchExplanation()</code> on event click</td><td><code>fetchExplanation(eventId)</code></td><td>Valid eventId string</td><td><code>PlainEnglishExplanation, CognitiveBiasTag</code></td><td></td></tr>
+                            <tr><td><code>completeModule()</code> score update</td><td><code>completeModule(userId, moduleId)</code></td><td><code>userId, moduleId</code></td><td>UpdatedRiskScore decreases, ScoreImprovement &gt; 0</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+ 
+                <div class="sh">API Integration Tests</div>
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Test Case</th><th>Endpoint</th><th>Input</th><th>Expected Output</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Telemetry click ingestion</td><td><span class="badge b-blue">POST</span> <code>/api/v1/telemetry/click</code></td><td>Valid click payload</td><td>HTTP 202 Accepted, event queued in RabbitMQ</td><td></td></tr>
+                            <tr><td>Dashboard state fetch</td><td><span class="badge b-green">GET</span> <code>/api/v1/users/{id}/dashboard</code></td><td>Valid userId</td><td>JSON with RiskScore, AlertFeed, VulnerabilityProfile</td><td></td></tr>
+                            <tr><td>Profile query from Neo4j</td><td><span class="badge b-green">GET</span> <code>/api/v1/users/{id}/profile</code></td><td>Valid userId</td><td><code>{ dominant_trait: 'Urgency', BiasScores: [...] }</code></td><td></td></tr>
+                            <tr><td>Risk history with range param</td><td><span class="badge b-green">GET</span> <code>/api/v1/users/{id}/risk-history?range=90d</code></td><td><code>userId, range=90d</code></td><td>Array of ScoreDataPoints for 90-day window</td><td></td></tr>
+                            <tr><td>Training list fetch</td><td><span class="badge b-green">GET</span> <code>/api/v1/users/{id}/training</code></td><td>Valid userId</td><td>Array of TrainingModule with progress and due dates</td><td></td></tr>
+                            <tr><td>Module content fetch</td><td><span class="badge b-green">GET</span> <code>/api/v1/training/{module_id}</code></td><td>Valid moduleId</td><td>Title, ContentURL, BiasTarget, EstimatedDuration</td><td></td></tr>
+                            <tr><td>Explanation fetch by event</td><td><span class="badge b-green">GET</span> <code>/api/v1/events/{event_id}/explanation</code></td><td>Valid eventId</td><td>PlainEnglishExplanation, CognitiveBiasTag</td><td></td></tr>
+                            <tr><td>Module complete → score update</td><td><span class="badge b-blue">POST</span> <code>/api/v1/users/{id}/training/{id}/complete</code></td><td><code>userId, moduleId</code></td><td>UpdatedRiskScore, ScoreImprovement &gt; 0</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+ 
+                <div class="sh">Component Integration Tests</div>
                 <div class="g2">
                     <div class="card">
-                        <div class="card-title">Flow 1 — Registration → First Score</div>
-                        <p>1. POST /auth/register → 201<br />
-                            2. GET /auth/me with JWT → user object<br />
-                            3. POST /events/behavior → event logged<br />
-                            4. GET /user/{id}/risk-score → score returned<br />
-                            5. Nudge triggered → verified in audit log</p>
+                        <div class="card-title">🔌 Chrome Extension → Telemetry API</div>
+                        <p>Verify click event arrives at <code>POST /api/v1/telemetry/click</code> with correct payload and receives a 202 Accepted response. Confirm event is visible in the RabbitMQ queue immediately after submission.</p>
                     </div>
                     <div class="card">
-                        <div class="card-title">Flow 2 — Training → Score Drop</div>
-                        <p>1. Admin assigns module via POST /training/assign<br />
-                            2. User completes → POST /training/complete<br />
-                            3. Score delta −8 pts applied and verified<br />
-                            4. Score change event logged with explanation text<br />
-                            5. Dashboard reflects updated score in &lt;2s</p>
+                        <div class="card-title">⚙️ RabbitMQ → ML Worker Pipeline</div>
+                        <p>Verify the event passes through all 4 pipeline stages in sequence: <code>DataPreprocessor → FeatureVectorBuilder → RiskScoringEngine → CognitiveModel</code>. Confirm outputs are written correctly to Neo4j at each stage.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">📡 Redis Pub/Sub → WebSocket</div>
+                        <p>Verify <code>ExplanationGenerator</code> publishes its alert to the correct Redis channel, and that the active FastAPI node holding the user's WebSocket connection catches the broadcast and pushes the payload to the UI.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">🗄️ API → Neo4j Graph Writes</div>
+                        <p>Verify <code>[VULNERABLE_TO]</code> and <code>[ASSIGNED_TRAINING]</code> edges are correctly written and queryable after each click event. Confirm edge weights update on repeated trigger interactions.</p>
                     </div>
                 </div>
-
+ 
+                <div class="sh">End-to-End Workflow</div>
+                <div class="card" style="margin-bottom:14px">
+                    <div class="card-title">Primary E2E Scenario — Simulation Click → Dashboard Update</div>
+                    <p>Full pipeline validation: Simulation delivered → user clicks phishing link → Chrome Extension fires telemetry → RabbitMQ queues event → ML pipeline processes → Neo4j updated → training assigned → WebSocket pushes score update to extension and dashboard.</p>
+                    <div class="timeline" style="margin-top:16px">
+                        <div class="tl-item done"><div class="tl-week">STEP 1</div><div class="tl-task">Synthetic agent encounters Urgency phishing link (SIM-001)</div></div>
+                        <div class="tl-item done"><div class="tl-week">STEP 2</div><div class="tl-task">Chrome Extension fires <code>POST /api/v1/telemetry/click</code></div><div class="tl-sub">Backend returns 202; event enters RabbitMQ queue</div></div>
+                        <div class="tl-item done"><div class="tl-week">STEP 3</div><div class="tl-task">ML pipeline processes event</div><div class="tl-sub">sanitize → feature vector → XGBoost score → NLP cognitive tag</div></div>
+                        <div class="tl-item done"><div class="tl-week">STEP 4</div><div class="tl-task">Neo4j updated with graph edges</div><div class="tl-sub"><code>[VULNERABLE_TO: Urgency]</code> and <code>[ASSIGNED_TRAINING: TM-URG-01]</code></div></div>
+                        <div class="tl-item done"><div class="tl-week">STEP 5</div><div class="tl-task">ExplanationGenerator publishes alert to Redis Pub/Sub channel</div></div>
+                        <div class="tl-item done"><div class="tl-week">STEP 6</div><div class="tl-task">WebSocket pushes risk_update payload to extension</div><div class="tl-sub"><code>{ event: 'risk_update', new_score, explanation, new_training_id }</code></div></div>
+                        <div class="tl-item done"><div class="tl-week">STEP 7</div><div class="tl-task">Dashboard reflects updated score, counterfactual, and new training module</div><div class="tl-sub">Must complete within 3 seconds of click event</div></div>
+                    </div>
+                    <div style="margin-top:16px;padding:12px 14px;background:var(--green-sub);border:1px solid rgba(34,197,94,.22);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--green)">
+                        ✓ PASS CRITERIA — All 7 steps complete without error. Score increases after phishing link click. Correct training module assigned matches trigger type (Urgency → TM-URG-01). Dashboard reflects update within 3s.
+                    </div>
+                </div>
+ 
                 <div class="sh">Performance Benchmarks</div>
-                <div class="g3">
-                    <div class="stat">
-                        <div class="stat-n" style="font-size:24px">&lt;200ms</div>
-                        <div class="stat-l">API p95 latency target</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-n" style="font-size:24px">&lt;2s</div>
-                        <div class="stat-l">Score update after event</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-n" style="font-size:24px">99.9%</div>
-                        <div class="stat-l">Uptime target</div>
-                    </div>
+                <div class="g4" style="margin-bottom:20px">
+                    <div class="stat"><div class="stat-n" style="font-size:22px">&lt;200ms</div><div class="stat-l">Neo4j graph query (100+ events)</div></div>
+                    <div class="stat"><div class="stat-n" style="font-size:22px">&lt;2s</div><div class="stat-l">Full ML pipeline per click event</div></div>
+                    <div class="stat"><div class="stat-n" style="font-size:22px">50</div><div class="stat-l">Concurrent WebSocket connections</div></div>
+                    <div class="stat"><div class="stat-n" style="font-size:22px">&gt;85%</div><div class="stat-l">Redis cache hit rate under load</div></div>
                 </div>
-
+ 
+                <div class="sh">Synthetic Agent Personas</div>
+                <div class="notice">
+                    <div class="notice-icon"></div>
+                    <p></b>Note:</b> Because developers possess prior knowledge of the system, unbiased testing uses <strong>synthetic user agents</strong> that emulate realistic behavioral patterns rather than using group members as test users. Each agent is initialized with a persona profile defining its susceptibility across all four trigger types.</p>
+                </div>
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Persona</th><th>Urgency</th><th>Authority</th><th>Social Proof</th><th>Scarcity</th><th>Caution</th><th>Purpose</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="badge b-red">The Rushed Employee</span></td><td>0.85</td><td>0.40</td><td>0.30</td><td>0.60</td><td>0.20</td><td>Validates urgency-trigger detection and TM-URG-01 assignment</td></tr>
+                            <tr><td><span class="badge b-orange">The Rule Follower</span></td><td>0.30</td><td>0.80</td><td>0.35</td><td>0.25</td><td>0.40</td><td>Validates authority-trigger detection and IT/management spoofing scenarios</td></tr>
+                            <tr><td><span class="badge b-purple">The Social User</span></td><td>0.25</td><td>0.30</td><td>0.85</td><td>0.45</td><td>0.30</td><td>Validates social proof detection and peer influence scenarios</td></tr>
+                            <tr><td><span class="badge b-green">The Cautious User</span></td><td>0.15</td><td>0.20</td><td>0.15</td><td>0.20</td><td>0.85</td><td>Validates false-positive rate — must NOT be over-assigned training</td></tr>
+                            <tr><td><span class="badge b-red">The Vulnerable User</span></td><td>0.85</td><td>0.80</td><td>0.85</td><td>0.80</td><td>0.10</td><td>Validates multi-dimensional vulnerability detection and critical-risk flagging</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+ 
+                <div class="sh">Agent Validation Criteria</div>
+                <div class="g2">
+                    <div class="card"><div class="card-title">🎯 Profile Accuracy</div><p>Does the system correctly identify each persona's dominant vulnerability within N simulation rounds? The Rushed Employee must resolve to Urgency; the Rule Follower to Authority.</p></div>
+                    <div class="card"><div class="card-title">📚 Training Relevance</div><p>Does the system assign training matching the agent's highest susceptibility trigger? Urgency click → <code>TM-URG-01</code>, Authority click → <code>TM-AUT-01</code>.</p></div>
+                    <div class="card"><div class="card-title">📉 Score Trajectory</div><p>Does the risk score decrease as agents complete targeted training? A completed Urgency module must reduce urgency_susceptibility by 25% (<code>current × 0.75</code>).</p></div>
+                    <div class="card"><div class="card-title">🎰 MAB Effectiveness</div><p>Does the Multi-Armed Bandit recommendation engine converge on the most effective training module for each persona type over repeated interactions?</p></div>
+                    <div class="card"><div class="card-title">🚫 False Positive Rate</div><p>Does the Cautious User (Persona 4) get incorrectly flagged as high risk? The system must not over-assign training to low-risk users with high baseline caution.</p></div>
+                    <div class="card"><div class="card-title">🔁 Post-Training Recovery</div><p>If an agent clicks the same trigger after training, susceptibility partially recovers: <code>new = current + (click_penalty × 0.5)</code>. Score trajectory must reflect this dampened recovery.</p></div>
+                </div>
+ 
                 <div class="sh">Traceability Matrix</div>
                 <div class="tbl-wrap">
                     <table>
                         <thead>
-                            <tr>
-                                <th>User Story</th>
-                                <th>Test(s)</th>
-                                <th>Verified By</th>
-                                <th>Status</th>
-                            </tr>
+                            <tr><th>User Story</th><th>Test(s)</th><th>Verified By</th></tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>US-01: View real-time risk score</td>
-                                <td>UT-01, IT-01</td>
-                                <td>GET /risk-score returns live score</td>
-                                <td><span class="badge b-green">PASS</span></td>
-                            </tr>
-                            <tr>
-                                <td>US-02: Receive just-in-time nudge</td>
-                                <td>UT-03</td>
-                                <td>Nudge fires on event above threshold</td>
-                                <td><span class="badge b-yellow">IN PROGRESS</span></td>
-                            </tr>
-                            <tr>
-                                <td>US-03: Admin org dashboard</td>
-                                <td>IT-03</td>
-                                <td>Admin endpoint returns aggregated data</td>
-                                <td><span class="badge b-green">PASS</span></td>
-                            </tr>
-                            <tr>
-                                <td>US-04: Score change explanation</td>
-                                <td>IT-02</td>
-                                <td>Score event log includes explanation text</td>
-                                <td><span class="badge b-green">PASS</span></td>
-                            </tr>
+                            <tr><td>UC-1: Silent Behavioral Monitoring</td><td>IT-01</td><td>Chrome Extension fires <code>handleSimulationClick()</code> and POST <code>/api/v1/telemetry/click</code> returns 202</td></tr>
+                            <tr><td>UC-2: Dynamic Risk Visualization</td><td>UT-01, IT-02</td><td>Risk Score Widget updates within 2s of risky event via WebSocket push</td></tr>
+                            <tr><td>UC-3: Contextual Risk Explanations</td><td>IT-03</td><td>GET <code>/api/v1/events/{event_id}/explanation</code> returns plain-English counterfactual with cognitive bias tag</td></tr>
+                            <tr><td>UC-4: Adaptive Training Assignment</td><td>UT-03, IT-04</td><td>RecommendationEngine assigns module matching dominant trigger; GET <code>/api/v1/users/{id}/training</code> returns correct module</td></tr>
+                            <tr><td>UC-5: Historical Trend Visualization</td><td>IT-05</td><td>GET <code>/api/v1/users/{id}/risk-history?range=30d</code> returns correctly ordered ScoreDataPoints array</td></tr>
+                            <tr><td>UC-6: Organization Vulnerability Profiling</td><td>UT-02, IT-06</td><td>GET <code>/api/v1/users/{id}/profile</code> returns correct dominant trait and four bias scores from Neo4j</td></tr>
+                            <tr><td>UC-7: Training Completion Feedback Loop</td><td>UT-08, IT-07</td><td>POST <code>/api/v1/users/{id}/training/{id}/complete</code> returns decreased UpdatedRiskScore and generates Score Change Explanation entry</td></tr>
+                            <tr><td>UC-8: Just-In-Time Training Nudges</td><td>IT-08</td><td>WebSocket pushes nudge payload to extension popup within 2s of risky click</td></tr>
+                            <tr><td>UC-9: Unified Dashboard View</td><td>IT-09</td><td>GET <code>/api/v1/users/{id}/dashboard</code> returns aggregated score, alerts, vulnerability profile, and training modules in single response</td></tr>
                         </tbody>
                     </table>
                 </div>
-
+ 
             </div>
         </div>
-
+ 
         <!-- ═══ MANAGEMENT & ETHICS ═══ -->
         <div class="page" id="page-management">
             <div class="pg">
-
                 <div class="ph">
                     <div class="ph-eyebrow">Project</div>
                     <h1>Management & <em>Ethics</em></h1>
                     <div class="ph-sub">// Timeline · Task Breakdown · Ethics · IRB Status</div>
                 </div>
-
+ 
                 <div class="sh">Project Timeline (15 Weeks)</div>
                 <div class="timeline">
-                    <div class="tl-item done">
-                        <div class="tl-week">WEEKS 1–2</div>
-                        <div class="tl-task">Project Charter &amp; Requirements</div>
-                        <div class="tl-sub">Personas, user stories, initial scope definition</div>
-                    </div>
-                    <div class="tl-item done">
-                        <div class="tl-week">WEEKS 3–4</div>
-                        <div class="tl-task">Architecture &amp; Tech Stack</div>
-                        <div class="tl-sub">System diagram finalized, DB schema drafted</div>
-                    </div>
-                    <div class="tl-item done">
-                        <div class="tl-week">WEEKS 5–7</div>
-                        <div class="tl-task">Core Backend — Risk Engine &amp; API</div>
-                        <div class="tl-sub">Behavioral scoring model, event ingestion, auth system</div>
-                    </div>
-                    <div class="tl-item">
-                        <div class="tl-week">WEEKS 8–10</div>
-                        <div class="tl-task">Frontend — Dashboard &amp; Training UI</div>
-                        <div class="tl-sub">React dashboard, nudge system, training module UI</div>
-                    </div>
-                    <div class="tl-item">
-                        <div class="tl-week">WEEKS 11–12</div>
-                        <div class="tl-task">Integration &amp; Testing</div>
-                        <div class="tl-sub">Full-flow tests, performance benchmarks, bug fixes</div>
-                    </div>
-                    <div class="tl-item">
-                        <div class="tl-week">WEEKS 13–14</div>
-                        <div class="tl-task">Polish &amp; Capstone Site</div>
-                        <div class="tl-sub">Final UI polish, documentation, GitHub Pages deploy</div>
-                    </div>
-                    <div class="tl-item">
-                        <div class="tl-week">WEEK 15</div>
-                        <div class="tl-task">Final Presentation &amp; Poster</div>
-                        <div class="tl-sub">Demo day — poster featured front and center on homepage</div>
-                    </div>
+                    <div class="tl-item done"><div class="tl-week">WEEKS 1–2</div><div class="tl-task">Project Proposal &amp; Executive Summary Creation</div><div class="tl-sub">Project charter, team roles, problem statement, and primary persona definition</div></div>
+                    <div class="tl-item done"><div class="tl-week">WEEKS 3–4</div><div class="tl-task">PRD &amp; UI/UX Creation</div><div class="tl-sub">User stories, PRD, Figma prototype, and UX wireframes for dashboard and Chrome Extension</div></div>
+                    <div class="tl-item done"><div class="tl-week">WEEKS 5–7</div><div class="tl-task">Testing &amp Planning Strategy Creation; API</div><div class="tl-sub">Testing & validation strategy, synthetic agent personas, unit/integration test planning, and API endpoint specification</div></div>
+                    <div class="tl-item"><div class="tl-week">WEEKS 8–10</div><div class="tl-task">Developer Design Creation</div><div class="tl-sub">Developer design document, ML pipeline architecture, risk scoring algorithm, Neo4j schema, and system architecture diagram</div></div>
+                    <div class="tl-item"><div class="tl-week">WEEKS 11–12</div><div class="tl-task">Implementation</div><div class="tl-sub">Core backend implementation: FastAPI endpoints, XGBoost risk engine, RabbitMQ queue, Redis Pub/Sub, and WebSocket alerts</div></div>
+                    <div class="tl-item"><div class="tl-week">WEEKS 13–14</div><div class="tl-task">Implementation</div><div class="tl-sub"> Frontend implementation: React dashboard, Chrome Extension (MV3), training module UI, and capstone site deployment to GitHub Pages</div></div>
+                    <div class="tl-item"><div class="tl-week">WEEK 15</div><div class="tl-task">Final Presentation &amp; Poster</div><div class="tl-sub">Final presentation, project poster, and live demo of end-to-end simulation click → risk score → training nudge pipeline</div></div>
                 </div>
-
+ 
                 <div class="sh">Ethics Statement</div>
-                <div class="notice">
-                    <div class="notice-icon">⚠️</div>
-                    <p><strong>Behavioral Surveillance Risk:</strong> AdaptiveSec monitors user behaviors (link clicks,
-                        login patterns, email interactions) to build risk profiles. We are committed to transparent data
-                        use, user-owned scores, and explicit opt-in for org-level aggregation.</p>
-                </div>
-                <div class="g2">
-                    <div class="card">
-                        <div class="card-title">🔍 Privacy &amp; Monitoring Boundary</div>
-                        <p>At what point does protective monitoring become employee surveillance? We surface this
-                            question explicitly: users always know their behavior is being scored, and data is never
-                            shared with HR or used for performance evaluation.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">🤖 Algorithmic Bias</div>
-                        <p>The ML model trained on historical incident data may embed existing biases. We commit to
-                            regular bias audits and plan to publish our scoring methodology for external review.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">🧠 Neurodiversity Considerations</div>
-                        <p>Could the model unfairly penalize neurodivergent users who exhibit different behavioral
-                            patterns? This is an open design question we plan to address with diverse testing
-                            populations.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">📋 IRB / CITI Status</div>
-                        <p>CITI certification application submitted. IRB review not required for current development
-                            phase (no human subjects research). Will be revisited prior to any user study.</p>
-                        <div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-                            <span class="badge b-blue">In Progress</span>
-                            <a href="#" class="irb-link">[ Link to CITI certificate — replace when available ]</a>
-                        </div>
-                    </div>
-                </div>
+<div class="card" style="margin-bottom:14px">
+    <div class="card-title">Legal &amp; Ethical Monitoring Policy</div>
+    <p>AdaptiveSec operates exclusively on organization-owned platforms and systems. Organizations are legally permitted to monitor their own infrastructure, including email and web activity, for activity that may jeopardize their cybersecurity posture.</p>
+    <p style="margin:0">No human reviewer will access the contents of monitored interactions under normal operation. Manual review is reserved strictly for critical escalation scenarios, such as detecting an active threat actor or a confirmed security breach.</p>
+</div>
 
+</div>
             </div>
         </div>
-
+ 
     </div><!-- /main -->
-
+ 
     <!-- ZOOM MODAL -->
     <div class="zoom-modal" id="zoomModal" onclick="closeZoom()">
-        <div class="zoom-modal-inner" id="zoomContent" onclick="event.stopPropagation()">
-        </div>
+        <div class="zoom-modal-inner" id="zoomContent" onclick="event.stopPropagation()"></div>
     </div>
-
+ 
     <script>
         const pages = {
             home: 'HOME',
@@ -2344,7 +1390,7 @@ new_susceptibility = current_susceptibility + (click_penalty × <span class="num
             testing: 'TESTING & VALIDATION',
             management: 'MANAGEMENT & ETHICS'
         };
-
+ 
         function go(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.sb-item').forEach(n => n.classList.remove('active'));
@@ -2356,95 +1402,50 @@ new_susceptibility = current_susceptibility + (click_penalty × <span class="num
             closeSidebar();
             mermaid.run();
         }
-
+ 
         function filterNav(q) {
             q = q.toLowerCase();
             document.querySelectorAll('.sb-item').forEach(item => {
                 item.style.display = item.textContent.trim().toLowerCase().includes(q) ? '' : 'none';
             });
         }
-
+ 
         function openSidebar() {
             document.getElementById('sidebar').classList.add('open');
             document.getElementById('overlay').classList.add('show');
         }
+ 
         function closeSidebar() {
             document.getElementById('sidebar').classList.remove('open');
             document.getElementById('overlay').classList.remove('show');
         }
-
-        // Diagram zoom modal
+ 
         const zoomData = {
-            flow: {
-                title: 'User Flow Diagram',
-                body: `<div style="font-family:var(--mono);font-size:12px;color:var(--text-2);line-height:2.2;text-align:left">
-                <div style="color:var(--text-3);margin-bottom:16px">Replace this placeholder with your actual Mermaid.js or SVG user flow diagram.</div>
-                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                    <span style="background:var(--orange-subtle);border:1px solid var(--orange-border);border-radius:4px;padding:4px 10px;color:var(--orange)">Login</span>
-                    <span style="color:var(--text-4)">→</span>
-                    <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Dashboard</span>
-                    <span style="color:var(--text-4)">→</span>
-                    <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Risky Behavior Detected</span>
-                    <span style="color:var(--text-4)">→</span>
-                    <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Nudge Triggered</span>
-                    <span style="color:var(--text-4)">→</span>
-                    <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Training Module</span>
-                    <span style="color:var(--text-4)">→</span>
-                    <span style="background:var(--green-sub);border:1px solid rgba(34,197,94,.22);border-radius:4px;padding:4px 10px;color:var(--green)">Score Updated</span>
-                </div>
-            </div>`
-            },
-            arch: {
-                title: 'System Architecture Diagram',
-                body: `<div style="font-family:var(--mono);font-size:12px;color:var(--text-2);line-height:2.2;text-align:left">
-                <div style="color:var(--text-3);margin-bottom:16px">Replace with your actual block diagram SVG or Mermaid.js output.</div>
-                <div style="display:flex;flex-direction:column;gap:8px">
-                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                        <span style="background:var(--orange-subtle);border:1px solid var(--orange-border);border-radius:4px;padding:4px 10px;color:var(--orange)">Chrome Extension</span>
-                        <span style="color:var(--text-4)">→</span>
-                        <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">API Gateway</span>
-                        <span style="color:var(--text-4)">→</span>
-                        <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Auth Service</span>
-                    </div>
-                    <div style="padding-left:40px;color:var(--text-4)">↓</div>
-                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                        <span style="background:var(--purple-sub);border:1px solid rgba(167,139,250,.22);border-radius:4px;padding:4px 10px;color:var(--purple)">Risk Engine (ML)</span>
-                        <span style="color:var(--text-4)">→</span>
-                        <span style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:4px 10px">Training Service</span>
-                        <span style="color:var(--text-4)">→</span>
-                        <span style="background:var(--blue-sub);border:1px solid rgba(96,165,250,.2);border-radius:4px;padding:4px 10px;color:var(--blue)">PostgreSQL DB</span>
-                    </div>
-                </div>
-            </div>`
-            },
             er: {
                 title: 'Entity Relationship Diagram',
                 body: `<div style="font-family:var(--mono);font-size:12px;color:var(--text-2);line-height:2;text-align:left">
                 <div style="color:var(--text-3);margin-bottom:16px">Replace with your exported ER diagram SVG from dbdiagram.io or Mermaid erDiagram.</div>
                 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
                     ${['users', 'risk_scores', 'score_events', 'training_modules', 'assignments', 'completions'].map(t =>
-                    `<div style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:8px 12px;color:var(--text-2)">${t}</div>`
-                ).join('')}
-                </div>
-            </div>`
+                        `<div style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:8px 12px;color:var(--text-2)">${t}</div>`
+                    ).join('')}
+                </div></div>`
             }
         };
-
+ 
         function openZoom(key) {
             const d = zoomData[key] || { title: 'Diagram', body: '' };
             document.getElementById('zoomContent').innerHTML = `
-            <div style="font-family:var(--mono);font-size:13px;color:var(--orange);margin-bottom:16px;letter-spacing:.06em">${d.title}</div>
-            ${d.body}
-            <div style="margin-top:20px;font-family:var(--mono);font-size:9px;color:var(--text-4);letter-spacing:.08em">PRESS ESC OR CLICK OUTSIDE TO CLOSE</div>
-        `;
+                <div style="font-family:var(--mono);font-size:13px;color:var(--orange);margin-bottom:16px;letter-spacing:.06em">${d.title}</div>
+                ${d.body}
+                <div style="margin-top:20px;font-family:var(--mono);font-size:9px;color:var(--text-4);letter-spacing:.08em">PRESS ESC OR CLICK OUTSIDE TO CLOSE</div>
+            `;
             document.getElementById('zoomModal').classList.add('open');
         }
-        function closeZoom() {
-            document.getElementById('zoomModal').classList.remove('open');
-        }
+ 
+        function closeZoom() { document.getElementById('zoomModal').classList.remove('open'); }
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeZoom(); });
-
-        // Stat counters
+ 
         function animateCounters() {
             document.querySelectorAll('[data-count]').forEach(el => {
                 const target = parseInt(el.getAttribute('data-count'));
@@ -2457,8 +1458,7 @@ new_susceptibility = current_susceptibility + (click_penalty × <span class="num
                 }, 28);
             });
         }
-
-        // Risk bars
+ 
         function animateBars() {
             setTimeout(() => {
                 document.querySelectorAll('.rbar-fill[data-w]').forEach(bar => {
@@ -2466,12 +1466,10 @@ new_susceptibility = current_susceptibility + (click_penalty × <span class="num
                 });
             }, 80);
         }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            animateCounters();
-        });
+ 
+        window.addEventListener('DOMContentLoaded', () => { animateCounters(); });
     </script>
-
+ 
 </body>
-
 </html>
+ 
