@@ -1,6 +1,3 @@
-
-Copy
-
 <!DOCTYPE html>
 <html lang="en">
  
@@ -37,36 +34,36 @@ Copy
     </script>
     <style>
         :root {
-            --bg-root: #0c0d0e;
-            --bg-sidebar: #111314;
-            --bg-topbar: #0f1011;
-            --bg-card: #181a1c;
-            --bg-card-2: #1d2023;
-            --bg-input: #151718;
-            --orange: #f97316;
-            --orange-bright: #fb923c;
-            --orange-dim: #ea6d0a;
-            --orange-subtle: rgba(249, 115, 22, 0.12);
-            --orange-border: rgba(249, 115, 22, 0.28);
-            --green: #22c55e;
-            --green-sub: rgba(34, 197, 94, 0.12);
-            --red: #ef4444;
-            --red-sub: rgba(239, 68, 68, 0.1);
-            --blue: #60a5fa;
-            --blue-sub: rgba(96, 165, 250, 0.1);
-            --yellow: #eab308;
-            --purple: #a78bfa;
-            --purple-sub: rgba(167, 139, 250, 0.12);
-            --text-1: #e8eaed;
-            --text-2: #9aa0a9;
-            --text-3: #5f6872;
-            --text-4: #3d444d;
-            --border: #222528;
-            --border-light: #2a2e33;
-            --sidebar-w: 220px;
-            --mono: 'IBM Plex Mono', monospace;
-            --sans: 'IBM Plex Sans', sans-serif;
-        }
+    --bg-root: #0a0d10;
+    --bg-sidebar: #0d1117;
+    --bg-topbar: #0b0e12;
+    --bg-card: #141b22;
+    --bg-card-2: #1a2332;
+    --bg-input: #111820;
+    --orange: #22d3ee;
+    --orange-bright: #38bdf8;
+    --orange-dim: #0e9ab5;
+    --orange-subtle: rgba(34, 211, 238, 0.10);
+    --orange-border: rgba(34, 211, 238, 0.25);
+    --green: #22c55e;
+    --green-sub: rgba(34, 197, 94, 0.12);
+    --red: #ef4444;
+    --red-sub: rgba(239, 68, 68, 0.1);
+    --blue: #60a5fa;
+    --blue-sub: rgba(96, 165, 250, 0.1);
+    --yellow: #eab308;
+    --purple: #a78bfa;
+    --purple-sub: rgba(167, 139, 250, 0.12);
+    --text-1: #e8eaed;
+    --text-2: #9aa0a9;
+    --text-3: #5f6872;
+    --text-4: #3d444d;
+    --border: #1e2530;
+    --border-light: #263040;
+    --sidebar-w: 220px;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    }
  
         *,
         *::before,
@@ -113,12 +110,12 @@ Copy
  
         .sb-logo-mark {
             width: 28px; height: 28px;
-            background: var(--orange);
+            background: #22d3ee;
             border-radius: 6px;
             display: flex; align-items: center; justify-content: center;
             font-family: var(--mono);
             font-size: 11px; font-weight: 700;
-            color: #000; flex-shrink: 0;
+            color: #0a0d10; flex-shrink: 0;
         }
  
         .sb-logo-name {
@@ -493,25 +490,78 @@ Copy
         }
  
         .zoom-modal-inner img { max-width: 100%; height: auto; border-radius: 6px; }
- 
-        /* POSTER BANNER */
-        .poster-banner {
-            background: var(--bg-card-2);
-            border: 1px dashed var(--orange-border);
+
+        /* HERO BANNER */
+        .hero-banner {
+            background: #0d1117;
+            border: 1px solid #222528;
             border-radius: 10px;
-            padding: 32px 28px; margin-bottom: 20px;
-            text-align: center; position: relative; overflow: hidden;
+            margin-bottom: 20px;
+            padding: 52px 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 240px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
         }
- 
-        .poster-banner::before {
-            content: ''; position: absolute; inset: 0;
-            background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(249,115,22,.03) 8px, rgba(249,115,22,.03) 16px);
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px; height: 360px;
+            background: radial-gradient(ellipse, rgba(34,211,238,0.06) 0%, transparent 70%);
             pointer-events: none;
         }
- 
-        .poster-banner h2 { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; }
-        .poster-banner p { font-size: 12px; color: var(--text-3); margin: 0; line-height: 1.7; }
- 
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -60px; right: -60px;
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, rgba(249,115,22,0.05) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .banner-shield {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+            animation: shield-float 4s ease-in-out infinite;
+        }
+
+        @keyframes shield-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .banner-wordmark {
+            position: relative;
+            z-index: 1;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            margin-bottom: 10px;
+        }
+
+        .banner-wordmark .w1 { color: #e8eaed; }
+        .banner-wordmark .w2 { color: #22d3ee; }
+
+        .banner-sub {
+            position: relative;
+            z-index: 1;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            color: #5f6872;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
         /* FIGMA EMBED */
         .figma-embed-wrap { background: var(--bg-input); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
         .figma-embed-wrap iframe { width: 100%; height: 480px; border: none; display: block; }
@@ -608,6 +658,7 @@ Copy
             .hero-card h1 { font-size: 22px; }
             #topbar { padding: 0 16px 0 52px; }
             .zoom-modal-inner { padding: 24px 20px; }
+            .banner-wordmark { font-size: 24px; }
         }
  
         @media(max-width:480px) {
@@ -626,7 +677,14 @@ Copy
     <!-- SIDEBAR -->
     <aside id="sidebar">
         <div class="sb-logo">
-            <div class="sb-logo-mark">AS</div>
+            <div class="sb-logo-mark" style="background:transparent; border-radius:0;">
+                <svg width="20" height="23" viewBox="0 0 72 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M36 4L6 16V38C6 56.8 19.2 74.2 36 79C52.8 74.2 66 56.8 66 38V16L36 4Z"
+                        stroke="#22d3ee" stroke-width="2.5" stroke-linejoin="round" fill="rgba(34,211,238,0.06)"/>
+                    <path d="M36 14L14 24V40C14 54.4 23.6 67.4 36 71.2C48.4 67.4 58 54.4 58 40V24L36 14Z"
+                    stroke="rgba(34,211,238,0.25)" stroke-width="1" stroke-linejoin="round" fill="none"/>
+                </svg>
+        </div>
             <span class="sb-logo-name">ADAPTIVESEC</span>
             <span class="sb-status">LIVE</span>
         </div>
@@ -653,10 +711,13 @@ Copy
             </div>
             <div class="sb-item" data-page="architecture" onclick="go('architecture')">
                 <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
-                    <rect x="3" y="2" width="10" height="12" rx="1.5" />
-                    <line x1="6" y1="5.5" x2="10" y2="5.5" />
-                    <line x1="6" y1="8" x2="10" y2="8" />
-                    <line x1="6" y1="10.5" x2="8.5" y2="10.5" />
+                    <rect x="1" y="1" width="5" height="5" rx="1" />
+                    <rect x="10" y="1" width="5" height="5" rx="1" />
+                    <rect x="5.5" y="10" width="5" height="5" rx="1" />
+                    <line x1="3.5" y1="6" x2="3.5" y2="8" />
+                    <line x1="12.5" y1="6" x2="12.5" y2="8" />
+                    <line x1="3.5" y1="8" x2="12.5" y2="8" />
+                    <line x1="8" y1="8" x2="8" y2="10" />
                 </svg>
                 Architecture
             </div>
@@ -705,9 +766,23 @@ Copy
         <!-- ═══ HOME ═══ -->
         <div class="page active" id="page-home">
             <div class="pg">
-                <div class="poster-banner">
-                    <h2>Project Poster</h2>
-                    <p><br />Replace this banner with your poster image before final submission.</p>
+
+                <!-- FULL-WIDTH HERO BANNER (pure CSS, no image file needed) -->
+                <div class="hero-banner">
+                    <div class="banner-shield">
+                        <svg width="72" height="82" viewBox="0 0 72 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- outer shield -->
+                            <path d="M36 4L6 16V38C6 56.8 19.2 74.2 36 79C52.8 74.2 66 56.8 66 38V16L36 4Z"
+                                  stroke="#22d3ee" stroke-width="2.5" stroke-linejoin="round" fill="rgba(34,211,238,0.06)"/>
+                            <!-- inner shield accent -->
+                            <path d="M36 14L14 24V40C14 54.4 23.6 67.4 36 71.2C48.4 67.4 58 54.4 58 40V24L36 14Z"
+                                  stroke="rgba(34,211,238,0.25)" stroke-width="1" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="banner-wordmark">
+                        <span class="w1">Adaptive</span><span class="w2">Sec</span>
+                    </div>
+                    <div class="banner-sub">Adaptive Phishing Simulation &amp; Security Training Platform</div>
                 </div>
  
                 <div class="hero-card">
@@ -772,12 +847,9 @@ Copy
                 <div class="sh">The Team</div>
                 <div class="team-grid">
                     <div class="team-card"><div class="t-av">FM</div><div class="t-name">Forhaad Miah</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">forhaadmiah1@gmail.com</div></div>
-                    <div class="team-card"><div class="t-av">HS</div><div class="t-name">Hamza Siddiqui</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">hamza2608@gmail.com
-</div></div>
-                    <div class="team-card"><div class="t-av">NF</div><div class="t-name">Niko Fushi</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">nikofushi25@gmail.com
-</div></div>
-                    <div class="team-card"><div class="t-av">AV</div><div class="t-name">Adnan Vaktapuriya</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">adnanvaktapuriya@gmail.com
-</div></div>
+                    <div class="team-card"><div class="t-av">HS</div><div class="t-name">Hamza Siddiqui</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">hamza2608@gmail.com</div></div>
+                    <div class="team-card"><div class="t-av">NF</div><div class="t-name">Niko Fushi</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">nikofushi25@gmail.com</div></div>
+                    <div class="team-card"><div class="t-av">AV</div><div class="t-name">Adnan Vaktapuriya</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">adnanvaktapuriya@gmail.com</div></div>
                     <div class="team-card"><div class="t-av">AL</div><div class="t-name">Aiden Lee</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">aidenlee0814@gmail.com</div></div>
                 </div>
             </div>
@@ -790,7 +862,6 @@ Copy
                     <div class="ph-eyebrow">Documentation</div>
                     <h1>Requirements & <em>UX (PRD)</em></h1>
                 </div>
- 
                 <div class="sh">Primary Persona</div>
                 <div class="card" style="margin-bottom:14px">
                     <div class="card-title">🧑‍💼 "Security Project Manager Alex" <span class="badge b-orange" style="margin-left:auto">P0 Persona</span></div>
@@ -806,13 +877,10 @@ Copy
                     </div>
                     <div class="rbar-wrap" id="personaBars"></div>
                 </div>
- 
                 <div class="sh">User Stories</div>
                 <div class="tbl-wrap">
                     <table>
-                        <thead>
-                            <tr><th>Priority</th><th>As a…</th><th>I want to…</th><th>So that…</th></tr>
-                        </thead>
+                        <thead><tr><th>Priority</th><th>As a…</th><th>I want to…</th><th>So that…</th></tr></thead>
                         <tbody>
                             <tr><td><span class="badge b-red">P0</span></td><td>User</td><td>The Chrome Extension to analyze my browser interactions in the background</td><td>My risk profile is built on my actual daily habits without interrupting my workflow.</td></tr>
                             <tr><td><span class="badge b-red">P0</span></td><td>User</td><td>To see my Risk Score (0-100) update on my dashboard shortly after if I make a risky decision</td><td>I can understand the impact of my actions.</td></tr>
@@ -826,7 +894,6 @@ Copy
                         </tbody>
                     </table>
                 </div>
- 
                 <div class="sh">Figma Prototype</div>
                 <div class="figma-embed-wrap">
                     <iframe style="border: 1px solid rgba(0,0,0,0.1);" width="800" height="450"
@@ -847,15 +914,12 @@ Copy
                     <h1>Architecture & <em>High-Level Design</em></h1>
                     <div class="ph-sub">// Tech Spec — System Diagram · Stack · Security</div>
                 </div>
- 
                 <div class="sh">System Diagram</div>
                 <div style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:8px;overflow:hidden;margin-bottom:4px">
                     <img src="https://kroki.io/mermaid/svg/eNqVV91u4kYUvucpRqxWIqrZACbZFG0jYQwE1bBOTJK2qBeDPYZpjMeaGSdxlYv2CXrRmz5Kn2dfoK_QM_4BG4g26wtkPGfOz3e-c-aMH7And425RHOjhuB5_x798NpTCDjzn63JbIwaJiERMjF_QAMWMC5O3qxit9MIYpJ-dQMshEl85HO8IW1HJgFBPg2C3ruW2f3Yb2tCcvZA4G-r0_5Y_G0-UU-ue3r0rLnKid473_cPzXzmOFwdM9QpGzJG-nlrsDV08bEFz7cZsmMeBccM6WVD3X67e7Ez1O60WmfDbzM05oSER-x0y3baxtmw0yohp-tvC8jA7gMJPWSwOPQwT1BjRmLJcXBSNbnM5Mo2_a5_7l9sbXbO9Y5-UbXZBZv5Bw8L4B_HSQ9doIvCE4C99mYyjVTYqI2-_PE3mq8JGnorghpzFr2RjyJerjiO1mjUXtTLygaMR4xjSdAkhNhDIlFjuIkClhCC7hl_EBJLysKT-q-pIvV4lBNXfSwqqmLB4OxJEL6ojxlbAWKDNWdgrjHFIfWJkOhOLyurKrRuKgu3k0V9-CxJKNTi7eTTkp9eNkzAc8kw9_b1VP5sHbonSxWIckmlfMVVvgFFTrCHGrCKsuV9bepx7hd1h_BH6pJcKnNh-EhCiW5YLI_v--z7wlXsXdS3r8hkbrxR-_p2HomRREAyItD0TkcW3VApjmlT2e4DFNcxDiX9nXhoMptfoCnzSJAparc2Ag2fiRunMBox7JD7qoDEtWPvtR3cqNm8fKnfQv7QIKDugzi9Yo-Ei_oLQFHboZLJzTldrWAVXVHPgwBtvCIguY24dgBHts9i2BOZ-yCeRVerBpsJOtgnp2mmAGwi4kAeOvIh9TjygMMC3VHyBCK3mToV5JtLbH41REZ_8ONwZqKGkwhJNtvW8K1VlreWTMui_uWfP__79y_Uv3fQMATGRJwKgu7sAZQwj0HGQ7-wkHy1xrYv247Q6Sl6IwsnhB-W4qhTFHsnLXblwAjzlSr3QaAM8z2KWMairqT6UQTpx1lNQrYgogCH7oE8MBk22BM0Bp1POMnYOMJCqo_fKeccBlgc8vqGeFRAdUOXlXSAXWhqjfTbSabjiknkEJEWvoklLu_f5rWKxYezHuqLJHRfx-NsC8iHsxQSYBUNKAndJNu05-X0elGfghdAbHQdk5hkzt3g5ZLK6TU6Rc61sx-aacEuU3UXi0jAuLzTZlRARIXOOfj19cj0HiRhRV-PSy_C0vOmvomgMx2NyLTBN8AT2ZxEnLngCMubmj2ZoCkWDzRc7Yc0ugNijKAMYw7EBWYyDk2GBt4hYtaifkPFA3JcxkETMH5Fwzz6n8YGY3AETC1738KArRZ1-AmppI9gIw5CwvESkiOTcqebWTbK-w5wGLon9elhDx4-RwGmoTo94CXMiDwmSqUswrUCvMFNHXI4gDKHPPnYlTEOjlDVhZiIyzbQvb1MVzmqad8AFaDhWW2HUgm9I40cUg074BCaWp8jAUql-qAQsmlEgq22fizZBqueMKOrtQySQ3cAqRQR9UphyMjL7g5asfJN-cJZ8HVedXtpab1Kq25Bq25KKwegU6Q9Sivgx4yw7m-oH3NsGplH41TPDQlS0MSaRgewjAPsUgWLajuOXvwvsAAkFfcFukTft8DbROyHdaw5TlQ6Q8gFQBFmfVTUdj0uO1xMBR1dxgpqSI7vUxeODuhbtVJ3Q6zZZC-Qfeyd3nOqGqfqVSCYNquKaKo1a0DpfKBOzel1bddL8sNqhGkgkP4My9AqKutq2Yh9n3BwaqvEtA-jNO1cG9xLvCI1IJvjV5FLxQIC052XJhzEoKBrpeLOZGYwnnBo-wHqq3E19d_a-WdlUtvqho7darZbrROQg8o99BE-VgaFokrUoZ8V6KFoOns4MHRmGLtViTRiE_BL0JBzlg4meWEdqkod3YF45BzNt2biNsypDBJczCVQXLVSzeXupYMGnGuqNvfU5jEVeUnPtFL_ERXSlGeTccCWR8gK0w1MFpcvWzZfzee28wIEruXT2qd0HcgZNCXdkNJxmxG5MKCO8wSlNxiBJMvKX-yuOXAtKN9Jywud8h2ysnD22opevg2WF7rl61tpoTIuVe5br0YwgySlL3A3UGeSXJMEQdt01-oVeer6CC-bspnbiebca9tZVMsnzeOBW4YGCGppwrTptQaV-kq8pq1BBWlTSwPmaTkJYKOr5fTSFHuOQ2IaWl6wZWj-Bzeuy9Y=" 
                         style="width:100%;height:auto;display:block;border-radius:8px" 
                         alt="System Architecture Diagram" />
                 </div>
-              
- 
                 <div class="sh">Tech Stack Justification</div>
                 <div class="tbl-wrap">
                     <table>
@@ -870,7 +934,6 @@ Copy
                         </tbody>
                     </table>
                 </div>
- 
                 <div class="sh">Security Architecture</div>
                 <div class="g2">
                     <div class="card"><div class="card-title">🔐 Auth &amp; Authorization</div><p>All API endpoints require JWT bearer tokens. RBAC enforces separation between Employee, Manager, and Admin views. OAuth2 PKCE flow for SSO.</p></div>
@@ -889,84 +952,45 @@ Copy
                     <h1>Detailed Component <em>Design</em></h1>
                     <div class="ph-sub">// DB Schema · API Specification · Algorithm Logic</div>
                 </div>
- 
                 <div class="sh">Database Schema</div>
                 <div style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:8px;padding:24px;margin-bottom:4px">
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-
-        <div style="background:var(--bg-card);border:1px solid var(--orange-border);border-radius:7px;padding:14px">
-            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">USER</div>
-            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
-                <span style="color:var(--orange-bright)">PK</span> user_id<br>
-                email<br>org_id<br>baseline_risk_score<br>baseline_caution<br>fatigue_factor<br>created_at
-            </div>
-        </div>
-
-        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">SIMULATION</div>
-            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
-                <span style="color:var(--orange-bright)">PK</span> simulation_id<br>
-                trigger_type<br>template<br>phishing_link<br>delivery_schedule
-            </div>
-        </div>
-
-        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">CLICK_EVENT</div>
-            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
-                <span style="color:var(--orange-bright)">PK</span> event_id<br>
-                <span style="color:var(--blue)">FK</span> user_id<br>
-                <span style="color:var(--blue)">FK</span> simulation_id<br>
-                url_hash<br>page_context<br>timestamp<br>risk_delta<br>threat_score
-            </div>
-        </div>
-
-        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">VULNERABILITY_PROFILE</div>
-            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
-                <span style="color:var(--orange-bright)">PK</span> profile_id<br>
-                <span style="color:var(--blue)">FK</span> user_id<br>
-                dominant_trait<br>urgency_score<br>authority_score<br>social_proof_score<br>scarcity_score<br>updated_at
-            </div>
-        </div>
-
-        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">TRAINING_MODULE</div>
-            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
-                <span style="color:var(--orange-bright)">PK</span> module_id<br>
-                title<br>bias_target<br>content_url<br>estimated_duration
-            </div>
-        </div>
-
-        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">TRAINING_ASSIGNMENT</div>
-            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
-                <span style="color:var(--orange-bright)">PK</span> assignment_id<br>
-                <span style="color:var(--blue)">FK</span> user_id<br>
-                <span style="color:var(--blue)">FK</span> module_id<br>
-                progress<br>due_date<br>completed<br>completed_at
-            </div>
-        </div>
-
-        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">EXPLANATION</div>
-            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2">
-                <span style="color:var(--orange-bright)">PK</span> explanation_id<br>
-                <span style="color:var(--blue)">FK</span> event_id<br>
-                cognitive_bias_tag<br>plain_english_text<br>generated_at
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Relationships -->
-    <div style="margin-top:16px;padding:12px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--text-3);line-height:2">
-        <span style="color:var(--orange)">// RELATIONSHIPS</span><br>
-        USER <span style="color:var(--orange)">||--o{</span> CLICK_EVENT &nbsp;·&nbsp; USER <span style="color:var(--orange)">||--||</span> VULNERABILITY_PROFILE &nbsp;·&nbsp; USER <span style="color:var(--orange)">||--o{</span> TRAINING_ASSIGNMENT<br>
-        SIMULATION <span style="color:var(--orange)">||--o{</span> CLICK_EVENT &nbsp;·&nbsp; TRAINING_MODULE <span style="color:var(--orange)">||--o{</span> TRAINING_ASSIGNMENT &nbsp;·&nbsp; CLICK_EVENT <span style="color:var(--orange)">||--||</span> EXPLANATION
-    </div>
-</div>
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+                        <div style="background:var(--bg-card);border:1px solid var(--orange-border);border-radius:7px;padding:14px">
+                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">USER</div>
+                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> user_id<br>email<br>org_id<br>baseline_risk_score<br>baseline_caution<br>fatigue_factor<br>created_at</div>
+                        </div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">SIMULATION</div>
+                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> simulation_id<br>trigger_type<br>template<br>phishing_link<br>delivery_schedule</div>
+                        </div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">CLICK_EVENT</div>
+                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> event_id<br><span style="color:var(--blue)">FK</span> user_id<br><span style="color:var(--blue)">FK</span> simulation_id<br>url_hash<br>page_context<br>timestamp<br>risk_delta<br>threat_score</div>
+                        </div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">VULNERABILITY_PROFILE</div>
+                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> profile_id<br><span style="color:var(--blue)">FK</span> user_id<br>dominant_trait<br>urgency_score<br>authority_score<br>social_proof_score<br>scarcity_score<br>updated_at</div>
+                        </div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">TRAINING_MODULE</div>
+                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> module_id<br>title<br>bias_target<br>content_url<br>estimated_duration</div>
+                        </div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">TRAINING_ASSIGNMENT</div>
+                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> assignment_id<br><span style="color:var(--blue)">FK</span> user_id<br><span style="color:var(--blue)">FK</span> module_id<br>progress<br>due_date<br>completed<br>completed_at</div>
+                        </div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
+                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">EXPLANATION</div>
+                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> explanation_id<br><span style="color:var(--blue)">FK</span> event_id<br>cognitive_bias_tag<br>plain_english_text<br>generated_at</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:16px;padding:12px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--text-3);line-height:2">
+                        <span style="color:var(--orange)">// RELATIONSHIPS</span><br>
+                        USER <span style="color:var(--orange)">||--o{</span> CLICK_EVENT &nbsp;·&nbsp; USER <span style="color:var(--orange)">||--||</span> VULNERABILITY_PROFILE &nbsp;·&nbsp; USER <span style="color:var(--orange)">||--o{</span> TRAINING_ASSIGNMENT<br>
+                        SIMULATION <span style="color:var(--orange)">||--o{</span> CLICK_EVENT &nbsp;·&nbsp; TRAINING_MODULE <span style="color:var(--orange)">||--o{</span> TRAINING_ASSIGNMENT &nbsp;·&nbsp; CLICK_EVENT <span style="color:var(--orange)">||--||</span> EXPLANATION
+                    </div>
+                </div>
                 <div class="sh">API Specification</div>
- 
                 <div class="card" style="margin-bottom:10px">
                     <div class="card-title"><span class="badge b-blue">POST</span> /api/v1/telemetry/click <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
                     <p>Triggered by the Chrome Extension when a risky link is clicked. Drops the event payload into a RabbitMQ message queue for background processing. Returns 202 immediately to prevent browser lag.</p>
@@ -980,181 +1004,45 @@ Copy
                     <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 202</div>
                     <pre><code>{ <span class="key">"status"</span>: <span class="num">202</span>, <span class="key">"message"</span>: <span class="str">"Event queued for background processing"</span> }</code></pre>
                     <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
-                        <tr><td><span class="badge b-orange">400</span></td><td>Missing required fields (user_id, url, timestamp)</td></tr>
+                        <tr><td><span class="badge b-orange">400</span></td><td>Missing required fields</td></tr>
                         <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
                         <tr><td><span class="badge b-red">500</span></td><td>RabbitMQ queue unavailable</td></tr>
                     </tbody></table></div>
                 </div>
- 
-                <div class="card" style="margin-bottom:10px">
-                    <div class="card-title"><span class="badge b-purple">WS</span> /ws/v1/alerts/{user_id} <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
-                    <p>Maintains a persistent WebSocket connection with the Chrome Extension and dashboard. Used to push real-time training nudges and risk score updates back to the user without requiring a page refresh. Backed by Redis Pub/Sub as a state backplane across ALB nodes.</p>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">PUSHED PAYLOAD (Server → Client)</div>
-                    <pre><code>{
-  <span class="key">"event"</span>:           <span class="str">"risk_update"</span>,
-  <span class="key">"new_score"</span>:       <span class="num">45</span>,
-  <span class="key">"score_change"</span>:    <span class="num">+15</span>,
-  <span class="key">"explanation"</span>:     <span class="str">"Your score increased because you clicked a link utilizing an Urgency exploit."</span>,
-  <span class="key">"new_training_id"</span>: <span class="str">"TM-URG-01"</span>
-}</code></pre>
-                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
-                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                        <tr><td><span class="badge b-red">404</span></td><td>User ID not found</td></tr>
-                        <tr><td><span class="badge b-red">1011</span></td><td>WebSocket server error — connection dropped</td></tr>
-                    </tbody></table></div>
-                </div>
- 
-                <div class="card" style="margin-bottom:10px">
-                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/users/{user_id}/dashboard <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
-                    <p>Fetches aggregated dashboard state including the current risk score (0–100), active alerts, and historical score graph data. Called on DashboardLayout mount.</p>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-                    <pre><code>{
-  <span class="key">"risk_score"</span>:   <span class="num">56</span>,
-  <span class="key">"risk_label"</span>:   <span class="str">"HIGH"</span>,
-  <span class="key">"point_change"</span>: <span class="num">+6</span>,
-  <span class="key">"alert_feed"</span>: [{ <span class="key">"event_id"</span>: <span class="str">"evt_001"</span>, <span class="key">"trigger_type"</span>: <span class="str">"urgency"</span>, <span class="key">"timestamp"</span>: <span class="str">"2026-03-10T09:14:22Z"</span> }],
-  <span class="key">"vulnerability_profile"</span>: {
-    <span class="key">"dominant_trait"</span>: <span class="str">"Urgency"</span>,
-    <span class="key">"bias_scores"</span>: { <span class="key">"urgency"</span>: <span class="num">0.48</span>, <span class="key">"authority"</span>: <span class="num">0.15</span>, <span class="key">"social_proof"</span>: <span class="num">0.12</span>, <span class="key">"scarcity"</span>: <span class="num">0.35</span> }
-  }
-}</code></pre>
-                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
-                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                        <tr><td><span class="badge b-red">404</span></td><td>User not found</td></tr>
-                        <tr><td><span class="badge b-red">500</span></td><td>Neo4j graph query failed</td></tr>
-                    </tbody></table></div>
-                </div>
- 
-                <div class="card" style="margin-bottom:10px">
-                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/users/{user_id}/profile <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
-                    <p>Queries Neo4j to return the user's specific cognitive vulnerability tags and bias scores across all four trigger dimensions. Called on CognitiveVulnerabilityProfile component mount.</p>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-                    <pre><code>{
-  <span class="key">"user_id"</span>: <span class="str">"uuid-1234"</span>, <span class="key">"dominant_trait"</span>: <span class="str">"Urgency"</span>,
-  <span class="key">"profile_description"</span>: <span class="str">"High susceptibility to time-pressure attacks"</span>,
-  <span class="key">"bias_scores"</span>: [
-    { <span class="key">"trigger"</span>: <span class="str">"urgency"</span>, <span class="key">"score"</span>: <span class="num">0.48</span> },
-    { <span class="key">"trigger"</span>: <span class="str">"authority"</span>, <span class="key">"score"</span>: <span class="num">0.15</span> },
-    { <span class="key">"trigger"</span>: <span class="str">"social_proof"</span>, <span class="key">"score"</span>: <span class="num">0.12</span> },
-    { <span class="key">"trigger"</span>: <span class="str">"scarcity"</span>, <span class="key">"score"</span>: <span class="num">0.35</span> }
-  ]
-}</code></pre>
-                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
-                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                        <tr><td><span class="badge b-red">404</span></td><td>User profile not yet established (insufficient simulation data)</td></tr>
-                        <tr><td><span class="badge b-red">500</span></td><td>Neo4j graph query failed</td></tr>
-                    </tbody></table></div>
-                </div>
- 
-                <div class="card" style="margin-bottom:10px">
-                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/users/{user_id}/risk-history?range={range} <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
-                    <p>Returns an array of historical risk score data points for the given time range. Fires on TimeRangeFilter tab selection.</p>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">QUERY PARAMS</div>
-                    <pre><code>range: <span class="str">"30d"</span> | <span class="str">"90d"</span> | <span class="str">"all"</span></code></pre>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-                    <pre><code>{
-  <span class="key">"user_id"</span>: <span class="str">"uuid-1234"</span>, <span class="key">"range"</span>: <span class="str">"30d"</span>,
-  <span class="key">"data_points"</span>: [
-    { <span class="key">"timestamp"</span>: <span class="str">"2026-02-10T09:00:00Z"</span>, <span class="key">"score"</span>: <span class="num">50</span>, <span class="key">"event"</span>: <span class="kw">null</span> },
-    { <span class="key">"timestamp"</span>: <span class="str">"2026-03-03T09:14:22Z"</span>, <span class="key">"score"</span>: <span class="num">56</span>, <span class="key">"event"</span>: <span class="str">"SIM-001 click"</span> },
-    { <span class="key">"timestamp"</span>: <span class="str">"2026-03-10T11:00:00Z"</span>, <span class="key">"score"</span>: <span class="num">48</span>, <span class="key">"event"</span>: <span class="str">"Training completed"</span> }
-  ]
-}</code></pre>
-                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
-                        <tr><td><span class="badge b-orange">400</span></td><td>Invalid range parameter</td></tr>
-                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                        <tr><td><span class="badge b-red">404</span></td><td>User not found</td></tr>
-                    </tbody></table></div>
-                </div>
- 
-                <div class="card" style="margin-bottom:10px">
-                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/users/{user_id}/training <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
-                    <p>Returns the list of training modules assigned to the user, including progress, due dates, and completion status. Called on TrainingProgressSection mount.</p>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-                    <pre><code>{
-  <span class="key">"user_id"</span>: <span class="str">"uuid-1234"</span>,
-  <span class="key">"modules"</span>: [{ <span class="key">"module_id"</span>: <span class="str">"TM-URG-01"</span>, <span class="key">"title"</span>: <span class="str">"Recognizing Urgency-Based Phishing"</span>, <span class="key">"bias_target"</span>: <span class="str">"urgency"</span>, <span class="key">"progress"</span>: <span class="num">0</span>, <span class="key">"due_date"</span>: <span class="str">"2026-03-10"</span>, <span class="key">"completed"</span>: <span class="kw">false</span> }]
-}</code></pre>
-                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
-                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                        <tr><td><span class="badge b-red">404</span></td><td>User not found or no modules assigned</td></tr>
-                    </tbody></table></div>
-                </div>
- 
-                <div class="card" style="margin-bottom:10px">
-                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/training/{module_id} <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
-                    <p>Fetches content URL and metadata for a specific training module. Fires on TrainingModuleCard click.</p>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-                    <pre><code>{ <span class="key">"module_id"</span>: <span class="str">"TM-URG-01"</span>, <span class="key">"title"</span>: <span class="str">"Recognizing Urgency-Based Phishing"</span>, <span class="key">"content_url"</span>: <span class="str">"https://cdn.adaptivesec.com/modules/TM-URG-01"</span>, <span class="key">"bias_target"</span>: <span class="str">"urgency"</span>, <span class="key">"estimated_duration"</span>: <span class="num">8</span> }</code></pre>
-                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
-                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                        <tr><td><span class="badge b-red">404</span></td><td>Module ID not found</td></tr>
-                    </tbody></table></div>
-                </div>
- 
-                <div class="card" style="margin-bottom:10px">
-                    <div class="card-title"><span class="badge b-green">GET</span> /api/v1/events/{event_id}/explanation <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
-                    <p>Fetches the full counterfactual plain-English explanation generated by the ExplanationGenerator (Gemini API) for a specific simulation click event.</p>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-                    <pre><code>{ <span class="key">"event_id"</span>: <span class="str">"evt_001"</span>, <span class="key">"cognitive_bias_tag"</span>: <span class="str">"Urgency_Bias"</span>, <span class="key">"explanation"</span>: <span class="str">"Your score increased because you clicked a link designed to pressure you with a time limit. Not clicking this link would have prevented the 6-point increase."</span> }</code></pre>
-                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
-                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                        <tr><td><span class="badge b-red">404</span></td><td>Event ID not found</td></tr>
-                        <tr><td><span class="badge b-red">500</span></td><td>ExplanationGenerator (Gemini API) unavailable</td></tr>
-                    </tbody></table></div>
-                </div>
- 
-                <div class="card" style="margin-bottom:10px">
-                    <div class="card-title"><span class="badge b-blue">POST</span> /api/v1/users/{user_id}/training/{module_id}/complete <span class="badge b-orange" style="margin-left:auto">Auth Required</span></div>
-                    <p>Marks a training module as complete, triggers a risk score recalculation, and applies the susceptibility reduction.</p>
-                    <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 200</div>
-                    <pre><code>{ <span class="key">"module_id"</span>: <span class="str">"TM-URG-01"</span>, <span class="key">"updated_risk_score"</span>: <span class="num">48</span>, <span class="key">"score_improvement"</span>: <span class="num">8</span>, <span class="key">"explanation"</span>: <span class="str">"Your score dropped because you completed Urgency Bias training."</span>, <span class="key">"new_susceptibility"</span>: <span class="num">0.6375</span> }</code></pre>
-                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
-                        <tr><td><span class="badge b-orange">400</span></td><td>Module already completed</td></tr>
-                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                        <tr><td><span class="badge b-red">403</span></td><td>Module not assigned to this user</td></tr>
-                        <tr><td><span class="badge b-red">404</span></td><td>User or module ID not found</td></tr>
-                        <tr><td><span class="badge b-red">500</span></td><td>Score update service unavailable</td></tr>
-                    </tbody></table></div>
-                </div>
- 
                 <div class="sh">ML Pipeline — Order of Execution</div>
                 <div class="card" style="margin-bottom:10px">
                     <div class="card-title">Background Worker Pipeline (backend/ml_pipeline/)</div>
-                    <p>When RabbitMQ passes a click event to a background worker, it processes through the following sequential Python class modules:</p>
                     <pre><code><span class="cmt"># Step 1 — Sanitize PII from payload</span>
 <span class="key">DataPreprocessor</span>.sanitize(payload)
 <span class="cmt">→ Strips PII from URL, hashes user_id → Output: sanitized dict</span>
- 
+
 <span class="cmt"># Step 2 — Build feature vector</span>
 <span class="key">FeatureVectorBuilder</span>.extract(sanitized_data)
 <span class="cmt">→ Output: [URL_length: 25, Domain_age: 2, prior_click_count: 0, ...]</span>
- 
+
 <span class="cmt"># Step 3 — XGBoost risk scoring</span>
 <span class="key">RiskScoringEngine</span>.predict(feature_vector)
 <span class="cmt">→ Output: { threat_score: 92, risk_delta: +15 }</span>
- 
+
 <span class="cmt"># Step 4 — NLP cognitive trigger classification</span>
 <span class="key">CognitiveModel</span>.tag_trigger(page_context)
 <span class="cmt">→ Output: { cognitive_trigger: "Urgency_Bias" }</span>
- 
+
 <span class="cmt"># Step 5 — MAB training assignment</span>
 <span class="key">RecommendationEngine</span>.assign_training(user_id, cognitive_trigger)
 <span class="cmt">→ Output: { assigned_module: "TM-URG-01" }</span>
- 
+
 <span class="cmt"># Step 6 — Neo4j graph update</span>
 <span class="key">Neo4jClient</span>.update_graph(user_id, trigger, module_id)
 <span class="cmt">→ Writes [VULNERABLE_TO] and [ASSIGNED_TRAINING] edges</span>
- 
+
 <span class="cmt"># Step 7 — Counterfactual explanation (Gemini API)</span>
 <span class="key">ExplanationGenerator</span>.generate(event_context)
 <span class="cmt">→ Publishes alert to Redis Pub/Sub → pushed via WebSocket to user</span></code></pre>
                 </div>
- 
                 <div class="sh">Risk Scoring Algorithm</div>
                 <div class="card">
                     <div class="card-title">Cognitive Susceptibility Update Model</div>
-                    <p>After each simulation interaction, cognitive susceptibility scores are updated using a configurable learning rate. The click decision model is derived from Protection Motivation Theory.</p>
                     <pre><code><span class="cmt"># Click probability (Protection Motivation Theory)</span>
 click_probability = (
     trigger_susceptibility
@@ -1162,126 +1050,34 @@ click_probability = (
     × fatigue_multiplier
     + noise  <span class="cmt"># ±0.05</span>
 )
- 
+
 <span class="cmt"># Susceptibility reduction after training completion</span>
 new_susceptibility = current_susceptibility × (<span class="num">1</span> − learning_rate)
-<span class="cmt"># learning_rate defaults to 0.25 → e.g. 0.85 → 0.6375 after one completion</span>
- 
-<span class="cmt"># Partial recovery if same trigger clicked again post-training</span>
-new_susceptibility = current_susceptibility + (click_penalty × <span class="num">0.5</span>)
- 
+
 <span class="cmt"># Final risk score clamped to 0–100</span>
-<span class="kw">return</span> clamp(ema_update(raw_score), <span class="num">0</span>, <span class="num">100</span>)
-<span class="cmt"># 0 = minimal risk · 100 = critical risk</span></code></pre>
+<span class="kw">return</span> clamp(ema_update(raw_score), <span class="num">0</span>, <span class="num">100</span>)</code></pre>
                 </div>
- 
             </div>
         </div>
-        <!-- ✅ page-design correctly closed above -->
- 
+
         <!-- ═══ TESTING ═══ -->
         <div class="page" id="page-testing">
             <div class="pg">
- 
                 <div class="ph">
                     <div class="ph-eyebrow">Documentation</div>
                     <h1>Testing & <em>Validation</em></h1>
                     <div class="ph-sub">// Unit Tests · Integration Tests · E2E · Performance · Synthetic Agents</div>
                 </div>
- 
                 <div class="sh">Backend Unit Tests</div>
-                <div class="tbl-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>Test Case</th><th>Method / Endpoint</th><th>Input</th><th>Expected Output</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Risk score calculation</td><td><code>RiskScoringEngine.predict()</code></td><td><code>[URL_length: 25, Domain_age: 2]</code></td><td><code>{ threat_score: 45, risk_delta: +15 }</code></td><td></td></tr>
-                            <tr><td>Cognitive trigger tagging</td><td><code>CognitiveModel.tag_trigger()</code></td><td><code>'URGENT: Verify your credentials'</code></td><td><code>{ cognitive_trigger: 'Urgency_Bias' }</code></td><td></td></tr>
-                            <tr><td>Training assignment (Urgency)</td><td><code>RecommendationEngine.assign_training()</code></td><td><code>user_id, 'Urgency_Bias'</code></td><td><code>{ assigned_module: 'TM-URG-01' }</code></td><td></td></tr>
-                            <tr><td>Training assignment (Authority)</td><td><code>RecommendationEngine.assign_training()</code></td><td><code>user_id, 'Authority_Bias'</code></td><td><code>{ assigned_module: 'TM-AUT-01' }</code></td><td></td></tr>
-                            <tr><td>Data sanitization (PII removal)</td><td><code>DataPreprocessor.sanitize()</code></td><td>Raw click event payload</td><td>Sanitized dict, user_id hashed</td><td></td></tr>
-                            <tr><td>Feature vector extraction</td><td><code>FeatureVectorBuilder.extract()</code></td><td>Sanitized URL and context</td><td>Array of floats [F1…F8]</td><td></td></tr>
-                            <tr><td>Simulation event parsing</td><td><code>SimulationEngine.parse()</code></td><td>Simulation JSON object</td><td>Structured simulation record</td><td></td></tr>
-                            <tr><td>Module completion scoring</td><td><code>POST /api/v1/users/{id}/training/{id}/complete</code></td><td><code>userId, moduleId</code></td><td><code>UpdatedRiskScore, ScoreImprovement</code></td><td></td></tr>
-                        </tbody>
-                    </table>
-                </div>
- 
-                <div class="sh">Frontend Unit Tests</div>
-                <div class="tbl-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>Test Case</th><th>Method</th><th>Input</th><th>Expected Output</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>loadDashboard()</code> data binding</td><td><code>loadDashboard(userId)</code></td><td>Valid userId string</td><td>RiskScore, VulnerabilityProfile, TrainingModules populated</td><td></td></tr>
-                            <tr><td><code>fetchRiskHistory()</code> — 30d range</td><td><code>fetchRiskHistory(userId, '30d')</code></td><td><code>userId, '30d'</code></td><td>Array of 30 ScoreDataPoints</td><td></td></tr>
-                            <tr><td><code>loadVulnerabilityProfile()</code> bias bars</td><td><code>loadVulnerabilityProfile(userId)</code></td><td>Valid userId string</td><td><code>dominantTrait, BiasScores[]</code> with 4 entries</td><td></td></tr>
-                            <tr><td><code>loadTrainingModules()</code> progress</td><td><code>loadTrainingModules(userId)</code></td><td>Valid userId string</td><td><code>TrainingModule[], DueDate, Progress</code></td><td></td></tr>
-                            <tr><td><code>fetchExplanation()</code> on event click</td><td><code>fetchExplanation(eventId)</code></td><td>Valid eventId string</td><td><code>PlainEnglishExplanation, CognitiveBiasTag</code></td><td></td></tr>
-                            <tr><td><code>completeModule()</code> score update</td><td><code>completeModule(userId, moduleId)</code></td><td><code>userId, moduleId</code></td><td>UpdatedRiskScore decreases, ScoreImprovement &gt; 0</td><td></td></tr>
-                        </tbody>
-                    </table>
-                </div>
- 
-                <div class="sh">API Integration Tests</div>
-                <div class="tbl-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>Test Case</th><th>Endpoint</th><th>Input</th><th>Expected Output</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Telemetry click ingestion</td><td><span class="badge b-blue">POST</span> <code>/api/v1/telemetry/click</code></td><td>Valid click payload</td><td>HTTP 202 Accepted, event queued in RabbitMQ</td><td></td></tr>
-                            <tr><td>Dashboard state fetch</td><td><span class="badge b-green">GET</span> <code>/api/v1/users/{id}/dashboard</code></td><td>Valid userId</td><td>JSON with RiskScore, AlertFeed, VulnerabilityProfile</td><td></td></tr>
-                            <tr><td>Profile query from Neo4j</td><td><span class="badge b-green">GET</span> <code>/api/v1/users/{id}/profile</code></td><td>Valid userId</td><td><code>{ dominant_trait: 'Urgency', BiasScores: [...] }</code></td><td></td></tr>
-                            <tr><td>Risk history with range param</td><td><span class="badge b-green">GET</span> <code>/api/v1/users/{id}/risk-history?range=90d</code></td><td><code>userId, range=90d</code></td><td>Array of ScoreDataPoints for 90-day window</td><td></td></tr>
-                            <tr><td>Training list fetch</td><td><span class="badge b-green">GET</span> <code>/api/v1/users/{id}/training</code></td><td>Valid userId</td><td>Array of TrainingModule with progress and due dates</td><td></td></tr>
-                            <tr><td>Module content fetch</td><td><span class="badge b-green">GET</span> <code>/api/v1/training/{module_id}</code></td><td>Valid moduleId</td><td>Title, ContentURL, BiasTarget, EstimatedDuration</td><td></td></tr>
-                            <tr><td>Explanation fetch by event</td><td><span class="badge b-green">GET</span> <code>/api/v1/events/{event_id}/explanation</code></td><td>Valid eventId</td><td>PlainEnglishExplanation, CognitiveBiasTag</td><td></td></tr>
-                            <tr><td>Module complete → score update</td><td><span class="badge b-blue">POST</span> <code>/api/v1/users/{id}/training/{id}/complete</code></td><td><code>userId, moduleId</code></td><td>UpdatedRiskScore, ScoreImprovement &gt; 0</td><td></td></tr>
-                        </tbody>
-                    </table>
-                </div>
- 
-                <div class="sh">Component Integration Tests</div>
-                <div class="g2">
-                    <div class="card">
-                        <div class="card-title">🔌 Chrome Extension → Telemetry API</div>
-                        <p>Verify click event arrives at <code>POST /api/v1/telemetry/click</code> with correct payload and receives a 202 Accepted response. Confirm event is visible in the RabbitMQ queue immediately after submission.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">⚙️ RabbitMQ → ML Worker Pipeline</div>
-                        <p>Verify the event passes through all 4 pipeline stages in sequence: <code>DataPreprocessor → FeatureVectorBuilder → RiskScoringEngine → CognitiveModel</code>. Confirm outputs are written correctly to Neo4j at each stage.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">📡 Redis Pub/Sub → WebSocket</div>
-                        <p>Verify <code>ExplanationGenerator</code> publishes its alert to the correct Redis channel, and that the active FastAPI node holding the user's WebSocket connection catches the broadcast and pushes the payload to the UI.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">🗄️ API → Neo4j Graph Writes</div>
-                        <p>Verify <code>[VULNERABLE_TO]</code> and <code>[ASSIGNED_TRAINING]</code> edges are correctly written and queryable after each click event. Confirm edge weights update on repeated trigger interactions.</p>
-                    </div>
-                </div>
- 
-                <div class="sh">End-to-End Workflow</div>
-                <div class="card" style="margin-bottom:14px">
-                    <div class="card-title">Primary E2E Scenario — Simulation Click → Dashboard Update</div>
-                    <p>Full pipeline validation: Simulation delivered → user clicks phishing link → Chrome Extension fires telemetry → RabbitMQ queues event → ML pipeline processes → Neo4j updated → training assigned → WebSocket pushes score update to extension and dashboard.</p>
-                    <div class="timeline" style="margin-top:16px">
-                        <div class="tl-item done"><div class="tl-week">STEP 1</div><div class="tl-task">Synthetic agent encounters Urgency phishing link (SIM-001)</div></div>
-                        <div class="tl-item done"><div class="tl-week">STEP 2</div><div class="tl-task">Chrome Extension fires <code>POST /api/v1/telemetry/click</code></div><div class="tl-sub">Backend returns 202; event enters RabbitMQ queue</div></div>
-                        <div class="tl-item done"><div class="tl-week">STEP 3</div><div class="tl-task">ML pipeline processes event</div><div class="tl-sub">sanitize → feature vector → XGBoost score → NLP cognitive tag</div></div>
-                        <div class="tl-item done"><div class="tl-week">STEP 4</div><div class="tl-task">Neo4j updated with graph edges</div><div class="tl-sub"><code>[VULNERABLE_TO: Urgency]</code> and <code>[ASSIGNED_TRAINING: TM-URG-01]</code></div></div>
-                        <div class="tl-item done"><div class="tl-week">STEP 5</div><div class="tl-task">ExplanationGenerator publishes alert to Redis Pub/Sub channel</div></div>
-                        <div class="tl-item done"><div class="tl-week">STEP 6</div><div class="tl-task">WebSocket pushes risk_update payload to extension</div><div class="tl-sub"><code>{ event: 'risk_update', new_score, explanation, new_training_id }</code></div></div>
-                        <div class="tl-item done"><div class="tl-week">STEP 7</div><div class="tl-task">Dashboard reflects updated score, counterfactual, and new training module</div><div class="tl-sub">Must complete within 3 seconds of click event</div></div>
-                    </div>
-                    <div style="margin-top:16px;padding:12px 14px;background:var(--green-sub);border:1px solid rgba(34,197,94,.22);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--green)">
-                        ✓ PASS CRITERIA — All 7 steps complete without error. Score increases after phishing link click. Correct training module assigned matches trigger type (Urgency → TM-URG-01). Dashboard reflects update within 3s.
-                    </div>
-                </div>
- 
+                <div class="tbl-wrap"><table><thead><tr><th>Test Case</th><th>Method / Endpoint</th><th>Input</th><th>Expected Output</th></tr></thead><tbody>
+                    <tr><td>Risk score calculation</td><td><code>RiskScoringEngine.predict()</code></td><td><code>[URL_length: 25, Domain_age: 2]</code></td><td><code>{ threat_score: 45, risk_delta: +15 }</code></td></tr>
+                    <tr><td>Cognitive trigger tagging</td><td><code>CognitiveModel.tag_trigger()</code></td><td><code>'URGENT: Verify your credentials'</code></td><td><code>{ cognitive_trigger: 'Urgency_Bias' }</code></td></tr>
+                    <tr><td>Training assignment (Urgency)</td><td><code>RecommendationEngine.assign_training()</code></td><td><code>user_id, 'Urgency_Bias'</code></td><td><code>{ assigned_module: 'TM-URG-01' }</code></td></tr>
+                    <tr><td>Training assignment (Authority)</td><td><code>RecommendationEngine.assign_training()</code></td><td><code>user_id, 'Authority_Bias'</code></td><td><code>{ assigned_module: 'TM-AUT-01' }</code></td></tr>
+                    <tr><td>Data sanitization (PII removal)</td><td><code>DataPreprocessor.sanitize()</code></td><td>Raw click event payload</td><td>Sanitized dict, user_id hashed</td></tr>
+                    <tr><td>Feature vector extraction</td><td><code>FeatureVectorBuilder.extract()</code></td><td>Sanitized URL and context</td><td>Array of floats [F1…F8]</td></tr>
+                    <tr><td>Module completion scoring</td><td><code>POST /api/v1/users/{id}/training/{id}/complete</code></td><td><code>userId, moduleId</code></td><td><code>UpdatedRiskScore, ScoreImprovement</code></td></tr>
+                </tbody></table></div>
                 <div class="sh">Performance Benchmarks</div>
                 <div class="g4" style="margin-bottom:20px">
                     <div class="stat"><div class="stat-n" style="font-size:22px">&lt;200ms</div><div class="stat-l">Neo4j graph query (100+ events)</div></div>
@@ -1289,60 +1085,18 @@ new_susceptibility = current_susceptibility + (click_penalty × <span class="num
                     <div class="stat"><div class="stat-n" style="font-size:22px">50</div><div class="stat-l">Concurrent WebSocket connections</div></div>
                     <div class="stat"><div class="stat-n" style="font-size:22px">&gt;85%</div><div class="stat-l">Redis cache hit rate under load</div></div>
                 </div>
- 
                 <div class="sh">Synthetic Agent Personas</div>
-                <div class="notice">
-                    <div class="notice-icon"></div>
-                    <p></b>Note:</b> Because developers possess prior knowledge of the system, unbiased testing uses <strong>synthetic user agents</strong> that emulate realistic behavioral patterns rather than using group members as test users. Each agent is initialized with a persona profile defining its susceptibility across all four trigger types.</p>
-                </div>
-                <div class="tbl-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>Persona</th><th>Urgency</th><th>Authority</th><th>Social Proof</th><th>Scarcity</th><th>Caution</th><th>Purpose</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><span class="badge b-red">The Rushed Employee</span></td><td>0.85</td><td>0.40</td><td>0.30</td><td>0.60</td><td>0.20</td><td>Validates urgency-trigger detection and TM-URG-01 assignment</td></tr>
-                            <tr><td><span class="badge b-orange">The Rule Follower</span></td><td>0.30</td><td>0.80</td><td>0.35</td><td>0.25</td><td>0.40</td><td>Validates authority-trigger detection and IT/management spoofing scenarios</td></tr>
-                            <tr><td><span class="badge b-purple">The Social User</span></td><td>0.25</td><td>0.30</td><td>0.85</td><td>0.45</td><td>0.30</td><td>Validates social proof detection and peer influence scenarios</td></tr>
-                            <tr><td><span class="badge b-green">The Cautious User</span></td><td>0.15</td><td>0.20</td><td>0.15</td><td>0.20</td><td>0.85</td><td>Validates false-positive rate — must NOT be over-assigned training</td></tr>
-                            <tr><td><span class="badge b-red">The Vulnerable User</span></td><td>0.85</td><td>0.80</td><td>0.85</td><td>0.80</td><td>0.10</td><td>Validates multi-dimensional vulnerability detection and critical-risk flagging</td></tr>
-                        </tbody>
-                    </table>
-                </div>
- 
-                <div class="sh">Agent Validation Criteria</div>
-                <div class="g2">
-                    <div class="card"><div class="card-title">🎯 Profile Accuracy</div><p>Does the system correctly identify each persona's dominant vulnerability within N simulation rounds? The Rushed Employee must resolve to Urgency; the Rule Follower to Authority.</p></div>
-                    <div class="card"><div class="card-title">📚 Training Relevance</div><p>Does the system assign training matching the agent's highest susceptibility trigger? Urgency click → <code>TM-URG-01</code>, Authority click → <code>TM-AUT-01</code>.</p></div>
-                    <div class="card"><div class="card-title">📉 Score Trajectory</div><p>Does the risk score decrease as agents complete targeted training? A completed Urgency module must reduce urgency_susceptibility by 25% (<code>current × 0.75</code>).</p></div>
-                    <div class="card"><div class="card-title">🎰 MAB Effectiveness</div><p>Does the Multi-Armed Bandit recommendation engine converge on the most effective training module for each persona type over repeated interactions?</p></div>
-                    <div class="card"><div class="card-title">🚫 False Positive Rate</div><p>Does the Cautious User (Persona 4) get incorrectly flagged as high risk? The system must not over-assign training to low-risk users with high baseline caution.</p></div>
-                    <div class="card"><div class="card-title">🔁 Post-Training Recovery</div><p>If an agent clicks the same trigger after training, susceptibility partially recovers: <code>new = current + (click_penalty × 0.5)</code>. Score trajectory must reflect this dampened recovery.</p></div>
-                </div>
- 
-                <div class="sh">Traceability Matrix</div>
-                <div class="tbl-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>User Story</th><th>Test(s)</th><th>Verified By</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>UC-1: Silent Behavioral Monitoring</td><td>IT-01</td><td>Chrome Extension fires <code>handleSimulationClick()</code> and POST <code>/api/v1/telemetry/click</code> returns 202</td></tr>
-                            <tr><td>UC-2: Dynamic Risk Visualization</td><td>UT-01, IT-02</td><td>Risk Score Widget updates within 2s of risky event via WebSocket push</td></tr>
-                            <tr><td>UC-3: Contextual Risk Explanations</td><td>IT-03</td><td>GET <code>/api/v1/events/{event_id}/explanation</code> returns plain-English counterfactual with cognitive bias tag</td></tr>
-                            <tr><td>UC-4: Adaptive Training Assignment</td><td>UT-03, IT-04</td><td>RecommendationEngine assigns module matching dominant trigger; GET <code>/api/v1/users/{id}/training</code> returns correct module</td></tr>
-                            <tr><td>UC-5: Historical Trend Visualization</td><td>IT-05</td><td>GET <code>/api/v1/users/{id}/risk-history?range=30d</code> returns correctly ordered ScoreDataPoints array</td></tr>
-                            <tr><td>UC-6: Organization Vulnerability Profiling</td><td>UT-02, IT-06</td><td>GET <code>/api/v1/users/{id}/profile</code> returns correct dominant trait and four bias scores from Neo4j</td></tr>
-                            <tr><td>UC-7: Training Completion Feedback Loop</td><td>UT-08, IT-07</td><td>POST <code>/api/v1/users/{id}/training/{id}/complete</code> returns decreased UpdatedRiskScore and generates Score Change Explanation entry</td></tr>
-                            <tr><td>UC-8: Just-In-Time Training Nudges</td><td>IT-08</td><td>WebSocket pushes nudge payload to extension popup within 2s of risky click</td></tr>
-                            <tr><td>UC-9: Unified Dashboard View</td><td>IT-09</td><td>GET <code>/api/v1/users/{id}/dashboard</code> returns aggregated score, alerts, vulnerability profile, and training modules in single response</td></tr>
-                        </tbody>
-                    </table>
-                </div>
- 
+                <div class="notice"><div class="notice-icon"></div><p><b>Note:</b> Because developers possess prior knowledge of the system, unbiased testing uses <strong>synthetic user agents</strong> that emulate realistic behavioral patterns. Each agent is initialized with a persona profile defining its susceptibility across all four trigger types.</p></div>
+                <div class="tbl-wrap"><table><thead><tr><th>Persona</th><th>Urgency</th><th>Authority</th><th>Social Proof</th><th>Scarcity</th><th>Caution</th><th>Purpose</th></tr></thead><tbody>
+                    <tr><td><span class="badge b-red">The Rushed Employee</span></td><td>0.85</td><td>0.40</td><td>0.30</td><td>0.60</td><td>0.20</td><td>Validates urgency-trigger detection and TM-URG-01 assignment</td></tr>
+                    <tr><td><span class="badge b-orange">The Rule Follower</span></td><td>0.30</td><td>0.80</td><td>0.35</td><td>0.25</td><td>0.40</td><td>Validates authority-trigger detection and IT/management spoofing scenarios</td></tr>
+                    <tr><td><span class="badge b-purple">The Social User</span></td><td>0.25</td><td>0.30</td><td>0.85</td><td>0.45</td><td>0.30</td><td>Validates social proof detection and peer influence scenarios</td></tr>
+                    <tr><td><span class="badge b-green">The Cautious User</span></td><td>0.15</td><td>0.20</td><td>0.15</td><td>0.20</td><td>0.85</td><td>Validates false-positive rate — must NOT be over-assigned training</td></tr>
+                    <tr><td><span class="badge b-red">The Vulnerable User</span></td><td>0.85</td><td>0.80</td><td>0.85</td><td>0.80</td><td>0.10</td><td>Validates multi-dimensional vulnerability detection and critical-risk flagging</td></tr>
+                </tbody></table></div>
             </div>
         </div>
- 
+
         <!-- ═══ MANAGEMENT & ETHICS ═══ -->
         <div class="page" id="page-management">
             <div class="pg">
@@ -1351,29 +1105,25 @@ new_susceptibility = current_susceptibility + (click_penalty × <span class="num
                     <h1>Management & <em>Ethics</em></h1>
                     <div class="ph-sub">// Timeline · Task Breakdown · Ethics · IRB Status</div>
                 </div>
- 
                 <div class="sh">Project Timeline (15 Weeks)</div>
                 <div class="timeline">
                     <div class="tl-item done"><div class="tl-week">WEEKS 1–2</div><div class="tl-task">Project Proposal &amp; Executive Summary Creation</div><div class="tl-sub">Project charter, team roles, problem statement, and primary persona definition</div></div>
                     <div class="tl-item done"><div class="tl-week">WEEKS 3–4</div><div class="tl-task">PRD &amp; UI/UX Creation</div><div class="tl-sub">User stories, PRD, Figma prototype, and UX wireframes for dashboard and Chrome Extension</div></div>
-                    <div class="tl-item done"><div class="tl-week">WEEKS 5–7</div><div class="tl-task">Testing &amp Planning Strategy Creation; API</div><div class="tl-sub">Testing & validation strategy, synthetic agent personas, unit/integration test planning, and API endpoint specification</div></div>
+                    <div class="tl-item done"><div class="tl-week">WEEKS 5–7</div><div class="tl-task">Testing &amp; Planning Strategy Creation; API</div><div class="tl-sub">Testing & validation strategy, synthetic agent personas, unit/integration test planning, and API endpoint specification</div></div>
                     <div class="tl-item"><div class="tl-week">WEEKS 8–10</div><div class="tl-task">Developer Design Creation</div><div class="tl-sub">Developer design document, ML pipeline architecture, risk scoring algorithm, Neo4j schema, and system architecture diagram</div></div>
                     <div class="tl-item"><div class="tl-week">WEEKS 11–12</div><div class="tl-task">Implementation</div><div class="tl-sub">Core backend implementation: FastAPI endpoints, XGBoost risk engine, RabbitMQ queue, Redis Pub/Sub, and WebSocket alerts</div></div>
-                    <div class="tl-item"><div class="tl-week">WEEKS 13–14</div><div class="tl-task">Implementation</div><div class="tl-sub"> Frontend implementation: React dashboard, Chrome Extension (MV3), training module UI, and capstone site deployment to GitHub Pages</div></div>
+                    <div class="tl-item"><div class="tl-week">WEEKS 13–14</div><div class="tl-task">Implementation</div><div class="tl-sub">Frontend implementation: React dashboard, Chrome Extension (MV3), training module UI, and capstone site deployment to GitHub Pages</div></div>
                     <div class="tl-item"><div class="tl-week">WEEK 15</div><div class="tl-task">Final Presentation &amp; Poster</div><div class="tl-sub">Final presentation, project poster, and live demo of end-to-end simulation click → risk score → training nudge pipeline</div></div>
                 </div>
- 
                 <div class="sh">Ethics Statement</div>
-<div class="card" style="margin-bottom:14px">
-    <div class="card-title">Legal &amp; Ethical Monitoring Policy</div>
-    <p>AdaptiveSec operates exclusively on organization-owned platforms and systems. Organizations are legally permitted to monitor their own infrastructure, including email and web activity, for activity that may jeopardize their cybersecurity posture.</p>
-    <p style="margin:0">No human reviewer will access the contents of monitored interactions under normal operation. Manual review is reserved strictly for critical escalation scenarios, such as detecting an active threat actor or a confirmed security breach.</p>
-</div>
-
-</div>
+                <div class="card" style="margin-bottom:14px">
+                    <div class="card-title">Legal &amp; Ethical Monitoring Policy</div>
+                    <p>AdaptiveSec operates exclusively on organization-owned platforms and systems. Organizations are legally permitted to monitor their own infrastructure, including email and web activity, for activity that may jeopardize their cybersecurity posture.</p>
+                    <p style="margin:0">No human reviewer will access the contents of monitored interactions under normal operation. Manual review is reserved strictly for critical escalation scenarios, such as detecting an active threat actor or a confirmed security breach.</p>
+                </div>
             </div>
         </div>
- 
+
     </div><!-- /main -->
  
     <!-- ZOOM MODAL -->
@@ -1400,7 +1150,7 @@ new_susceptibility = current_susceptibility + (click_penalty × <span class="num
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (id === 'requirements') animateBars();
             closeSidebar();
-            mermaid.run();
+            if (window.mermaid) mermaid.run();
         }
  
         function filterNav(q) {
@@ -1419,30 +1169,7 @@ new_susceptibility = current_susceptibility + (click_penalty × <span class="num
             document.getElementById('sidebar').classList.remove('open');
             document.getElementById('overlay').classList.remove('show');
         }
- 
-        const zoomData = {
-            er: {
-                title: 'Entity Relationship Diagram',
-                body: `<div style="font-family:var(--mono);font-size:12px;color:var(--text-2);line-height:2;text-align:left">
-                <div style="color:var(--text-3);margin-bottom:16px">Replace with your exported ER diagram SVG from dbdiagram.io or Mermaid erDiagram.</div>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-                    ${['users', 'risk_scores', 'score_events', 'training_modules', 'assignments', 'completions'].map(t =>
-                        `<div style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:4px;padding:8px 12px;color:var(--text-2)">${t}</div>`
-                    ).join('')}
-                </div></div>`
-            }
-        };
- 
-        function openZoom(key) {
-            const d = zoomData[key] || { title: 'Diagram', body: '' };
-            document.getElementById('zoomContent').innerHTML = `
-                <div style="font-family:var(--mono);font-size:13px;color:var(--orange);margin-bottom:16px;letter-spacing:.06em">${d.title}</div>
-                ${d.body}
-                <div style="margin-top:20px;font-family:var(--mono);font-size:9px;color:var(--text-4);letter-spacing:.08em">PRESS ESC OR CLICK OUTSIDE TO CLOSE</div>
-            `;
-            document.getElementById('zoomModal').classList.add('open');
-        }
- 
+
         function closeZoom() { document.getElementById('zoomModal').classList.remove('open'); }
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeZoom(); });
  
@@ -1472,4 +1199,3 @@ new_susceptibility = current_susceptibility + (click_penalty × <span class="num
  
 </body>
 </html>
- 
