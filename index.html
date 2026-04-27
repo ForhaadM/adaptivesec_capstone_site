@@ -1,800 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
- 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AdaptiveSec — Capstone</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         window.mermaid = mermaid;
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'base',
-            themeVariables: {
-                primaryColor: '#181a1c',
-                primaryTextColor: '#e8eaed',
-                primaryBorderColor: '#f97316',
-                lineColor: '#5f6872',
-                secondaryColor: '#1d2023',
-                tertiaryColor: '#111314',
-                background: '#0c0d0e',
-                mainBkg: '#181a1c',
-                nodeBorder: '#2a2e33',
-                clusterBkg: '#111314',
-                titleColor: '#f97316',
-                edgeLabelBackground: '#0c0d0e',
-                fontFamily: 'IBM Plex Mono, monospace'
-            }
-        });
+        mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { primaryColor: '#141b22', primaryTextColor: '#e8eaed', primaryBorderColor: '#22d3ee', lineColor: '#5f6872', secondaryColor: '#1a2332', tertiaryColor: '#0d1117', background: '#0a0d10', mainBkg: '#141b22', nodeBorder: '#263040', clusterBkg: '#0d1117', titleColor: '#22d3ee', edgeLabelBackground: '#0a0d10', fontFamily: 'IBM Plex Mono, monospace' } });
     </script>
     <style>
         :root {
-    --bg-root: #0a0d10;
-    --bg-sidebar: #0d1117;
-    --bg-topbar: #0b0e12;
-    --bg-card: #141b22;
-    --bg-card-2: #1a2332;
-    --bg-input: #111820;
-    --orange: #22d3ee;
-    --orange-bright: #38bdf8;
-    --orange-dim: #0e9ab5;
-    --orange-subtle: rgba(34, 211, 238, 0.10);
-    --orange-border: rgba(34, 211, 238, 0.25);
-    --green: #22c55e;
-    --green-sub: rgba(34, 197, 94, 0.12);
-    --red: #ef4444;
-    --red-sub: rgba(239, 68, 68, 0.1);
-    --blue: #60a5fa;
-    --blue-sub: rgba(96, 165, 250, 0.1);
-    --yellow: #eab308;
-    --purple: #a78bfa;
-    --purple-sub: rgba(167, 139, 250, 0.12);
-    --text-1: #e8eaed;
-    --text-2: #9aa0a9;
-    --text-3: #5f6872;
-    --text-4: #3d444d;
-    --border: #1e2530;
-    --border-light: #263040;
-    --sidebar-w: 220px;
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
-    }
- 
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            --bg-root: #0a0d10; --bg-sidebar: #0d1117; --bg-topbar: #0b0e12;
+            --bg-card: #141b22; --bg-card-2: #1a2332; --bg-input: #111820;
+            --orange: #22d3ee; --orange-bright: #38bdf8; --orange-dim: #0e9ab5;
+            --orange-subtle: rgba(34,211,238,0.10); --orange-border: rgba(34,211,238,0.25);
+            --green: #22c55e; --green-sub: rgba(34,197,94,0.12);
+            --red: #ef4444; --red-sub: rgba(239,68,68,0.1);
+            --blue: #60a5fa; --blue-sub: rgba(96,165,250,0.1);
+            --yellow: #eab308; --purple: #a78bfa; --purple-sub: rgba(167,139,250,0.12);
+            --text-1: #e8eaed; --text-2: #9aa0a9; --text-3: #5f6872; --text-4: #3d444d;
+            --border: #1e2530; --border-light: #263040;
+            --sidebar-w: 220px; --mono: 'IBM Plex Mono',monospace; --sans: 'IBM Plex Sans',sans-serif;
         }
- 
-        html { scroll-behavior: smooth; }
- 
-        body {
-            font-family: var(--sans);
-            background: var(--bg-root);
-            color: var(--text-1);
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
- 
-        /* SIDEBAR */
-        #sidebar {
-            width: var(--sidebar-w);
-            min-height: 100vh;
-            background: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            top: 0; left: 0; bottom: 0;
-            z-index: 90;
-            transition: transform .28s cubic-bezier(.4, 0, .2, 1);
-        }
- 
-        .sb-logo {
-            padding: 0 16px;
-            height: 52px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 1px solid var(--border);
-            flex-shrink: 0;
-        }
- 
-        .sb-logo-mark {
-            width: 28px; height: 28px;
-            background: #22d3ee;
-            border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            font-family: var(--mono);
-            font-size: 11px; font-weight: 700;
-            color: #0a0d10; flex-shrink: 0;
-        }
- 
-        .sb-logo-name {
-            font-family: var(--mono);
-            font-size: 12px; font-weight: 700;
-            color: var(--text-1);
-            letter-spacing: .06em;
-        }
- 
-        .sb-status {
-            margin-left: auto;
-            font-family: var(--mono);
-            font-size: 9px;
-            color: var(--green);
-            display: flex; align-items: center; gap: 4px;
-        }
- 
-        .sb-status::before {
-            content: '';
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--green);
-            box-shadow: 0 0 6px var(--green);
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
- 
-        @keyframes pulse-dot { 0%,100% { opacity:1 } 50% { opacity:.4 } }
- 
-        .sb-search { padding: 10px 12px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
- 
-        .sb-search input {
-            width: 100%;
-            background: var(--bg-input);
-            border: 1px solid var(--border-light);
-            border-radius: 5px;
-            padding: 6px 10px;
-            font-family: var(--sans);
-            font-size: 12px;
-            color: var(--text-2);
-            outline: none;
-            transition: border-color .15s;
-        }
- 
-        .sb-search input:focus { border-color: var(--orange-border); color: var(--text-1); }
-        .sb-search input::placeholder { color: var(--text-4); }
- 
-        .sb-nav { flex: 1; padding: 8px 8px; overflow-y: auto; }
-        .sb-nav::-webkit-scrollbar { width: 2px; }
-        .sb-nav::-webkit-scrollbar-thumb { background: var(--border-light); }
- 
-        .sb-section {
-            font-family: var(--mono);
-            font-size: 9px; letter-spacing: .12em;
-            color: var(--text-4);
-            text-transform: uppercase;
-            padding: 10px 8px 4px;
-        }
- 
-        .sb-item {
-            display: flex; align-items: center; gap: 9px;
-            padding: 8px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px; font-weight: 400;
-            color: var(--text-2);
-            text-decoration: none;
-            border: 1px solid transparent;
-            transition: background .12s, color .12s, border-color .12s;
-            margin-bottom: 1px;
-            user-select: none;
-        }
- 
-        .sb-item:hover { background: var(--bg-card); color: var(--text-1); }
- 
-        .sb-item.active {
-            background: var(--orange-subtle);
-            color: var(--orange);
-            border-color: var(--orange-border);
-            font-weight: 500;
-        }
- 
-        .sb-item .ico { width: 16px; height: 16px; flex-shrink: 0; opacity: .6; }
-        .sb-item.active .ico { opacity: 1; }
- 
-        .sb-footer { padding: 12px; border-top: 1px solid var(--border); flex-shrink: 0; }
- 
-        .sb-gh {
-            display: flex; align-items: center; gap: 8px;
-            padding: 8px 10px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 6px;
-            color: var(--text-2);
-            font-size: 12px;
-            text-decoration: none;
-            transition: border-color .15s, color .15s;
-        }
- 
-        .sb-gh:hover { border-color: var(--orange-border); color: var(--text-1); }
- 
-        /* MAIN */
-        #main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
- 
-        #topbar {
-            height: 52px;
-            background: rgba(15, 16, 17, .92);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center;
-            padding: 0 28px;
-            justify-content: space-between;
-            position: sticky; top: 0; z-index: 50;
-        }
- 
-        .tb-breadcrumb {
-            display: flex; align-items: center; gap: 6px;
-            font-family: var(--mono);
-            font-size: 11px; color: var(--text-3); letter-spacing: .05em;
-        }
- 
-        .tb-breadcrumb span { color: var(--orange); }
-        .tb-right { display: flex; align-items: center; gap: 10px; }
- 
-        /* PAGES */
-        .page { display: none; animation: fadeSlide .22s ease; }
-        .page.active { display: block; }
- 
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(6px) }
-            to   { opacity: 1; transform: translateY(0) }
-        }
- 
-        .pg { padding: 32px 36px 64px; max-width: 1060px; }
-        .ph { margin-bottom: 28px; }
- 
-        .ph-eyebrow {
-            font-family: var(--mono);
-            font-size: 10px; letter-spacing: .14em;
-            color: var(--orange);
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            display: flex; align-items: center; gap: 8px;
-        }
- 
-        .ph-eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--orange); }
- 
-        .ph h1 {
-            font-family: var(--mono);
-            font-size: 26px; font-weight: 700;
-            color: var(--text-1); line-height: 1.2; margin-bottom: 6px;
-        }
- 
-        .ph h1 em { color: var(--orange); font-style: normal; }
-        .ph-sub { font-size: 13px; color: var(--text-3); font-family: var(--mono); }
- 
-        .sh {
-            font-family: var(--mono);
-            font-size: 11px; font-weight: 600; letter-spacing: .1em;
-            color: var(--text-3);
-            text-transform: uppercase;
-            margin: 28px 0 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; gap: 8px;
-        }
- 
-        .sh::before { content: '//'; color: var(--orange); font-size: 11px; }
- 
-        p { font-size: 13px; line-height: 1.72; color: var(--text-2); margin-bottom: 12px; }
- 
-        /* CARDS */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 18px 20px;
-            transition: border-color .15s;
-        }
- 
-        .card:hover { border-color: var(--border-light); }
-        .card+.card { margin-top: 10px; }
- 
-        .card-title {
-            font-family: var(--mono);
-            font-size: 12px; font-weight: 600;
-            color: var(--text-1); margin-bottom: 8px;
-            display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-        }
- 
-        /* HERO */
-        .hero-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 36px 36px 32px;
-            margin-bottom: 20px;
-            position: relative; overflow: hidden;
-        }
- 
-        .hero-card::after {
-            content: '';
-            position: absolute;
-            top: -80px; right: -80px;
-            width: 320px; height: 320px;
-            background: radial-gradient(circle, rgba(249, 115, 22, .09) 0%, transparent 65%);
-            pointer-events: none;
-        }
- 
-        .hero-card h1 { font-family: var(--mono); font-size: 34px; font-weight: 700; line-height: 1.15; margin-bottom: 12px; }
-        .hero-card h1 em { color: var(--orange); font-style: normal; }
- 
-        .hero-desc { font-size: 14px; line-height: 1.72; color: var(--text-2); max-width: 580px; margin-bottom: 22px; }
- 
-        .btn-row { display: flex; gap: 9px; flex-wrap: wrap; }
- 
-        .btn {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 8px 16px;
-            border-radius: 5px;
-            font-family: var(--sans); font-size: 12px; font-weight: 500;
-            cursor: pointer; text-decoration: none; border: none;
-            transition: all .15s;
-        }
- 
-        .btn-fill { background: var(--orange); color: #000; font-weight: 600; }
- 
-        .btn-fill:hover {
-            background: var(--orange-bright);
-            box-shadow: 0 4px 14px rgba(249, 115, 22, .3);
-            transform: translateY(-1px);
-        }
- 
-        .btn-outline { background: transparent; color: var(--text-2); border: 1px solid var(--border-light); }
-        .btn-outline:hover { border-color: var(--orange-border); color: var(--text-1); }
- 
-        /* GRID */
-        .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-        .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
- 
-        /* STAT */
-        .stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 18px; text-align: left; }
-        .stat-n { font-family: var(--mono); font-size: 32px; font-weight: 700; color: var(--orange); line-height: 1; margin-bottom: 5px; }
-        .stat-l { font-size: 11px; color: var(--text-3); font-family: var(--mono); letter-spacing: .04em; }
- 
-        /* TEAM */
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-top: 4px; }
- 
-        .team-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px 14px 16px;
-            text-align: center;
-            transition: border-color .15s, transform .15s;
-        }
- 
-        .team-card:hover { border-color: var(--orange-border); transform: translateY(-2px); }
- 
-        .t-av {
-            width: 56px; height: 56px;
-            border-radius: 50%;
-            background: var(--bg-input);
-            border: 2px dashed var(--border-light);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px;
-            margin: 0 auto 10px;
-            overflow: hidden;
-            transition: border-color .15s;
-        }
- 
-        .team-card:hover .t-av { border-color: var(--orange-border); }
-        .t-av img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .t-name { font-size: 13px; font-weight: 600; color: var(--text-1); margin-bottom: 3px; }
-        .t-role { font-family: var(--mono); font-size: 10px; color: var(--orange); }
- 
-        /* BADGE */
-        .badge {
-            display: inline-flex; align-items: center;
-            padding: 2px 7px;
-            border-radius: 4px;
-            font-family: var(--mono); font-size: 9px; font-weight: 700;
-            letter-spacing: .07em; text-transform: uppercase; white-space: nowrap;
-        }
- 
-        .b-orange { background: var(--orange-subtle); color: var(--orange); border: 1px solid var(--orange-border); }
-        .b-green  { background: var(--green-sub); color: var(--green); border: 1px solid rgba(34, 197, 94, .22); }
-        .b-red    { background: var(--red-sub); color: var(--red); border: 1px solid rgba(239, 68, 68, .2); }
-        .b-blue   { background: var(--blue-sub); color: var(--blue); border: 1px solid rgba(96, 165, 250, .2); }
-        .b-purple { background: var(--purple-sub); color: var(--purple); border: 1px solid rgba(167, 139, 250, .22); }
-        .b-yellow { background: rgba(234, 179, 8, .1); color: var(--yellow); border: 1px solid rgba(234, 179, 8, .2); }
- 
-        /* TABLE */
-        .tbl-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 16px; }
- 
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
- 
-        th {
-            font-family: var(--mono); font-size: 9px; letter-spacing: .1em;
-            text-transform: uppercase; color: var(--text-3);
-            text-align: left; padding: 10px 14px;
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border);
-            white-space: nowrap;
-        }
- 
-        td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-2); vertical-align: middle; }
-        tr:last-child td { border-bottom: none; }
-        tr:hover td { background: rgba(249, 115, 22, .03); }
- 
-        /* CODE */
-        pre {
-            background: #0a0b0c;
-            border: 1px solid var(--border);
-            border-left: 3px solid var(--orange);
-            border-radius: 6px;
-            padding: 14px 16px;
-            overflow-x: auto;
-            font-family: var(--mono); font-size: 12px; line-height: 1.6;
-            margin-bottom: 14px;
-            color: #cdd6f4;
-        }
- 
-        .kw  { color: #89b4fa; }
-        .str { color: #a6e3a1; }
-        .key { color: #89dceb; }
-        .num { color: var(--orange-bright); }
-        .cmt { color: #585b70; }
- 
-        /* RISK BARS */
-        .rbar-wrap { margin: 6px 0 10px; }
-        .rbar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .rbar-label { font-family: var(--mono); font-size: 10px; color: var(--text-2); width: 110px; flex-shrink: 0; }
-        .rbar-track { flex: 1; height: 5px; background: var(--bg-input); border-radius: 3px; overflow: hidden; }
-        .rbar-fill { height: 100%; border-radius: 3px; width: 0; transition: width .9s cubic-bezier(.4, 0, .2, 1) .2s; }
-        .rbar-val { font-family: var(--mono); font-size: 10px; color: var(--text-2); width: 28px; text-align: right; flex-shrink: 0; }
- 
-        /* DIAGRAM */
-        .diagram {
-            background: var(--bg-input);
-            border: 1px dashed var(--border-light);
-            border-radius: 8px;
-            padding: 36px 24px;
-            text-align: center;
-            color: var(--text-4);
-            font-family: var(--mono); font-size: 11px; line-height: 1.8;
-            margin-bottom: 4px;
-            cursor: zoom-in;
-            transition: border-color .15s, background .15s;
-        }
- 
-        .diagram:hover { border-color: var(--orange-border); background: rgba(249, 115, 22, .04); }
-        .diagram strong { color: var(--text-3); display: block; margin-bottom: 6px; font-size: 12px; }
- 
-        /* ZOOM MODAL */
-        .zoom-modal {
-            display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,.88); z-index: 999;
-            align-items: center; justify-content: center;
-            padding: 24px; cursor: zoom-out;
-        }
- 
-        .zoom-modal.open { display: flex; }
- 
-        .zoom-modal-inner {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            padding: 40px 48px;
-            max-width: 800px; width: 100%; max-height: 90vh;
-            overflow: auto; cursor: default;
-        }
- 
-        .zoom-modal-inner img { max-width: 100%; height: auto; border-radius: 6px; }
-
-        /* HERO BANNER */
-        .hero-banner {
-            background: #0d1117;
-            border: 1px solid #222528;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            padding: 52px 36px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 240px;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .hero-banner::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 500px; height: 360px;
-            background: radial-gradient(ellipse, rgba(34,211,238,0.06) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero-banner::after {
-            content: '';
-            position: absolute;
-            bottom: -60px; right: -60px;
-            width: 280px; height: 280px;
-            background: radial-gradient(circle, rgba(249,115,22,0.05) 0%, transparent 65%);
-            pointer-events: none;
-        }
-
-        .banner-shield {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 20px;
-            animation: shield-float 4s ease-in-out infinite;
-        }
-
-        @keyframes shield-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
-
-        .banner-wordmark {
-            position: relative;
-            z-index: 1;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            margin-bottom: 10px;
-        }
-
-        .banner-wordmark .w1 { color: #e8eaed; }
-        .banner-wordmark .w2 { color: #22d3ee; }
-
-        .banner-sub {
-            position: relative;
-            z-index: 1;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 10px;
-            color: #5f6872;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-        }
-
-        /* FIGMA EMBED */
-        .figma-embed-wrap { background: var(--bg-input); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
-        .figma-embed-wrap iframe { width: 100%; height: 480px; border: none; display: block; }
- 
-        /* TIMELINE */
-        .timeline { padding-left: 20px; position: relative; }
- 
-        .timeline::before {
-            content: ''; position: absolute;
-            left: 6px; top: 0; bottom: 0;
-            width: 1px; background: var(--border-light);
-        }
- 
-        .tl-item { position: relative; padding-bottom: 22px; }
- 
-        .tl-item::before {
-            content: ''; position: absolute;
-            left: -18px; top: 4px;
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: var(--orange);
-            box-shadow: 0 0 8px rgba(249,115,22,.5);
-        }
- 
-        .tl-item.done::before { background: var(--green); box-shadow: 0 0 8px rgba(34,197,94,.4); }
-        .tl-week { font-family: var(--mono); font-size: 9px; color: var(--orange); letter-spacing: .08em; margin-bottom: 2px; }
-        .tl-item.done .tl-week { color: var(--green); }
-        .tl-task { font-size: 13px; font-weight: 500; color: var(--text-1); }
-        .tl-sub { font-size: 12px; color: var(--text-3); margin-top: 2px; }
- 
-        /* FEATURES */
-        .feat-list { display: flex; flex-direction: column; gap: 10px; }
- 
-        .feat {
-            display: flex; gap: 14px; align-items: flex-start;
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 8px; padding: 16px 18px;
-            transition: border-color .15s;
-        }
- 
-        .feat:hover { border-color: var(--orange-border); }
- 
-        .feat-icon {
-            width: 34px; height: 34px; border-radius: 7px;
-            background: var(--orange-subtle); border: 1px solid var(--orange-border);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px; flex-shrink: 0;
-        }
- 
-        .feat-body h3 { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--text-1); margin-bottom: 4px; }
-        .feat-body p { font-size: 12px; color: var(--text-2); margin: 0; line-height: 1.6; }
- 
-        /* NOTICE */
-        .notice {
-            display: flex; gap: 12px; align-items: flex-start;
-            background: var(--orange-subtle);
-            border: 1px solid var(--orange-border);
-            border-radius: 7px; padding: 14px 16px; margin-bottom: 14px;
-        }
- 
-        .notice-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-        .notice p { margin: 0; font-size: 12px; color: var(--text-2); line-height: 1.65; }
-        .notice strong { color: var(--orange); }
- 
-        /* IRB LINK */
-        .irb-link {
-            font-family: var(--mono); font-size: 10px; color: var(--orange);
-            text-decoration: none; display: inline-block; margin-top: 8px;
-            border-bottom: 1px dashed var(--orange-border); padding-bottom: 1px;
-        }
- 
-        .irb-link:hover { color: var(--orange-bright); }
- 
-        /* MOBILE */
-        .hamburger {
-            display: none; position: fixed;
-            top: 13px; left: 13px; z-index: 200;
-            background: var(--bg-card); border: 1px solid var(--border-light);
-            border-radius: 6px; padding: 6px 9px;
-            cursor: pointer; font-size: 15px; color: var(--text-1);
-        }
- 
-        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 80; }
- 
-        @media(max-width:768px) {
-            #sidebar { transform: translateX(-100%); }
-            #sidebar.open { transform: translateX(0); }
-            #main { margin-left: 0; }
-            .hamburger { display: block; }
-            .overlay.show { display: block; }
-            .pg { padding: 20px 16px 48px; }
-            .g2,.g3,.g4 { grid-template-columns: 1fr; }
-            .hero-card { padding: 22px; }
-            .hero-card h1 { font-size: 22px; }
-            #topbar { padding: 0 16px 0 52px; }
-            .zoom-modal-inner { padding: 24px 20px; }
-            .banner-wordmark { font-size: 24px; }
-        }
- 
-        @media(max-width:480px) {
-            .stat-n { font-size: 24px; }
-            table { font-size: 11px; }
-            td,th { padding: 8px 10px; }
-        }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{font-family:var(--sans);background:var(--bg-root);color:var(--text-1);display:flex;min-height:100vh;overflow-x:hidden}
+        #sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg-sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:90;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+        .sb-logo{padding:0 16px;height:52px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);flex-shrink:0}
+        .sb-logo-mark{width:28px;height:28px;background:transparent;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .sb-logo-name{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--text-1);letter-spacing:.06em}
+        .sb-status{margin-left:auto;font-family:var(--mono);font-size:9px;color:var(--green);display:flex;align-items:center;gap:4px}
+        .sb-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse-dot 2s ease-in-out infinite}
+        @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+        .sb-search{padding:10px 12px;border-bottom:1px solid var(--border);flex-shrink:0}
+        .sb-search input{width:100%;background:var(--bg-input);border:1px solid var(--border-light);border-radius:5px;padding:6px 10px;font-family:var(--sans);font-size:12px;color:var(--text-2);outline:none;transition:border-color .15s}
+        .sb-search input:focus{border-color:var(--orange-border);color:var(--text-1)}
+        .sb-search input::placeholder{color:var(--text-4)}
+        .sb-nav{flex:1;padding:8px;overflow-y:auto}.sb-nav::-webkit-scrollbar{width:2px}.sb-nav::-webkit-scrollbar-thumb{background:var(--border-light)}
+        .sb-section{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--text-4);text-transform:uppercase;padding:10px 8px 4px}
+        .sb-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:400;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:background .12s,color .12s,border-color .12s;margin-bottom:1px;user-select:none}
+        .sb-item:hover{background:var(--bg-card);color:var(--text-1)}
+        .sb-item.active{background:var(--orange-subtle);color:var(--orange);border-color:var(--orange-border);font-weight:500}
+        .sb-item .ico{width:16px;height:16px;flex-shrink:0;opacity:.6}.sb-item.active .ico{opacity:1}
+        .sb-footer{padding:12px;border-top:1px solid var(--border);flex-shrink:0}
+        .sb-gh{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:6px;color:var(--text-2);font-size:12px;text-decoration:none;transition:border-color .15s,color .15s}
+        .sb-gh:hover{border-color:var(--orange-border);color:var(--text-1)}
+        #main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh}
+        #topbar{height:52px;background:rgba(11,14,18,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;justify-content:space-between;position:sticky;top:0;z-index:50}
+        .tb-breadcrumb{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.05em}
+        .tb-breadcrumb span{color:var(--orange)}
+        .page{display:none;animation:fadeSlide .22s ease}.page.active{display:block}
+        @keyframes fadeSlide{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+        .pg{padding:32px 36px 64px;max-width:1060px}
+        .ph{margin-bottom:28px}
+        .ph-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--orange);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+        .ph-eyebrow::before{content:'';width:18px;height:1px;background:var(--orange)}
+        .ph h1{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--text-1);line-height:1.2;margin-bottom:6px}
+        .ph h1 em{color:var(--orange);font-style:normal}
+        .ph-sub{font-size:13px;color:var(--text-3);font-family:var(--mono)}
+        .sh{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--text-3);text-transform:uppercase;margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+        .sh::before{content:'//';color:var(--orange);font-size:11px}
+        p{font-size:13px;line-height:1.72;color:var(--text-2);margin-bottom:12px}
+        .card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;transition:border-color .15s}
+        .card:hover{border-color:var(--border-light)}.card+.card{margin-top:10px}
+        .card-title{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--text-1);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+        .hero-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:36px 36px 32px;margin-bottom:20px;position:relative;overflow:hidden}
+        .hero-card::after{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(34,211,238,.07) 0%,transparent 65%);pointer-events:none}
+        .hero-card h1{font-family:var(--mono);font-size:34px;font-weight:700;line-height:1.15;margin-bottom:12px}
+        .hero-card h1 em{color:var(--orange);font-style:normal}
+        .hero-desc{font-size:14px;line-height:1.72;color:var(--text-2);max-width:580px;margin-bottom:22px}
+        .btn-row{display:flex;gap:9px;flex-wrap:wrap}
+        .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:5px;font-family:var(--sans);font-size:12px;font-weight:500;cursor:pointer;text-decoration:none;border:none;transition:all .15s}
+        .btn-fill{background:var(--orange);color:#000;font-weight:600}
+        .btn-fill:hover{background:var(--orange-bright);box-shadow:0 4px 14px rgba(34,211,238,.3);transform:translateY(-1px)}
+        .btn-outline{background:transparent;color:var(--text-2);border:1px solid var(--border-light)}
+        .btn-outline:hover{border-color:var(--orange-border);color:var(--text-1)}
+        .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+        .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+        .stat{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px 18px;text-align:left}
+        .stat-n{font-family:var(--mono);font-size:32px;font-weight:700;color:var(--orange);line-height:1;margin-bottom:5px}
+        .stat-l{font-size:11px;color:var(--text-3);font-family:var(--mono);letter-spacing:.04em}
+        .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:4px}
+        .team-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px 14px 16px;text-align:center;transition:border-color .15s,transform .15s}
+        .team-card:hover{border-color:var(--orange-border);transform:translateY(-2px)}
+        .t-av{width:56px;height:56px;border-radius:50%;background:var(--bg-input);border:2px dashed var(--border-light);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 10px;overflow:hidden;transition:border-color .15s}
+        .team-card:hover .t-av{border-color:var(--orange-border)}
+        .t-name{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:3px}
+        .t-role{font-family:var(--mono);font-size:10px;color:var(--orange)}
+        .badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}
+        .b-orange{background:var(--orange-subtle);color:var(--orange);border:1px solid var(--orange-border)}
+        .b-green{background:var(--green-sub);color:var(--green);border:1px solid rgba(34,197,94,.22)}
+        .b-red{background:var(--red-sub);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+        .b-blue{background:var(--blue-sub);color:var(--blue);border:1px solid rgba(96,165,250,.2)}
+        .b-purple{background:var(--purple-sub);color:var(--purple);border:1px solid rgba(167,139,250,.22)}
+        .b-yellow{background:rgba(234,179,8,.1);color:var(--yellow);border:1px solid rgba(234,179,8,.2)}
+        .tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);margin-bottom:16px}
+        table{width:100%;border-collapse:collapse;font-size:12px}
+        th{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);text-align:left;padding:10px 14px;background:var(--bg-card);border-bottom:1px solid var(--border);white-space:nowrap}
+        td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:middle}
+        tr:last-child td{border-bottom:none}tr:hover td{background:rgba(34,211,238,.03)}
+        pre{background:#0a0b0c;border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:6px;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12px;line-height:1.6;margin-bottom:14px;color:#cdd6f4}
+        .kw{color:#89b4fa}.str{color:#a6e3a1}.key{color:#89dceb}.num{color:var(--orange-bright)}.cmt{color:#585b70}
+        .rbar-wrap{margin:6px 0 10px}.rbar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+        .rbar-label{font-family:var(--mono);font-size:10px;color:var(--text-2);width:110px;flex-shrink:0}
+        .rbar-track{flex:1;height:5px;background:var(--bg-input);border-radius:3px;overflow:hidden}
+        .rbar-fill{height:100%;border-radius:3px;width:0;transition:width .9s cubic-bezier(.4,0,.2,1) .2s}
+        .rbar-val{font-family:var(--mono);font-size:10px;color:var(--text-2);width:28px;text-align:right;flex-shrink:0}
+        .zoom-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+        .zoom-modal.open{display:flex}
+        .zoom-modal-inner{background:var(--bg-card);border:1px solid var(--border-light);border-radius:10px;padding:40px 48px;max-width:800px;width:100%;max-height:90vh;overflow:auto;cursor:default}
+        .hero-banner{background:#0d1117;border:1px solid #1e2530;border-radius:10px;margin-bottom:20px;padding:52px 36px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:240px;position:relative;overflow:hidden;text-align:center}
+        .hero-banner::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:360px;background:radial-gradient(ellipse,rgba(34,211,238,0.06) 0%,transparent 70%);pointer-events:none}
+        .hero-banner::after{content:'';position:absolute;bottom:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(34,211,238,0.04) 0%,transparent 65%);pointer-events:none}
+        .banner-shield{position:relative;z-index:1;margin-bottom:20px;animation:shield-float 4s ease-in-out infinite}
+        @keyframes shield-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+        .banner-wordmark{position:relative;z-index:1;font-family:'IBM Plex Mono',monospace;font-size:32px;font-weight:700;letter-spacing:0.04em;margin-bottom:10px}
+        .banner-wordmark .w1{color:#e8eaed}.banner-wordmark .w2{color:#22d3ee}
+        .banner-sub{position:relative;z-index:1;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#5f6872;letter-spacing:0.16em;text-transform:uppercase}
+        /* VIDEO */
+        .video-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color .15s}
+        .video-card:hover{border-color:var(--border-light)}
+        .video-card-header{padding:12px 16px;border-bottom:1px solid var(--border)}
+        .video-card-title{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--text-1);margin-bottom:3px}
+        .video-card-sub{font-family:var(--mono);font-size:10px;color:var(--text-3)}
+        .video-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+        .video-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+        .figma-embed-wrap{background:var(--bg-input);border:1px solid var(--border-light);border-radius:8px;overflow:hidden;margin-bottom:12px}
+        .figma-embed-wrap iframe{width:100%;height:480px;border:none;display:block}
+        .timeline{padding-left:20px;position:relative}
+        .timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:1px;background:var(--border-light)}
+        .tl-item{position:relative;padding-bottom:22px}
+        .tl-item::before{content:'';position:absolute;left:-18px;top:4px;width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 8px rgba(34,211,238,.4)}
+        .tl-item.done::before{background:var(--green);box-shadow:0 0 8px rgba(34,197,94,.4)}
+        .tl-week{font-family:var(--mono);font-size:9px;color:var(--orange);letter-spacing:.08em;margin-bottom:2px}
+        .tl-item.done .tl-week{color:var(--green)}
+        .tl-task{font-size:13px;font-weight:500;color:var(--text-1)}
+        .tl-sub{font-size:12px;color:var(--text-3);margin-top:2px}
+        .feat-list{display:flex;flex-direction:column;gap:10px}
+        .feat{display:flex;gap:14px;align-items:flex-start;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;transition:border-color .15s}
+        .feat:hover{border-color:var(--orange-border)}
+        .feat-icon{width:34px;height:34px;border-radius:7px;background:var(--orange-subtle);border:1px solid var(--orange-border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+        .feat-body h3{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--text-1);margin-bottom:4px}
+        .feat-body p{font-size:12px;color:var(--text-2);margin:0;line-height:1.6}
+        .notice{display:flex;gap:12px;align-items:flex-start;background:var(--orange-subtle);border:1px solid var(--orange-border);border-radius:7px;padding:14px 16px;margin-bottom:14px}
+        .notice p{margin:0;font-size:12px;color:var(--text-2);line-height:1.65}
+        .notice strong{color:var(--orange)}
+        .hamburger{display:none;position:fixed;top:13px;left:13px;z-index:200;background:var(--bg-card);border:1px solid var(--border-light);border-radius:6px;padding:6px 9px;cursor:pointer;font-size:15px;color:var(--text-1)}
+        .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:80}
+        @media(max-width:768px){#sidebar{transform:translateX(-100%)}#sidebar.open{transform:translateX(0)}#main{margin-left:0}.hamburger{display:block}.overlay.show{display:block}.pg{padding:20px 16px 48px}.g2,.g3,.g4{grid-template-columns:1fr}.hero-card{padding:22px}.hero-card h1{font-size:22px}#topbar{padding:0 16px 0 52px}.banner-wordmark{font-size:24px}}
+        @media(max-width:480px){.stat-n{font-size:24px}table{font-size:11px}td,th{padding:8px 10px}}
     </style>
 </head>
- 
 <body>
- 
     <button class="hamburger" onclick="openSidebar()">☰</button>
     <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
- 
-    <!-- SIDEBAR -->
+
     <aside id="sidebar">
         <div class="sb-logo">
-            <div class="sb-logo-mark" style="background:transparent; border-radius:0;">
-                <svg width="20" height="23" viewBox="0 0 72 82" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M36 4L6 16V38C6 56.8 19.2 74.2 36 79C52.8 74.2 66 56.8 66 38V16L36 4Z"
-                        stroke="#22d3ee" stroke-width="2.5" stroke-linejoin="round" fill="rgba(34,211,238,0.06)"/>
-                    <path d="M36 14L14 24V40C14 54.4 23.6 67.4 36 71.2C48.4 67.4 58 54.4 58 40V24L36 14Z"
-                    stroke="rgba(34,211,238,0.25)" stroke-width="1" stroke-linejoin="round" fill="none"/>
+            <div class="sb-logo-mark">
+                <svg width="20" height="23" viewBox="0 0 72 82" fill="none">
+                    <path d="M36 4L6 16V38C6 56.8 19.2 74.2 36 79C52.8 74.2 66 56.8 66 38V16L36 4Z" stroke="#22d3ee" stroke-width="2.5" stroke-linejoin="round" fill="rgba(34,211,238,0.06)"/>
+                    <path d="M36 14L14 24V40C14 54.4 23.6 67.4 36 71.2C48.4 67.4 58 54.4 58 40V24L36 14Z" stroke="rgba(34,211,238,0.25)" stroke-width="1" stroke-linejoin="round" fill="none"/>
                 </svg>
-        </div>
+            </div>
             <span class="sb-logo-name">ADAPTIVESEC</span>
             <span class="sb-status">LIVE</span>
         </div>
-        <div class="sb-search">
-            <input type="text" id="searchInput" placeholder="Search pages…" oninput="filterNav(this.value)" />
-        </div>
+        <div class="sb-search"><input type="text" id="searchInput" placeholder="Search pages…" oninput="filterNav(this.value)" /></div>
         <nav class="sb-nav" id="sbNav">
             <div class="sb-section">Overview</div>
             <div class="sb-item active" data-page="home" onclick="go('home')">
-                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
-                    <path d="M2 6.5L8 2l6 4.5V14H2V6.5z" />
-                </svg>
-                Home
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 6.5L8 2l6 4.5V14H2V6.5z"/></svg>Home
             </div>
             <div class="sb-section">Documentation</div>
             <div class="sb-item" data-page="requirements" onclick="go('requirements')">
-                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
-                    <rect x="3" y="2" width="10" height="12" rx="1.5" />
-                    <line x1="6" y1="5.5" x2="10" y2="5.5" />
-                    <line x1="6" y1="8" x2="10" y2="8" />
-                    <line x1="6" y1="10.5" x2="8.5" y2="10.5" />
-                </svg>
-                Requirements
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="2" width="10" height="12" rx="1.5"/><line x1="6" y1="5.5" x2="10" y2="5.5"/><line x1="6" y1="8" x2="10" y2="8"/><line x1="6" y1="10.5" x2="8.5" y2="10.5"/></svg>Requirements
             </div>
             <div class="sb-item" data-page="architecture" onclick="go('architecture')">
-                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
-                    <rect x="1" y="1" width="5" height="5" rx="1" />
-                    <rect x="10" y="1" width="5" height="5" rx="1" />
-                    <rect x="5.5" y="10" width="5" height="5" rx="1" />
-                    <line x1="3.5" y1="6" x2="3.5" y2="8" />
-                    <line x1="12.5" y1="6" x2="12.5" y2="8" />
-                    <line x1="3.5" y1="8" x2="12.5" y2="8" />
-                    <line x1="8" y1="8" x2="8" y2="10" />
-                </svg>
-                Architecture
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="10" y="1" width="5" height="5" rx="1"/><rect x="5.5" y="10" width="5" height="5" rx="1"/><line x1="3.5" y1="6" x2="3.5" y2="8"/><line x1="12.5" y1="6" x2="12.5" y2="8"/><line x1="3.5" y1="8" x2="12.5" y2="8"/><line x1="8" y1="8" x2="8" y2="10"/></svg>Architecture
             </div>
             <div class="sb-item" data-page="design" onclick="go('design')">
-                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
-                    <polyline points="2,11 5,8 8,10 11,6 14,7" />
-                    <rect x="1" y="1" width="14" height="14" rx="1.5" />
-                </svg>
-                Design
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><polyline points="2,11 5,8 8,10 11,6 14,7"/><rect x="1" y="1" width="14" height="14" rx="1.5"/></svg>Design
             </div>
             <div class="sb-item" data-page="testing" onclick="go('testing')">
-                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
-                    <circle cx="8" cy="8" r="6" />
-                    <polyline points="5.5,8 7,9.5 10.5,6" />
-                </svg>
-                Testing &amp; Validation
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><polyline points="5.5,8 7,9.5 10.5,6"/></svg>Testing &amp; Validation
             </div>
             <div class="sb-section">Project</div>
             <div class="sb-item" data-page="management" onclick="go('management')">
-                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
-                    <rect x="2" y="2" width="5" height="5" rx="1" />
-                    <rect x="9" y="2" width="5" height="5" rx="1" />
-                    <rect x="2" y="9" width="5" height="5" rx="1" />
-                    <rect x="9" y="9" width="5" height="5" rx="1" />
-                </svg>
-                Management &amp; Ethics
+                <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>Management &amp; Ethics
             </div>
         </nav>
         <div class="sb-footer">
             <a class="sb-gh" href="https://github.com/ForhaadM/AdaptiveSec" target="_blank">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12" />
-                </svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                 GitHub Repository
             </a>
         </div>
     </aside>
- 
-    <!-- MAIN -->
+
     <div id="main">
         <div id="topbar">
             <div class="tb-breadcrumb">ADAPTIVESEC &nbsp;/&nbsp; <span id="tbCrumb">HOME</span></div>
             <div class="tb-right"></div>
         </div>
- 
-        <!-- ═══ HOME ═══ -->
+
+        <!-- HOME -->
         <div class="page active" id="page-home">
             <div class="pg">
-
-                <!-- FULL-WIDTH HERO BANNER (pure CSS, no image file needed) -->
                 <div class="hero-banner">
                     <div class="banner-shield">
-                        <svg width="72" height="82" viewBox="0 0 72 82" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- outer shield -->
-                            <path d="M36 4L6 16V38C6 56.8 19.2 74.2 36 79C52.8 74.2 66 56.8 66 38V16L36 4Z"
-                                  stroke="#22d3ee" stroke-width="2.5" stroke-linejoin="round" fill="rgba(34,211,238,0.06)"/>
-                            <!-- inner shield accent -->
-                            <path d="M36 14L14 24V40C14 54.4 23.6 67.4 36 71.2C48.4 67.4 58 54.4 58 40V24L36 14Z"
-                                  stroke="rgba(34,211,238,0.25)" stroke-width="1" stroke-linejoin="round" fill="none"/>
+                        <svg width="72" height="82" viewBox="0 0 72 82" fill="none">
+                            <path d="M36 4L6 16V38C6 56.8 19.2 74.2 36 79C52.8 74.2 66 56.8 66 38V16L36 4Z" stroke="#22d3ee" stroke-width="2.5" stroke-linejoin="round" fill="rgba(34,211,238,0.06)"/>
+                            <path d="M36 14L14 24V40C14 54.4 23.6 67.4 36 71.2C48.4 67.4 58 54.4 58 40V24L36 14Z" stroke="rgba(34,211,238,0.25)" stroke-width="1" stroke-linejoin="round" fill="none"/>
                         </svg>
                     </div>
-                    <div class="banner-wordmark">
-                        <span class="w1">Adaptive</span><span class="w2">Sec</span>
-                    </div>
+                    <div class="banner-wordmark"><span class="w1">Adaptive</span><span class="w2">Sec</span></div>
                     <div class="banner-sub">Adaptive Phishing Simulation &amp; Security Training Platform</div>
                 </div>
- 
+
                 <div class="hero-card">
                     <h1><em>Adaptive</em>Sec</h1>
-                    <p class="hero-desc">
-                        AdaptiveSec is a cybersecurity awareness and behavioral risk analysis platform delivered through
-                        a Chrome Extension and a web-based dashboard. The system periodically deploys controlled
-                        phishing simulations designed around well-known psychological manipulation triggers, including
-                        urgency, authority, scarcity, and social proof. These simulations help organizations evaluate
-                        user susceptibility to social engineering tactics while providing insights that support targeted
-                        security awareness training and improved human risk management.
-                    </p>
+                    <p class="hero-desc">AdaptiveSec is a cybersecurity awareness and behavioral risk analysis platform delivered through a Chrome Extension and a web-based dashboard. The system periodically deploys controlled phishing simulations designed around well-known psychological manipulation triggers, including urgency, authority, scarcity, and social proof. These simulations help organizations evaluate user susceptibility to social engineering tactics while providing insights that support targeted security awareness training and improved human risk management.</p>
                     <div class="btn-row">
                         <a href="https://github.com/ForhaadM/AdaptiveSec" target="_blank" class="btn btn-fill">↗ GitHub Repo</a>
                         <a href="https://www.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?t=88JRfEmGj5VQcXX6-1" target="_blank" class="btn btn-outline">⬡ Figma Prototype</a>
@@ -802,23 +232,10 @@
                         <span class="btn btn-outline" onclick="go('architecture')" style="cursor:pointer">◈ Architecture</span>
                     </div>
                 </div>
- 
+
                 <div class="sh">The Problem</div>
-                <p>Most successful cyberattacks exploit human behavior rather than technical vulnerabilities.
-                    Despite this reality, most enterprise cybersecurity awareness programs remain static,
-                    compliance-driven, and one-size-fits-all. Training is typically delivered annually or after a user
-                    has already made a risky decision, which breaks the connection between the user's action and the
-                    lesson intended to prevent it. As a result, retention is low and the same mistakes continue to occur.
-                    Traditional awareness platforms also focus primarily on blocking threats silently at the system
-                    level, missing the opportunity to explain to users why an action was risky and how similar attacks
-                    operate. Without real-time feedback or behavioral insight, users are unable to build practical
-                    intuition against modern phishing and social engineering tactics.
-                    This creates a significant disconnect between rapidly evolving social engineering attacks and
-                    outdated awareness models that do not adapt to individual behavior, cognitive biases, or emerging
-                    threat patterns. Organizations are left with limited visibility into human risk, while employees
-                    remain unprepared to recognize and respond to sophisticated psychological manipulation techniques
-                    used in modern cyberattacks.</p>
- 
+                <p>Most successful cyberattacks exploit human behavior rather than technical vulnerabilities. Despite this reality, most enterprise cybersecurity awareness programs remain static, compliance-driven, and one-size-fits-all. Training is typically delivered annually or after a user has already made a risky decision, which breaks the connection between the user's action and the lesson intended to prevent it. As a result, retention is low and the same mistakes continue to occur. Traditional awareness platforms also focus primarily on blocking threats silently at the system level, missing the opportunity to explain to users why an action was risky and how similar attacks operate. Without real-time feedback or behavioral insight, users are unable to build practical intuition against modern phishing and social engineering tactics. This creates a significant disconnect between rapidly evolving social engineering attacks and outdated awareness models that do not adapt to individual behavior, cognitive biases, or emerging threat patterns.</p>
+
                 <div class="sh">Our Solution</div>
                 <div class="feat-list" style="margin-bottom:20px">
                     <div class="feat">
@@ -843,7 +260,30 @@
                         </div>
                     </div>
                 </div>
- 
+
+                <!-- PROJECT VIDEOS — after Our Solution, before The Team -->
+                <div class="sh">Project Videos</div>
+                <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:28px;">
+                    <div class="video-card">
+                        <div class="video-card-header">
+                            <div class="video-card-title">🎬 Promo Video</div>
+                            <div class="video-card-sub">Overview of the AdaptiveSec platform</div>
+                        </div>
+                        <div class="video-embed">
+                            <iframe src="https://drive.google.com/file/d/13858EVBoKdR3WF-S33WPSLQP2F21IB0p/preview" allow="autoplay" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-card-header">
+                            <div class="video-card-title">📹 Technical Walkthrough</div>
+                            <div class="video-card-sub">Full demo of features and dashboard</div>
+                        </div>
+                        <div class="video-embed">
+                            <iframe src="https://drive.google.com/file/d/16dAFO9xrWW-3UKbaunrojXRnZB6M3oMM/preview" allow="autoplay" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="sh">The Team</div>
                 <div class="team-grid">
                     <div class="team-card"><div class="t-av">FM</div><div class="t-name">Forhaad Miah</div><div class="t-role">Developer</div><div style="font-family:var(--mono);font-size:9px;color:var(--text-1);margin-top:4px">forhaadmiah1@gmail.com</div></div>
@@ -854,14 +294,11 @@
                 </div>
             </div>
         </div>
- 
-        <!-- ═══ REQUIREMENTS ═══ -->
+
+        <!-- REQUIREMENTS -->
         <div class="page" id="page-requirements">
             <div class="pg">
-                <div class="ph">
-                    <div class="ph-eyebrow">Documentation</div>
-                    <h1>Requirements & <em>UX (PRD)</em></h1>
-                </div>
+                <div class="ph"><div class="ph-eyebrow">Documentation</div><h1>Requirements & <em>UX (PRD)</em></h1></div>
                 <div class="sh">Primary Persona</div>
                 <div class="card" style="margin-bottom:14px">
                     <div class="card-title">🧑‍💼 "Security Project Manager Alex" <span class="badge b-orange" style="margin-left:auto">P0 Persona</span></div>
@@ -878,62 +315,202 @@
                     <div class="rbar-wrap" id="personaBars"></div>
                 </div>
                 <div class="sh">User Stories</div>
-                <div class="tbl-wrap">
-                    <table>
-                        <thead><tr><th>Priority</th><th>As a…</th><th>I want to…</th><th>So that…</th></tr></thead>
-                        <tbody>
-                            <tr><td><span class="badge b-red">P0</span></td><td>User</td><td>The Chrome Extension to analyze my browser interactions in the background</td><td>My risk profile is built on my actual daily habits without interrupting my workflow.</td></tr>
-                            <tr><td><span class="badge b-red">P0</span></td><td>User</td><td>To see my Risk Score (0-100) update on my dashboard shortly after if I make a risky decision</td><td>I can understand the impact of my actions.</td></tr>
-                            <tr><td><span class="badge b-red">P0</span></td><td>User</td><td>If my score drops, I want to see a plain-English explanation generated by the system</td><td>I understand exactly why I am considered high risk and how to change my behavior.</td></tr>
-                            <tr><td><span class="badge b-orange">P1</span></td><td>User</td><td>Receive training modules that specifically target my detected weaknesses</td><td>My training feels relevant and respects my time.</td></tr>
-                            <tr><td><span class="badge b-orange">P1</span></td><td>User</td><td>View my historical event history and score trends on my dashboard</td><td>I can visualize my risk level and track my improvement over time.</td></tr>
-                            <tr><td><span class="badge b-orange">P1</span></td><td>User</td><td>The system to automatically categorize my score into Vulnerability Profiles</td><td>I can understand the specific types of risks prevalent across the organization.</td></tr>
-                            <tr><td><span class="badge b-blue">P2</span></td><td>User</td><td>My risk score to immediately improve upon the successful completion of an assigned training module</td><td>I feel tangibly rewarded for actively participating in my cybersecurity education.</td></tr>
-                            <tr><td><span class="badge b-blue">P2</span></td><td>User</td><td>Receive a short, localized training nudge (e.g., via browser popup) shortly after clicking a risky link or failing a simulation</td><td>I can learn from my mistake while the context is still fresh in my mind.</td></tr>
-                            <tr><td><span class="badge b-blue">P2</span></td><td>User</td><td>Access a unified dashboard view that consolidates my 0-100 Risk Score, current training progress, alerts, and counterfactual explanations all in one place</td><td>I can instantly understand my overall security posture without clicking through multiple pages.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div class="tbl-wrap"><table><thead><tr><th>Priority</th><th>As a…</th><th>I want to…</th><th>So that…</th></tr></thead><tbody>
+                    <tr><td><span class="badge b-red">P0</span></td><td>User</td><td>The Chrome Extension to analyze my browser interactions in the background</td><td>My risk profile is built on my actual daily habits without interrupting my workflow.</td></tr>
+                    <tr><td><span class="badge b-red">P0</span></td><td>User</td><td>To see my Risk Score (0-100) update on my dashboard shortly after if I make a risky decision</td><td>I can understand the impact of my actions.</td></tr>
+                    <tr><td><span class="badge b-red">P0</span></td><td>User</td><td>If my score drops, I want to see a plain-English explanation generated by the system</td><td>I understand exactly why I am considered high risk and how to change my behavior.</td></tr>
+                    <tr><td><span class="badge b-orange">P1</span></td><td>User</td><td>Receive training modules that specifically target my detected weaknesses</td><td>My training feels relevant and respects my time.</td></tr>
+                    <tr><td><span class="badge b-orange">P1</span></td><td>User</td><td>View my historical event history and score trends on my dashboard</td><td>I can visualize my risk level and track my improvement over time.</td></tr>
+                    <tr><td><span class="badge b-orange">P1</span></td><td>User</td><td>The system to automatically categorize my score into Vulnerability Profiles</td><td>I can understand the specific types of risks prevalent across the organization.</td></tr>
+                    <tr><td><span class="badge b-blue">P2</span></td><td>User</td><td>My risk score to immediately improve upon the successful completion of an assigned training module</td><td>I feel tangibly rewarded for actively participating in my cybersecurity education.</td></tr>
+                    <tr><td><span class="badge b-blue">P2</span></td><td>User</td><td>Receive a short, localized training nudge shortly after clicking a risky link or failing a simulation</td><td>I can learn from my mistake while the context is still fresh in my mind.</td></tr>
+                    <tr><td><span class="badge b-blue">P2</span></td><td>User</td><td>Access a unified dashboard view that consolidates my Risk Score, training progress, alerts, and explanations</td><td>I can instantly understand my overall security posture without clicking through multiple pages.</td></tr>
+                </tbody></table></div>
                 <div class="sh">Figma Prototype</div>
-                <div class="figma-embed-wrap">
-                    <iframe style="border: 1px solid rgba(0,0,0,0.1);" width="800" height="450"
-                        src="https://embed.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&embed-host=share"
-                        allowfullscreen></iframe>
-                </div>
-                <div style="text-align:center;margin-bottom:20px">
-                    <a href="https://www.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&t=aWZNYP38prKeBDaU-1" target="_blank" class="btn btn-fill">↗ Open Full Prototype in Figma</a>
-                </div>
+                <div class="figma-embed-wrap"><iframe style="border:1px solid rgba(0,0,0,0.1);" width="800" height="450" src="https://embed.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&embed-host=share" allowfullscreen></iframe></div>
+                <div style="text-align:center;margin-bottom:20px"><a href="https://www.figma.com/design/lobUDWz1UzlqS6SPoI2R09/AdaptiveSec?node-id=0-1&t=aWZNYP38prKeBDaU-1" target="_blank" class="btn btn-fill">↗ Open Full Prototype in Figma</a></div>
             </div>
         </div>
- 
-        <!-- ═══ ARCHITECTURE ═══ -->
+
+        <!-- ARCHITECTURE -->
         <div class="page" id="page-architecture">
             <div class="pg">
-                <div class="ph">
-                    <div class="ph-eyebrow">Documentation</div>
-                    <h1>Architecture & <em>High-Level Design</em></h1>
-                    <div class="ph-sub">// Tech Spec — System Diagram · Stack · Security</div>
-                </div>
+                <div class="ph"><div class="ph-eyebrow">Documentation</div><h1>Architecture & <em>High-Level Design</em></h1><div class="ph-sub">// Tech Spec — System Diagram · Stack · Security</div></div>
                 <div class="sh">System Diagram</div>
-                <div style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:8px;overflow:hidden;margin-bottom:4px">
-                    <img src="https://kroki.io/mermaid/svg/eNqVV91u4kYUvucpRqxWIqrZACbZFG0jYQwE1bBOTJK2qBeDPYZpjMeaGSdxlYv2CXrRmz5Kn2dfoK_QM_4BG4g26wtkPGfOz3e-c-aMH7And425RHOjhuB5_x798NpTCDjzn63JbIwaJiERMjF_QAMWMC5O3qxit9MIYpJ-dQMshEl85HO8IW1HJgFBPg2C3ruW2f3Yb2tCcvZA4G-r0_5Y_G0-UU-ue3r0rLnKid473_cPzXzmOFwdM9QpGzJG-nlrsDV08bEFz7cZsmMeBccM6WVD3X67e7Ez1O60WmfDbzM05oSER-x0y3baxtmw0yohp-tvC8jA7gMJPWSwOPQwT1BjRmLJcXBSNbnM5Mo2_a5_7l9sbXbO9Y5-UbXZBZv5Bw8L4B_HSQ9doIvCE4C99mYyjVTYqI2-_PE3mq8JGnorghpzFr2RjyJerjiO1mjUXtTLygaMR4xjSdAkhNhDIlFjuIkClhCC7hl_EBJLysKT-q-pIvV4lBNXfSwqqmLB4OxJEL6ojxlbAWKDNWdgrjHFIfWJkOhOLyurKrRuKgu3k0V9-CxJKNTi7eTTkp9eNkzAc8kw9_b1VP5sHbonSxWIckmlfMVVvgFFTrCHGrCKsuV9bepx7hd1h_BH6pJcKnNh-EhCiW5YLI_v--z7wlXsXdS3r8hkbrxR-_p2HomRREAyItD0TkcW3VApjmlT2e4DFNcxDiX9nXhoMptfoCnzSJAparc2Ag2fiRunMBox7JD7qoDEtWPvtR3cqNm8fKnfQv7QIKDugzi9Yo-Ei_oLQFHboZLJzTldrWAVXVHPgwBtvCIguY24dgBHts9i2BOZ-yCeRVerBpsJOtgnp2mmAGwi4kAeOvIh9TjygMMC3VHyBCK3mToV5JtLbH41REZ_8ONwZqKGkwhJNtvW8K1VlreWTMui_uWfP__79y_Uv3fQMATGRJwKgu7sAZQwj0HGQ7-wkHy1xrYv247Q6Sl6IwsnhB-W4qhTFHsnLXblwAjzlSr3QaAM8z2KWMairqT6UQTpx1lNQrYgogCH7oE8MBk22BM0Bp1POMnYOMJCqo_fKeccBlgc8vqGeFRAdUOXlXSAXWhqjfTbSabjiknkEJEWvoklLu_f5rWKxYezHuqLJHRfx-NsC8iHsxQSYBUNKAndJNu05-X0elGfghdAbHQdk5hkzt3g5ZLK6TU6Rc61sx-aacEuU3UXi0jAuLzTZlRARIXOOfj19cj0HiRhRV-PSy_C0vOmvomgMx2NyLTBN8AT2ZxEnLngCMubmj2ZoCkWDzRc7Yc0ugNijKAMYw7EBWYyDk2GBt4hYtaifkPFA3JcxkETMH5Fwzz6n8YGY3AETC1738KArRZ1-AmppI9gIw5CwvESkiOTcqebWTbK-w5wGLon9elhDx4-RwGmoTo94CXMiDwmSqUswrUCvMFNHXI4gDKHPPnYlTEOjlDVhZiIyzbQvb1MVzmqad8AFaDhWW2HUgm9I40cUg074BCaWp8jAUql-qAQsmlEgq22fizZBqueMKOrtQySQ3cAqRQR9UphyMjL7g5asfJN-cJZ8HVedXtpab1Kq25Bq25KKwegU6Q9Sivgx4yw7m-oH3NsGplH41TPDQlS0MSaRgewjAPsUgWLajuOXvwvsAAkFfcFukTft8DbROyHdaw5TlQ6Q8gFQBFmfVTUdj0uO1xMBR1dxgpqSI7vUxeODuhbtVJ3Q6zZZC-Qfeyd3nOqGqfqVSCYNquKaKo1a0DpfKBOzel1bddL8sNqhGkgkP4My9AqKutq2Yh9n3BwaqvEtA-jNO1cG9xLvCI1IJvjV5FLxQIC052XJhzEoKBrpeLOZGYwnnBo-wHqq3E19d_a-WdlUtvqho7darZbrROQg8o99BE-VgaFokrUoZ8V6KFoOns4MHRmGLtViTRiE_BL0JBzlg4meWEdqkod3YF45BzNt2biNsypDBJczCVQXLVSzeXupYMGnGuqNvfU5jEVeUnPtFL_ERXSlGeTccCWR8gK0w1MFpcvWzZfzee28wIEruXT2qd0HcgZNCXdkNJxmxG5MKCO8wSlNxiBJMvKX-yuOXAtKN9Jywud8h2ysnD22opevg2WF7rl61tpoTIuVe5br0YwgySlL3A3UGeSXJMEQdt01-oVeer6CC-bspnbiebca9tZVMsnzeOBW4YGCGppwrTptQaV-kq8pq1BBWlTSwPmaTkJYKOr5fTSFHuOQ2IaWl6wZWj-Bzeuy9Y=" 
-                        style="width:100%;height:auto;display:block;border-radius:8px" 
-                        alt="System Architecture Diagram" />
-                </div>
+                <div style="border-radius:8px;overflow:hidden;margin-bottom:4px;">
+<style>
+#arch-wrap{width:100%;height:520px;position:relative;cursor:grab;overflow:hidden;border:1px solid var(--border-light);border-radius:8px;background:var(--bg-input)}
+#arch-wrap.grabbing{cursor:grabbing}
+#arch-svg{position:absolute;top:0;left:0;transform-origin:0 0}
+.arch-ctrl{position:absolute;bottom:12px;right:12px;display:flex;gap:6px;z-index:10}
+.arch-btn{background:var(--bg-card);border:1px solid var(--border-light);border-radius:6px;width:30px;height:30px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-1);transition:background .15s}
+.arch-btn:hover{background:var(--bg-card-2)}
+.arch-zlabel{position:absolute;bottom:12px;left:12px;font-size:11px;color:var(--text-3);z-index:10;background:var(--bg-card);padding:3px 8px;border-radius:5px;border:1px solid var(--border)}
+.arch-hint{position:absolute;top:10px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--text-3);z-index:10;pointer-events:none;white-space:nowrap}
+</style>
+<div id="arch-wrap">
+  <div class="arch-hint">Scroll to zoom · Drag to pan</div>
+  <span class="arch-zlabel" id="arch-zlabel">55%</span>
+  <div class="arch-ctrl">
+    <button class="arch-btn" onclick="archZoom(1.2)">+</button>
+    <button class="arch-btn" onclick="archZoom(0.8)">−</button>
+    <button class="arch-btn" onclick="archReset()">⊙</button>
+  </div>
+  <svg id="arch-svg" width="1100" height="820" viewBox="0 0 1100 820">
+    <defs>
+      <marker id="arch-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <!-- FRAME 1: User Interface -->
+    <rect x="20" y="20" width="330" height="130" rx="10" fill="none" stroke="#5DCAA5" stroke-width="1" stroke-dasharray="6 3" opacity="0.6"/>
+    <text x="30" y="14" font-size="10" fill="#1D9E75" font-family="'IBM Plex Mono',monospace" letter-spacing="0.08em" opacity="0.8">FRAME 1 — USER INTERFACE</text>
+    <!-- Chrome Extension -->
+    <rect x="40" y="36" width="140" height="52" rx="6" fill="#0a1a14" stroke="#1D9E75" stroke-width="0.5"/>
+    <text x="110" y="60" text-anchor="middle" font-size="12" font-weight="500" fill="#5DCAA5" font-family="'IBM Plex Sans',sans-serif">Chrome Extension</text>
+    <text x="110" y="76" text-anchor="middle" font-size="10" fill="#1D9E75" font-family="'IBM Plex Sans',sans-serif">MV3 · JIT nudges</text>
+    <!-- React Dashboard -->
+    <rect x="210" y="36" width="120" height="52" rx="6" fill="#0a1a14" stroke="#1D9E75" stroke-width="0.5"/>
+    <text x="270" y="60" text-anchor="middle" font-size="12" font-weight="500" fill="#5DCAA5" font-family="'IBM Plex Sans',sans-serif">React Dashboard</text>
+    <text x="270" y="76" text-anchor="middle" font-size="10" fill="#1D9E75" font-family="'IBM Plex Sans',sans-serif">Risk scores · training</text>
+    <!-- Chrome Extension → FastAPI -->
+    <path d="M 110 88 L 110 180 L 360 180 L 360 230" fill="none" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <text x="230" y="175" text-anchor="middle" font-size="10" fill="#5f6872" font-family="'IBM Plex Sans',sans-serif">behavioral events</text>
+    <!-- React Dashboard → FastAPI -->
+    <path d="M 270 88 L 270 160 L 360 160 L 360 230" fill="none" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <!-- FRAME 2: Backend System -->
+    <rect x="295" y="200" width="800" height="470" rx="10" fill="none" stroke="#22d3ee" stroke-width="1" stroke-dasharray="6 3" opacity="0.4"/>
+    <text x="305" y="194" font-size="10" fill="#22d3ee" font-family="'IBM Plex Mono',monospace" letter-spacing="0.08em" opacity="0.8">FRAME 2 — BACKEND SYSTEM</text>
+    <!-- Load Balancer -->
+    <rect x="310" y="218" width="130" height="44" rx="6" fill="#0a1520" stroke="#22d3ee" stroke-width="0.5"/>
+    <text x="375" y="238" text-anchor="middle" font-size="12" font-weight="500" fill="#22d3ee" font-family="'IBM Plex Sans',sans-serif">Load Balancer</text>
+    <text x="375" y="252" text-anchor="middle" font-size="10" fill="#0e9ab5" font-family="'IBM Plex Sans',sans-serif">Distributes traffic</text>
+    <!-- FastAPI Gateway -->
+    <rect x="310" y="304" width="130" height="52" rx="6" fill="#0a1520" stroke="#22d3ee" stroke-width="0.5"/>
+    <text x="375" y="326" text-anchor="middle" font-size="12" font-weight="500" fill="#22d3ee" font-family="'IBM Plex Sans',sans-serif">FastAPI Gateway</text>
+    <text x="375" y="340" text-anchor="middle" font-size="10" fill="#0e9ab5" font-family="'IBM Plex Sans',sans-serif">Auth · rate limiting</text>
+    <!-- Load Balancer → FastAPI -->
+    <line x1="375" y1="262" x2="375" y2="304" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <!-- FastAPI → Dashboard (risk scores back) -->
+    <path d="M 310 312 L 270 312 L 270 130" fill="none" stroke="#22c55e" stroke-width="1" marker-end="url(#arch-arr)" stroke-dasharray="4 3"/>
+    <text x="240" y="250" font-size="10" fill="#22c55e" font-family="'IBM Plex Sans',sans-serif" text-anchor="middle" transform="rotate(-90,240,250)">risk scores + alerts</text>
+    <!-- FRAME 3: Application Server -->
+    <rect x="470" y="218" width="600" height="440" rx="10" fill="none" stroke="#f97316" stroke-width="1" stroke-dasharray="6 3" opacity="0.4"/>
+    <text x="480" y="212" font-size="10" fill="#f97316" font-family="'IBM Plex Mono',monospace" letter-spacing="0.08em" opacity="0.8">FRAME 3 — APPLICATION SERVER (ML + LOGIC)</text>
+    <!-- Event Processor -->
+    <rect x="490" y="232" width="130" height="44" rx="6" fill="#1a0e06" stroke="#f97316" stroke-width="0.5"/>
+    <text x="555" y="252" text-anchor="middle" font-size="12" font-weight="500" fill="#f97316" font-family="'IBM Plex Sans',sans-serif">Event Processor</text>
+    <text x="555" y="266" text-anchor="middle" font-size="10" fill="#ea6d0a" font-family="'IBM Plex Sans',sans-serif">Aggregates signals</text>
+    <!-- FastAPI → Event Processor -->
+    <line x1="440" y1="330" x2="490" y2="265" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <text x="460" y="310" text-anchor="middle" font-size="10" fill="#5f6872" font-family="'IBM Plex Sans',sans-serif">validated events</text>
+    <!-- Feature Vector Builder -->
+    <rect x="660" y="232" width="150" height="44" rx="6" fill="#1a0e06" stroke="#f97316" stroke-width="0.5"/>
+    <text x="735" y="252" text-anchor="middle" font-size="12" font-weight="500" fill="#f97316" font-family="'IBM Plex Sans',sans-serif">Feature Vector Builder</text>
+    <text x="735" y="266" text-anchor="middle" font-size="10" fill="#ea6d0a" font-family="'IBM Plex Sans',sans-serif">8-dim vectors</text>
+    <!-- Event Processor → Feature Vector Builder -->
+    <line x1="620" y1="254" x2="660" y2="254" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <text x="640" y="248" text-anchor="middle" font-size="10" fill="#5f6872" font-family="'IBM Plex Sans',sans-serif">patterns</text>
+    <!-- Risk Scoring Engine -->
+    <rect x="660" y="320" width="150" height="52" rx="6" fill="#1a0e06" stroke="#f97316" stroke-width="0.5"/>
+    <text x="735" y="342" text-anchor="middle" font-size="12" font-weight="500" fill="#f97316" font-family="'IBM Plex Sans',sans-serif">Risk Scoring Engine</text>
+    <text x="735" y="356" text-anchor="middle" font-size="10" fill="#ea6d0a" font-family="'IBM Plex Sans',sans-serif">XGBoost · 0–100</text>
+    <!-- Feature Vector Builder → Risk Scoring Engine -->
+    <line x1="735" y1="276" x2="735" y2="320" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <text x="752" y="302" font-size="10" fill="#5f6872" font-family="'IBM Plex Sans',sans-serif">feature vectors</text>
+    <!-- Cognitive Vulnerability Model -->
+    <rect x="490" y="410" width="150" height="52" rx="6" fill="#1a0e06" stroke="#f97316" stroke-width="0.5"/>
+    <text x="565" y="430" text-anchor="middle" font-size="11" font-weight="500" fill="#f97316" font-family="'IBM Plex Sans',sans-serif">Cognitive Vulnerability</text>
+    <text x="565" y="444" text-anchor="middle" font-size="11" font-weight="500" fill="#f97316" font-family="'IBM Plex Sans',sans-serif">Model</text>
+    <text x="565" y="458" text-anchor="middle" font-size="10" fill="#ea6d0a" font-family="'IBM Plex Sans',sans-serif">Gemini LLM · bias tags</text>
+    <!-- Risk Scoring Engine → Cognitive Model -->
+    <path d="M 660 346 L 620 346 L 620 436 L 640 436" fill="none" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <text x="615" y="390" font-size="10" fill="#5f6872" font-family="'IBM Plex Sans',sans-serif" text-anchor="middle" transform="rotate(-90,615,390)">risk score</text>
+    <!-- Recommendation Engine -->
+    <rect x="490" y="510" width="150" height="52" rx="6" fill="#1a0e06" stroke="#f97316" stroke-width="0.5"/>
+    <text x="565" y="532" text-anchor="middle" font-size="12" font-weight="500" fill="#f97316" font-family="'IBM Plex Sans',sans-serif">Recommendation Engine</text>
+    <text x="565" y="546" text-anchor="middle" font-size="10" fill="#ea6d0a" font-family="'IBM Plex Sans',sans-serif">MAB · assigns training</text>
+    <!-- Cognitive Model → Recommendation Engine -->
+    <line x1="565" y1="462" x2="565" y2="510" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <text x="580" y="490" font-size="10" fill="#5f6872" font-family="'IBM Plex Sans',sans-serif">cognitive trigger</text>
+    <!-- Explanation Generator -->
+    <rect x="680" y="410" width="150" height="52" rx="6" fill="#1a0e06" stroke="#f97316" stroke-width="0.5"/>
+    <text x="755" y="430" text-anchor="middle" font-size="12" font-weight="500" fill="#f97316" font-family="'IBM Plex Sans',sans-serif">Explanation Generator</text>
+    <text x="755" y="444" text-anchor="middle" font-size="10" fill="#ea6d0a" font-family="'IBM Plex Sans',sans-serif">Gemini · counterfactuals</text>
+    <!-- Training Assignment -->
+    <rect x="680" y="510" width="150" height="52" rx="6" fill="#1a0e06" stroke="#f97316" stroke-width="0.5"/>
+    <text x="755" y="532" text-anchor="middle" font-size="12" font-weight="500" fill="#f97316" font-family="'IBM Plex Sans',sans-serif">Training Assignment</text>
+    <text x="755" y="546" text-anchor="middle" font-size="10" fill="#ea6d0a" font-family="'IBM Plex Sans',sans-serif">Risk events · metadata</text>
+    <!-- Risk Scoring → Explanation Generator -->
+    <line x1="735" y1="372" x2="755" y2="410" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <!-- Cognitive Model → Explanation Generator -->
+    <line x1="640" y1="436" x2="680" y2="436" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <!-- Recommendation Engine → Training Assignment -->
+    <line x1="640" y1="536" x2="680" y2="536" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <!-- Explanation Generator → Training Assignment -->
+    <line x1="755" y1="462" x2="755" y2="510" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <!-- FRAME 4: Database Server -->
+    <rect x="295" y="690" width="800" height="110" rx="10" fill="none" stroke="#a78bfa" stroke-width="1" stroke-dasharray="6 3" opacity="0.4"/>
+    <text x="305" y="684" font-size="10" fill="#a78bfa" font-family="'IBM Plex Mono',monospace" letter-spacing="0.08em" opacity="0.8">FRAME 4 — DATABASE SERVER</text>
+    <!-- Neo4j AuraDB -->
+    <rect x="330" y="710" width="150" height="52" rx="6" fill="#100d1a" stroke="#a78bfa" stroke-width="0.5"/>
+    <text x="405" y="733" text-anchor="middle" font-size="12" font-weight="500" fill="#a78bfa" font-family="'IBM Plex Sans',sans-serif">Neo4j AuraDB</text>
+    <text x="405" y="747" text-anchor="middle" font-size="10" fill="#7c6bc4" font-family="'IBM Plex Sans',sans-serif">User graph · profiles</text>
+    <!-- Redis -->
+    <rect x="530" y="710" width="130" height="52" rx="6" fill="#100d1a" stroke="#a78bfa" stroke-width="0.5"/>
+    <text x="595" y="733" text-anchor="middle" font-size="12" font-weight="500" fill="#a78bfa" font-family="'IBM Plex Sans',sans-serif">Redis Pub/Sub</text>
+    <text x="595" y="747" text-anchor="middle" font-size="10" fill="#7c6bc4" font-family="'IBM Plex Sans',sans-serif">Alerts · 60s TTL</text>
+    <!-- Training Metadata -->
+    <rect x="710" y="710" width="160" height="52" rx="6" fill="#100d1a" stroke="#a78bfa" stroke-width="0.5"/>
+    <text x="790" y="733" text-anchor="middle" font-size="12" font-weight="500" fill="#a78bfa" font-family="'IBM Plex Sans',sans-serif">Training Metadata</text>
+    <text x="790" y="747" text-anchor="middle" font-size="10" fill="#7c6bc4" font-family="'IBM Plex Sans',sans-serif">Modules · scores</text>
+    <!-- Risk Scoring → Neo4j -->
+    <path d="M 735 372 L 735 650 L 405 650 L 405 710" fill="none" stroke="#a78bfa" stroke-width="1" marker-end="url(#arch-arr)" stroke-dasharray="4 3" opacity="0.7"/>
+    <!-- Recommendation Engine → Neo4j -->
+    <path d="M 565 562 L 565 660 L 405 660 L 405 710" fill="none" stroke="#a78bfa" stroke-width="1" marker-end="url(#arch-arr)" stroke-dasharray="4 3" opacity="0.7"/>
+    <!-- Explanation Generator → Redis -->
+    <path d="M 755 462 L 850 462 L 850 690 L 595 690 L 595 710" fill="none" stroke="#a78bfa" stroke-width="1" marker-end="url(#arch-arr)" stroke-dasharray="4 3" opacity="0.7"/>
+    <!-- Training Assignment → Training Metadata -->
+    <path d="M 830 536 L 870 536 L 870 680 L 790 680 L 790 710" fill="none" stroke="#a78bfa" stroke-width="1" marker-end="url(#arch-arr)" stroke-dasharray="4 3" opacity="0.7"/>
+    <!-- Neo4j → FastAPI (historical data) -->
+    <path d="M 330 736 L 285 736 L 285 340 L 310 340" fill="none" stroke="#22c55e" stroke-width="1" marker-end="url(#arch-arr)" stroke-dasharray="4 3" opacity="0.7"/>
+    <text x="265" y="560" font-size="10" fill="#22c55e" font-family="'IBM Plex Sans',sans-serif" text-anchor="middle" transform="rotate(-90,265,560)">historical data</text>
+    <!-- Redis → Chrome Extension (JIT nudge) -->
+    <path d="M 595 710 L 595 640 L 50 640 L 50 88" fill="none" stroke="#22c55e" stroke-width="1" marker-end="url(#arch-arr)" stroke-dasharray="4 3" opacity="0.6"/>
+    <text x="65" y="380" font-size="10" fill="#22c55e" font-family="'IBM Plex Sans',sans-serif" transform="rotate(-90,65,380)">JIT nudge · WebSocket</text>
+    <!-- Legend -->
+    <rect x="860" y="720" width="210" height="70" rx="6" fill="none" stroke="#3d444d" stroke-width="0.5"/>
+    <text x="870" y="736" font-size="10" fill="#9aa0a9" font-family="'IBM Plex Mono',monospace" font-weight="500">Legend</text>
+    <line x1="870" y1="748" x2="895" y2="748" stroke="#5f6872" stroke-width="1" marker-end="url(#arch-arr)"/>
+    <text x="900" y="752" font-size="10" fill="#5f6872" font-family="'IBM Plex Sans',sans-serif">Request / event flow</text>
+    <line x1="870" y1="768" x2="895" y2="768" stroke="#22c55e" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arch-arr)"/>
+    <text x="900" y="772" font-size="10" fill="#22c55e" font-family="'IBM Plex Sans',sans-serif">Data / response flow</text>
+  </svg>
+</div>
+<script>
+(function(){
+  var wrap=document.getElementById('arch-wrap'),svg=document.getElementById('arch-svg'),lbl=document.getElementById('arch-zlabel');
+  var scale=0.55,tx=10,ty=10,dragging=false,lx,ly;
+  function apply(){svg.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';lbl.textContent=Math.round(scale*100)+'%';}
+  window.archZoom=function(f){var cx=wrap.clientWidth/2,cy=wrap.clientHeight/2;tx=cx-(cx-tx)*f;ty=cy-(cy-ty)*f;scale=Math.min(2,Math.max(0.2,scale*f));apply();}
+  window.archReset=function(){scale=0.55;tx=10;ty=10;apply();}
+  wrap.addEventListener('wheel',function(e){e.preventDefault();var r=wrap.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top,f=e.deltaY<0?1.12:0.88;tx=mx-(mx-tx)*f;ty=my-(my-ty)*f;scale=Math.min(2,Math.max(0.2,scale*f));apply();},{passive:false});
+  wrap.addEventListener('mousedown',function(e){dragging=true;lx=e.clientX;ly=e.clientY;wrap.classList.add('grabbing');});
+  window.addEventListener('mouseup',function(){dragging=false;wrap.classList.remove('grabbing');});
+  window.addEventListener('mousemove',function(e){if(!dragging)return;tx+=e.clientX-lx;ty+=e.clientY-ly;lx=e.clientX;ly=e.clientY;apply();});
+  apply();
+})();
+</script>
+</div>
                 <div class="sh">Tech Stack Justification</div>
-                <div class="tbl-wrap">
-                    <table>
-                        <thead><tr><th>Layer</th><th>Technology</th><th>Why We Chose It</th></tr></thead>
-                        <tbody>
-                            <tr><td>Frontend</td><td><span class="badge b-blue">React + TypeScript</span></td><td>Component-based UI, strong typing for risk data models, rich dashboard component ecosystem</td></tr>
-                            <tr><td>Backend API</td><td><span class="badge b-green">FastAPI (Python)</span></td><td>High-performance async endpoints, native Pydantic validation, seamless ML model integration</td></tr>
-                            <tr><td>Risk Engine</td><td><span class="badge b-purple">XGBoost</span></td><td>Gradient-boosted decision trees optimized for high-accuracy behavioral risk scoring. Provides low-latency inference, strong performance on structured telemetry data, built-in feature importance for explainability, and robustness against noisy behavioral signals.</td></tr>
-                            <tr><td>Database</td><td><span class="badge b-orange">Neo4j</span></td><td>Graph databases excel at querying patterns like 'which users are vulnerable to authority-based attacks who haven't completed related training'</td></tr>
-                            <tr><td>Auth</td><td><span class="badge b-red">JWT + OAuth2</span></td><td>Stateless auth for API, SSO integration for enterprise IdP environments</td></tr>
-                            <tr><td>Browser Layer</td><td><span class="badge b-yellow">Chrome Extension (MV3)</span></td><td>Passive behavioral signal collection without proxying all traffic</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div class="tbl-wrap"><table><thead><tr><th>Layer</th><th>Technology</th><th>Why We Chose It</th></tr></thead><tbody>
+                    <tr><td>Frontend</td><td><span class="badge b-blue">React + TypeScript</span></td><td>Component-based UI, strong typing for risk data models, rich dashboard component ecosystem</td></tr>
+                    <tr><td>Backend API</td><td><span class="badge b-green">FastAPI (Python)</span></td><td>High-performance async endpoints, native Pydantic validation, seamless ML model integration</td></tr>
+                    <tr><td>Risk Engine</td><td><span class="badge b-purple">XGBoost</span></td><td>Gradient-boosted decision trees optimized for high-accuracy behavioral risk scoring with built-in feature importance for explainability.</td></tr>
+                    <tr><td>Database</td><td><span class="badge b-orange">Neo4j</span></td><td>Graph databases excel at querying patterns like 'which users are vulnerable to authority-based attacks who haven't completed related training'</td></tr>
+                    <tr><td>Auth</td><td><span class="badge b-red">JWT + OAuth2</span></td><td>Stateless auth for API, SSO integration for enterprise IdP environments</td></tr>
+                    <tr><td>Browser Layer</td><td><span class="badge b-yellow">Chrome Extension (MV3)</span></td><td>Passive behavioral signal collection without proxying all traffic</td></tr>
+                </tbody></table></div>
                 <div class="sh">Security Architecture</div>
                 <div class="g2">
                     <div class="card"><div class="card-title">🔐 Auth &amp; Authorization</div><p>All API endpoints require JWT bearer tokens. RBAC enforces separation between Employee, Manager, and Admin views. OAuth2 PKCE flow for SSO.</p></div>
@@ -943,46 +520,21 @@
                 </div>
             </div>
         </div>
- 
-        <!-- ═══ DETAILED DESIGN ═══ -->
+
+        <!-- DETAILED DESIGN -->
         <div class="page" id="page-design">
             <div class="pg">
-                <div class="ph">
-                    <div class="ph-eyebrow">Documentation</div>
-                    <h1>Detailed Component <em>Design</em></h1>
-                    <div class="ph-sub">// DB Schema · API Specification · Algorithm Logic</div>
-                </div>
+                <div class="ph"><div class="ph-eyebrow">Documentation</div><h1>Detailed Component <em>Design</em></h1><div class="ph-sub">// DB Schema · API Specification · Algorithm Logic</div></div>
                 <div class="sh">Database Schema</div>
                 <div style="background:var(--bg-input);border:1px solid var(--border-light);border-radius:8px;padding:24px;margin-bottom:4px">
                     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-                        <div style="background:var(--bg-card);border:1px solid var(--orange-border);border-radius:7px;padding:14px">
-                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">USER</div>
-                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> user_id<br>email<br>org_id<br>baseline_risk_score<br>baseline_caution<br>fatigue_factor<br>created_at</div>
-                        </div>
-                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">SIMULATION</div>
-                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> simulation_id<br>trigger_type<br>template<br>phishing_link<br>delivery_schedule</div>
-                        </div>
-                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">CLICK_EVENT</div>
-                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> event_id<br><span style="color:var(--blue)">FK</span> user_id<br><span style="color:var(--blue)">FK</span> simulation_id<br>url_hash<br>page_context<br>timestamp<br>risk_delta<br>threat_score</div>
-                        </div>
-                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">VULNERABILITY_PROFILE</div>
-                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> profile_id<br><span style="color:var(--blue)">FK</span> user_id<br>dominant_trait<br>urgency_score<br>authority_score<br>social_proof_score<br>scarcity_score<br>updated_at</div>
-                        </div>
-                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">TRAINING_MODULE</div>
-                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> module_id<br>title<br>bias_target<br>content_url<br>estimated_duration</div>
-                        </div>
-                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">TRAINING_ASSIGNMENT</div>
-                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> assignment_id<br><span style="color:var(--blue)">FK</span> user_id<br><span style="color:var(--blue)">FK</span> module_id<br>progress<br>due_date<br>completed<br>completed_at</div>
-                        </div>
-                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px">
-                            <div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">EXPLANATION</div>
-                            <div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> explanation_id<br><span style="color:var(--blue)">FK</span> event_id<br>cognitive_bias_tag<br>plain_english_text<br>generated_at</div>
-                        </div>
+                        <div style="background:var(--bg-card);border:1px solid var(--orange-border);border-radius:7px;padding:14px"><div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">USER</div><div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> user_id<br>email<br>org_id<br>baseline_risk_score<br>baseline_caution<br>fatigue_factor<br>created_at</div></div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px"><div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">SIMULATION</div><div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> simulation_id<br>trigger_type<br>template<br>phishing_link<br>delivery_schedule</div></div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px"><div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">CLICK_EVENT</div><div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> event_id<br><span style="color:var(--blue)">FK</span> user_id<br><span style="color:var(--blue)">FK</span> simulation_id<br>url_hash<br>page_context<br>timestamp<br>risk_delta<br>threat_score</div></div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px"><div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">VULNERABILITY_PROFILE</div><div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> profile_id<br><span style="color:var(--blue)">FK</span> user_id<br>dominant_trait<br>urgency_score<br>authority_score<br>social_proof_score<br>scarcity_score<br>updated_at</div></div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px"><div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">TRAINING_MODULE</div><div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> module_id<br>title<br>bias_target<br>content_url<br>estimated_duration</div></div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px"><div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">TRAINING_ASSIGNMENT</div><div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> assignment_id<br><span style="color:var(--blue)">FK</span> user_id<br><span style="color:var(--blue)">FK</span> module_id<br>progress<br>due_date<br>completed<br>completed_at</div></div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:7px;padding:14px"><div style="font-family:var(--mono);font-size:10px;color:var(--orange);margin-bottom:10px;letter-spacing:.08em">EXPLANATION</div><div style="font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:2"><span style="color:var(--orange-bright)">PK</span> explanation_id<br><span style="color:var(--blue)">FK</span> event_id<br>cognitive_bias_tag<br>plain_english_text<br>generated_at</div></div>
                     </div>
                     <div style="margin-top:16px;padding:12px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--text-3);line-height:2">
                         <span style="color:var(--orange)">// RELATIONSHIPS</span><br>
@@ -1003,11 +555,7 @@
 }</code></pre>
                     <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:6px">RESPONSE 202</div>
                     <pre><code>{ <span class="key">"status"</span>: <span class="num">202</span>, <span class="key">"message"</span>: <span class="str">"Event queued for background processing"</span> }</code></pre>
-                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
-                        <tr><td><span class="badge b-orange">400</span></td><td>Missing required fields</td></tr>
-                        <tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr>
-                        <tr><td><span class="badge b-red">500</span></td><td>RabbitMQ queue unavailable</td></tr>
-                    </tbody></table></div>
+                    <div class="tbl-wrap"><table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody><tr><td><span class="badge b-orange">400</span></td><td>Missing required fields</td></tr><tr><td><span class="badge b-red">401</span></td><td>Missing or expired JWT token</td></tr><tr><td><span class="badge b-red">500</span></td><td>RabbitMQ queue unavailable</td></tr></tbody></table></div>
                 </div>
                 <div class="sh">ML Pipeline — Order of Execution</div>
                 <div class="card" style="margin-bottom:10px">
@@ -1060,14 +608,10 @@ new_susceptibility = current_susceptibility × (<span class="num">1</span> − l
             </div>
         </div>
 
-        <!-- ═══ TESTING ═══ -->
+        <!-- TESTING -->
         <div class="page" id="page-testing">
             <div class="pg">
-                <div class="ph">
-                    <div class="ph-eyebrow">Documentation</div>
-                    <h1>Testing & <em>Validation</em></h1>
-                    <div class="ph-sub">// Unit Tests · Integration Tests · E2E · Performance · Synthetic Agents</div>
-                </div>
+                <div class="ph"><div class="ph-eyebrow">Documentation</div><h1>Testing & <em>Validation</em></h1><div class="ph-sub">// Unit Tests · Integration Tests · E2E · Performance · Synthetic Agents</div></div>
                 <div class="sh">Backend Unit Tests</div>
                 <div class="tbl-wrap"><table><thead><tr><th>Test Case</th><th>Method / Endpoint</th><th>Input</th><th>Expected Output</th></tr></thead><tbody>
                     <tr><td>Risk score calculation</td><td><code>RiskScoringEngine.predict()</code></td><td><code>[URL_length: 25, Domain_age: 2]</code></td><td><code>{ threat_score: 45, risk_delta: +15 }</code></td></tr>
@@ -1097,14 +641,10 @@ new_susceptibility = current_susceptibility × (<span class="num">1</span> − l
             </div>
         </div>
 
-        <!-- ═══ MANAGEMENT & ETHICS ═══ -->
+        <!-- MANAGEMENT & ETHICS -->
         <div class="page" id="page-management">
             <div class="pg">
-                <div class="ph">
-                    <div class="ph-eyebrow">Project</div>
-                    <h1>Management & <em>Ethics</em></h1>
-                    <div class="ph-sub">// Timeline · Task Breakdown · Ethics · IRB Status</div>
-                </div>
+                <div class="ph"><div class="ph-eyebrow">Project</div><h1>Management & <em>Ethics</em></h1><div class="ph-sub">// Timeline · Task Breakdown · Ethics · IRB Status</div></div>
                 <div class="sh">Project Timeline (15 Weeks)</div>
                 <div class="timeline">
                     <div class="tl-item done"><div class="tl-week">WEEKS 1–2</div><div class="tl-task">Project Proposal &amp; Executive Summary Creation</div><div class="tl-sub">Project charter, team roles, problem statement, and primary persona definition</div></div>
@@ -1123,79 +663,32 @@ new_susceptibility = current_susceptibility × (<span class="num">1</span> − l
                 </div>
             </div>
         </div>
+    </div>
 
-    </div><!-- /main -->
- 
-    <!-- ZOOM MODAL -->
     <div class="zoom-modal" id="zoomModal" onclick="closeZoom()">
         <div class="zoom-modal-inner" id="zoomContent" onclick="event.stopPropagation()"></div>
     </div>
- 
-    <script>
-        const pages = {
-            home: 'HOME',
-            requirements: 'REQUIREMENTS (PRD)',
-            architecture: 'ARCHITECTURE',
-            design: 'DETAILED DESIGN',
-            testing: 'TESTING & VALIDATION',
-            management: 'MANAGEMENT & ETHICS'
-        };
- 
-        function go(id) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.sb-item').forEach(n => n.classList.remove('active'));
-            document.getElementById('page-' + id).classList.add('active');
-            document.querySelector(`.sb-item[data-page="${id}"]`).classList.add('active');
-            document.getElementById('tbCrumb').textContent = pages[id] || id.toUpperCase();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (id === 'requirements') animateBars();
-            closeSidebar();
-            if (window.mermaid) mermaid.run();
-        }
- 
-        function filterNav(q) {
-            q = q.toLowerCase();
-            document.querySelectorAll('.sb-item').forEach(item => {
-                item.style.display = item.textContent.trim().toLowerCase().includes(q) ? '' : 'none';
-            });
-        }
- 
-        function openSidebar() {
-            document.getElementById('sidebar').classList.add('open');
-            document.getElementById('overlay').classList.add('show');
-        }
- 
-        function closeSidebar() {
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('overlay').classList.remove('show');
-        }
 
-        function closeZoom() { document.getElementById('zoomModal').classList.remove('open'); }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeZoom(); });
- 
-        function animateCounters() {
-            document.querySelectorAll('[data-count]').forEach(el => {
-                const target = parseInt(el.getAttribute('data-count'));
-                let n = 0;
-                const step = Math.ceil(target / 35);
-                const t = setInterval(() => {
-                    n = Math.min(n + step, target);
-                    el.textContent = n;
-                    if (n >= target) clearInterval(t);
-                }, 28);
-            });
+    <script>
+        const pages = { home:'HOME', requirements:'REQUIREMENTS (PRD)', architecture:'ARCHITECTURE', design:'DETAILED DESIGN', testing:'TESTING & VALIDATION', management:'MANAGEMENT & ETHICS' };
+        function go(id) {
+            document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+            document.querySelectorAll('.sb-item').forEach(n=>n.classList.remove('active'));
+            document.getElementById('page-'+id).classList.add('active');
+            document.querySelector(`.sb-item[data-page="${id}"]`).classList.add('active');
+            document.getElementById('tbCrumb').textContent = pages[id]||id.toUpperCase();
+            window.scrollTo({top:0,behavior:'smooth'});
+            if(id==='requirements') animateBars();
+            closeSidebar();
+            if(window.mermaid) mermaid.run();
         }
- 
-        function animateBars() {
-            setTimeout(() => {
-                document.querySelectorAll('.rbar-fill[data-w]').forEach(bar => {
-                    bar.style.width = bar.getAttribute('data-w') + '%';
-                });
-            }, 80);
-        }
- 
-        window.addEventListener('DOMContentLoaded', () => { animateCounters(); });
+        function filterNav(q){q=q.toLowerCase();document.querySelectorAll('.sb-item').forEach(item=>{item.style.display=item.textContent.trim().toLowerCase().includes(q)?'':'none'})}
+        function openSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('overlay').classList.add('show')}
+        function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show')}
+        function closeZoom(){document.getElementById('zoomModal').classList.remove('open')}
+        document.addEventListener('keydown',e=>{if(e.key==='Escape')closeZoom()});
+        function animateBars(){setTimeout(()=>{document.querySelectorAll('.rbar-fill[data-w]').forEach(bar=>{bar.style.width=bar.getAttribute('data-w')+'%'})},80)}
+        window.addEventListener('DOMContentLoaded',()=>{});
     </script>
- 
 </body>
 </html>
